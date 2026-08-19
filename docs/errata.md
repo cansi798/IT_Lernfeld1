@@ -42,3 +42,7 @@ Format je Eintrag:
 - **Fehler:** Widersprüchliche Mitarbeiterzahl für den Standort Hamburg: Lehrbuch nennt 52 Mitarbeiter, Arbeitsbuch nennt 32 Mitarbeiter (davon 8 Auszubildende).
 - **Korrektur:** Die Plattform verwendet durchgängig den Arbeitsbuch-Wert: 32 Mitarbeiter, davon 8 Auszubildende.
 - **Begründung/Beleg:** Das Arbeitsbuch enthält die maßgebliche Unternehmensbeschreibung des Modellunternehmens; alle übrigen Eckdaten (480 Mitarbeiter gesamt, 96 Auszubildende, 16 Standorte) stammen ebenfalls daraus.
+
+---
+
+*Stand 2026-08-19: Prüfung aller acht Sessions abgeschlossen.*
