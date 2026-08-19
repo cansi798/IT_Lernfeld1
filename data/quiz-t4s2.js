@@ -92,8 +92,47 @@ window.QUIZ_DATA = {
       erklaerung: "Im Bewertungsschema für Präsentationen hat der fachliche Inhalt — Richtigkeit, Vollständigkeit und roter Faden — den höchsten Anteil mit 40 %. Struktur, Medien und Vortragsstil folgen mit je 20 %."
     },
 
-    // === BLOCK C: Gesamtwiederholung Tag 1 — IT-Berufe & Ausbildungsrecht (8 Fragen) ===
-    // richtig: 1, 3, 1, 1, 3, 1, 1, 1
+    // === BLOCK B2: Weitere Kap.-1.5.3-Fragen (3 neue Fragen) ===
+    // richtig: 1, 2, 3
+
+    {
+      frage: "Eine Präsentierende wird während ihres Vortrags von einem Zuhörer mit einer Zwischenfrage unterbrochen. Wie sollte sie laut Vortragstechnik idealerweise reagieren?",
+      optionen: [
+        "Die Frage ignorieren und nach dem Vortrag auf Fragen eingehen",
+        "Die Frage kurz aufnehmen, ggf. auf den Fragenteil am Ende vertrösten und den roten Faden wieder aufgreifen",
+        "Den Vortrag sofort unterbrechen und ausführlich auf alle Aspekte der Frage eingehen",
+        "Den Fragesteller bitten, sich bis zur nächsten Veranstaltung zu gedulden"
+      ],
+      richtig: 1,
+      erklaerung: "Bei Zwischenfragen empfiehlt die Vortragstechnik: Frage kurz bestätigen, falls sie zum aktuellen Teil passt knapp beantworten, andernfalls höflich auf den Frageteil am Ende vertrösten und dann zügig zum roten Faden zurückfinden. So bleibt die Struktur des Vortrags erhalten."
+    },
+
+    {
+      frage: "Welche Aussage zur Gewichtung der Bewertungskriterien bei einer Schülerpräsentation ist korrekt?",
+      optionen: [
+        "Alle vier Kriterien (Inhalt, Struktur, Medien, Vortragsstil) werden zu gleichen Teilen mit je 25 % bewertet",
+        "Der Vortragsstil ist mit 40 % das am stärksten gewichtete Kriterium",
+        "Der fachliche Inhalt hat mit 40 % das höchste Gewicht; Struktur, Medien und Vortragsstil folgen mit je 20 %",
+        "Mediengestaltung und Vortragsstil zusammen machen 60 % der Gesamtnote aus"
+      ],
+      richtig: 2,
+      erklaerung: "Im Bewertungsschema für Präsentationen trägt der fachliche Inhalt (Richtigkeit, Vollständigkeit, roter Faden) mit 40 % den größten Anteil. Logischer Aufbau/Struktur, Mediengestaltung und Vortragsstil werden jeweils mit 20 % gewichtet."
+    },
+
+    {
+      frage: "Welche Aussage zur Reflexionsmethode 'Blitzlicht' ist korrekt?",
+      optionen: [
+        "Beim Blitzlicht bewertet jedes Teammitglied alle anderen Mitglieder schriftlich auf einer Skala",
+        "Das Blitzlicht ist eine Methode zur Ideenfindung am Beginn einer Teamarbeit",
+        "Beim Blitzlicht erstellt jedes Mitglied ein Netzdiagramm mit mehreren Bewertungskriterien",
+        "Das Blitzlicht ist eine Kurzrückmeldungsrunde, in der jede Person kurz ihre Einschätzung oder ihr Stimmungsbild zur Teamarbeit äußert"
+      ],
+      richtig: 3,
+      erklaerung: "Beim Blitzlicht äußert jedes Teammitglied reihum kurz — in ein bis zwei Sätzen — seine aktuelle Einschätzung oder sein Stimmungsbild zur Teamarbeit bzw. zur Lernsituation. Es ist eine schnelle Methode zur Teamreflexion ohne lange Diskussion."
+    },
+
+    // === BLOCK C: Gesamtwiederholung Tag 1 — IT-Berufe & Ausbildungsrecht (7 Fragen) ===
+    // richtig: 1, 3, 1, 1, 3, 1, 1
 
     {
       frage: "Welche vier Fachrichtungen hat der Fachinformatiker seit der Neuordnung 2020?",
@@ -156,18 +195,6 @@ window.QUIZ_DATA = {
     },
 
     {
-      frage: "Was schreibt § 11 BBiG als Mindestinhalt für den Berufsausbildungsvertrag vor?",
-      optionen: [
-        "Nur Beginn, Dauer und Vergütung der Ausbildung",
-        "Zehn Mindestinhalte, darunter Ziel, Dauer, Probezeit, Vergütung, Urlaubsdauer und Kündigungsvoraussetzungen",
-        "Ausschließlich die Angaben, auf die sich Ausbilder und Auszubildender individuell geeinigt haben",
-        "Nur die Angaben, die der Ausbilder für wesentlich hält"
-      ],
-      richtig: 1,
-      erklaerung: "§ 11 BBiG schreibt zehn Mindestinhalte vor: Art, sachliche und zeitliche Gliederung sowie Ziel, Beginn und Dauer, Ausbildungsmaßnahmen außerhalb des Betriebs, tägliche Ausbildungszeit, Probezeit, Vergütung, Urlaubsdauer, Kündigungsvoraussetzungen, Hinweis auf Tarifverträge und Form des Ausbildungsnachweises."
-    },
-
-    {
       frage: "Welche Institution koordiniert und verabschiedet den Rahmenlehrplan für den schulischen Unterricht in Berufsschulen?",
       optionen: [
         "Das Bundesbildungsministerium (BMBF) einheitlich für alle Bundesländer",
@@ -188,11 +215,11 @@ window.QUIZ_DATA = {
         "Die Jugendabteilung der Gewerkschaft — zuständig nach § 17 BBiG"
       ],
       richtig: 1,
-      erklaerung: "Die JAV (Jugend- und Auszubildendenvertretung) ist die gesetzlich vorgesehene Interessenvertretung aller Jugendlichen und Auszubildenden im Betrieb, geregelt in §§ 60 ff. BetrVG. Sie leitet Vorschläge und Beschwerden über den Betriebsrat an den Arbeitgeber weiter."
+      erklaerung: "Die JAV (Jugend- und Auszubildendenvertretung) ist die gesetzlich vorgesehene Interessenvertretung aller Jugendlichen und Auszubildenden im Betrieb, geregelt in §§ 60 ff. BetrVG. Sie wird gewählt in Betrieben mit Betriebsrat und in der Regel mindestens fünf Jugendlichen oder Auszubildenden unter 25 Jahren. Sie leitet Vorschläge und Beschwerden über den Betriebsrat an den Arbeitgeber weiter."
     },
 
-    // === BLOCK D: Gesamtwiederholung Tag 2 — Betrieb, Ziele, Rechtsformen (8 Fragen) ===
-    // richtig: 0, 2, 3, 1, 0, 2, 2, 0
+    // === BLOCK D: Gesamtwiederholung Tag 2 — Betrieb, Ziele, Rechtsformen (7 Fragen) ===
+    // richtig: 0, 2, 3, 1, 0, 2, 0
 
     {
       frage: "Wie viele Mitarbeiterinnen und Mitarbeiter sowie Auszubildende gibt es am Hamburger Standort von JIKU IT-Solutions?",
@@ -252,18 +279,6 @@ window.QUIZ_DATA = {
       ],
       richtig: 3,
       erklaerung: "Bei der UG (haftungsbeschränkt) müssen 25 % des Jahresüberschusses als gesetzliche Rücklage einbehalten werden, bis das Stammkapital 25.000 € erreicht hat. Danach kann die UG in eine reguläre GmbH umgewandelt werden."
-    },
-
-    {
-      frage: "Was zeichnet die Stablinienorganisation gegenüber dem einfachen Einliniensystem aus?",
-      optionen: [
-        "Im Stabliniensystem gibt es mehrere gleichrangige Leitungsinstanzen",
-        "Das Einliniensystem kennt keine Hierarchie; das Stabliniensystem schon",
-        "Das Stabliniensystem ergänzt das Einliniensystem um beratende Stabsstellen ohne direkte Weisungsbefugnis",
-        "Im Stabliniensystem hat jede ausführende Stelle zwei gleichrangige Vorgesetzte"
-      ],
-      richtig: 2,
-      erklaerung: "Das Stabliniensystem fügt dem Einliniensystem (klare Über- und Unterordnung) Stabsstellen hinzu. Diese beraten die Linie fachlich, haben aber keine Weisungsbefugnis gegenüber den ausführenden Stellen. Typische Stabsstellen: Qualitätsmanagement, Rechtsabteilung, Controlling."
     },
 
     {
@@ -377,8 +392,8 @@ window.QUIZ_DATA = {
       erklaerung: "Drucker und Druckerpapier sind Komplementärgüter: Sie ergänzen sich gegenseitig und werden gemeinsam genutzt. Steigt die Nachfrage nach einem Komplementärgut (z. B. Drucker), steigt in der Regel auch die Nachfrage nach dem anderen (Druckerpapier)."
     },
 
-    // === BLOCK F: Transferaufgaben aus allen Tagen (7 Fragen) ===
-    // richtig: 1, 2, 1, 0, 2, 2, 0
+    // === BLOCK F: Transferaufgaben aus allen Tagen (6 Fragen) ===
+    // richtig: 1, 1, 0, 2, 2, 0
 
     {
       frage: "Ein 16-jähriger Auszubildender soll an einem Freitag 9 Stunden im Betrieb einspringen. Ist das nach dem JArbSchG zulässig?",
@@ -390,18 +405,6 @@ window.QUIZ_DATA = {
       ],
       richtig: 1,
       erklaerung: "§ 8 JArbSchG setzt die tägliche Höchstarbeitszeit für Jugendliche (unter 18 Jahre) auf 8 Stunden fest. 9 Stunden überschreiten diese Grenze unzulässig — auch wenn die Wochengrenze noch nicht ausgeschöpft ist. Ausnahmen sind eng begrenzt."
-    },
-
-    {
-      frage: "Ein IT-Start-up gründet sich mit 5.000 € Eigenkapital als Kapitalgesellschaft und möchte die persönliche Haftung der Gesellschafter ausschließen. Welche Rechtsform ist möglich?",
-      optionen: [
-        "GmbH — sie kann auch mit deutlich weniger als 25.000 € Stammkapital gegründet werden",
-        "AG — sie ist die günstigste Kapitalgesellschaft für Start-ups",
-        "UG (haftungsbeschränkt) — sie kann ab 1 € Stammkapital gegründet werden",
-        "OHG — sie schützt automatisch vor persönlicher Haftung der Gesellschafter"
-      ],
-      richtig: 2,
-      erklaerung: "Die UG (haftungsbeschränkt) ist die einzige Kapitalgesellschaft, die ab 1 € Stammkapital gegründet werden kann. Sie schließt die persönliche Haftung der Gesellschafter aus. Bis das Stammkapital 25.000 € erreicht, müssen 25 % des Jahresüberschusses thesauriert werden."
     },
 
     {
