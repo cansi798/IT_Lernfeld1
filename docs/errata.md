@@ -34,3 +34,11 @@ Format je Eintrag:
 - **Fehler:** Die Abkürzung „BetrVfG" ist falsch. Das Betriebsverfassungsgesetz wird korrekt als **BetrVG** abgekürzt. „BetrVfG" ist keine existierende Rechtsquelle.
 - **Korrektur:** Auf der Plattform wird durchgehend die korrekte Abkürzung **BetrVG** (Betriebsverfassungsgesetz) verwendet.
 - **Begründung/Beleg:** BGBl. I S. 2518, zuletzt geändert durch Art. 6 G v. 20.5.2020 (BGBl. I S. 1044) — das Gesetz heißt „Betriebsverfassungsgesetz", Abkürzung BetrVG. Die Abkürzung BetrVfG existiert nicht.
+
+---
+
+## [Lehrbuch/Arbeitsbuch] Kapitel 1.3.1, Modellunternehmen JIKU IT-Solutions
+- **Fundstelle:** Lehrbuch Kapitel 1.3.1 (Angabe zum Standort Hamburg) vs. Arbeitsbuch, Unternehmensbeschreibung JIKU (S. 1)
+- **Fehler:** Widersprüchliche Mitarbeiterzahl für den Standort Hamburg: Lehrbuch nennt 52 Mitarbeiter, Arbeitsbuch nennt 32 Mitarbeiter (davon 8 Auszubildende).
+- **Korrektur:** Die Plattform verwendet durchgängig den Arbeitsbuch-Wert: 32 Mitarbeiter, davon 8 Auszubildende.
+- **Begründung/Beleg:** Das Arbeitsbuch enthält die maßgebliche Unternehmensbeschreibung des Modellunternehmens; alle übrigen Eckdaten (480 Mitarbeiter gesamt, 96 Auszubildende, 16 Standorte) stammen ebenfalls daraus.
