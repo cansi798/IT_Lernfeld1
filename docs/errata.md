@@ -26,3 +26,11 @@ Format je Eintrag:
 - **Fehler:** Das Berufsbildungsgesetz (BBiG) und die Ausbilder-Eignungsverordnung (AEVO) schreiben **kein gesetzliches Mindestalter von 24 Jahren** für Ausbilder vor. Die rechtlichen Anforderungen beschränken sich auf persönliche Eignung (§ 29 BBiG) und fachliche Eignung (§ 30 BBiG), festgestellt durch die zuständige Stelle (IHK).
 - **Korrektur:** Auf der Plattform wird ausschließlich auf die rechtlich maßgeblichen Kriterien verwiesen: persönliche und fachliche Eignung nach BBiG/AEVO, festgestellt durch die zuständige Stelle (IHK). Ein Mindestalter von 24 Jahren wird nicht als Rechtsvoraussetzung genannt.
 - **Begründung/Beleg:** § 28–30 BBiG (Eignung der Ausbildungsstätte, persönliche und fachliche Eignung); Ausbilder-Eignungsverordnung (AEVO) — kein Mindestalterartikel vorhanden. Das im Lehrbuch genannte „Mindestalter 24 Jahre" ist nicht mit dem Gesetzestext vereinbar und darf nicht als Rechtsnorm gelehrt werden.
+
+---
+
+## [Arbeitsbuch] Kapitel 1.2 — JAV (Abschnitt Mitbestimmung für Jugendliche und Auszubildende)
+- **Fundstelle:** Seite 785 (PDF-Extrakt), Abschnitt zur JAV: „Die JAV kümmert sich entsprechend § 70 BetrVfG (Betriebsverfassungsgesetz) um die Probleme der Auszubildenden."
+- **Fehler:** Die Abkürzung „BetrVfG" ist falsch. Das Betriebsverfassungsgesetz wird korrekt als **BetrVG** abgekürzt. „BetrVfG" ist keine existierende Rechtsquelle.
+- **Korrektur:** Auf der Plattform wird durchgehend die korrekte Abkürzung **BetrVG** (Betriebsverfassungsgesetz) verwendet.
+- **Begründung/Beleg:** BGBl. I S. 2518, zuletzt geändert durch Art. 6 G v. 20.5.2020 (BGBl. I S. 1044) — das Gesetz heißt „Betriebsverfassungsgesetz", Abkürzung BetrVG. Die Abkürzung BetrVfG existiert nicht.
