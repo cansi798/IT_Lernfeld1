@@ -89,7 +89,7 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Wer erstellt auf Basis des Rahmenlehrplans die schulische didaktische Jahresplanung?",
-      optionen: ["Die Berufsschule selbst", "Die IHK", "Der Ausbildungsbetrieb", "Das Bundesinstitut fuer Berufsbildung (BIBB)"],
+      optionen: ["Die Berufsschule selbst", "Die IHK", "Der Ausbildungsbetrieb", "Das Bundesinstitut für Berufsbildung (BIBB)"],
       richtig: 0,
       erklaerung: "Die Berufsschule erstellt auf Basis des staatlich verordneten Rahmenlehrplans eine eigene didaktische Jahresplanung, um den Unterricht an die Bedingungen und Lernsituationen vor Ort anzupassen."
     },
@@ -116,7 +116,7 @@ window.QUIZ_DATA = {
       frage: "Welche Voraussetzungen muss ein Ausbilder im Betrieb erfüllen?",
       optionen: ["Nur fachliche Eignung ist erforderlich", "Mindestens ein Hochschulabschluss", "Mindestens 5 Jahre Berufserfahrung", "Persönliche und fachliche Eignung; die Eignung stellt die IHK fest"],
       richtig: 3,
-      erklaerung: "Ein Ausbilder im Betrieb muss persönlich und fachlich geeignet sein. Die Eignung stellt die IHK fest. Außerdem gilt laut Lehrbuch ein Mindestalter von 24 Jahren."
+      erklaerung: "Ein Ausbilder im Betrieb muss persönlich und fachlich geeignet sein (§§ 28–30 BBiG, AEVO). Die Eignung wird von der zuständigen Stelle (IHK) festgestellt. Ein gesetzliches Mindestalter von 24 Jahren ist im BBiG oder der AEVO nicht vorgesehen; maßgeblich sind allein die persönliche und fachliche Eignung."
     },
     {
       frage: "Welches Dokument erstellt der Ausbildungsbetrieb auf Basis der Ausbildungsordnung als Anlage zum Ausbildungsvertrag?",
@@ -138,15 +138,15 @@ window.QUIZ_DATA = {
     },
     {
       frage: "In welcher Form muss der Berufsausbildungsvertrag abgeschlossen werden?",
-      optionen: ["Mündlich genügt", "Schriftlich (§ 4 Abs. 1 BBiG)", "Notariell beglaubigt", "Nur per E-Mail"],
+      optionen: ["Mündlich genügt", "Schriftlich (§ 11 BBiG)", "Notariell beglaubigt", "Nur per E-Mail"],
       richtig: 1,
-      erklaerung: "Der Berufsausbildungsvertrag muss gemäss § 4 Abs. 1 BBiG in schriftlicher Form abgeschlossen werden. Er kommt zwischen Ausbildendem (Betrieb) und Auszubildendem als privatrechtlicher Vertrag zustande."
+      erklaerung: "Der Berufsausbildungsvertrag muss gemäß § 11 BBiG (Vertragsniederschrift) schriftlich niedergelegt werden. Er kommt zwischen Ausbildendem (Betrieb) und Auszubildendem als privatrechtlicher Vertrag zustande."
     },
     {
       frage: "Welche Institution gibt die Ausbildungsordnung für IT-Berufe auf Bundesebene heraus?",
-      optionen: ["Das BIBB im Auftrag des Bundes", "Die KMK (Kultusministerkonferenz)", "Die IHK", "Die Berufsschulen"],
+      optionen: ["Das zuständige Bundesministerium (BMWK im Einvernehmen mit BMBF)", "Die KMK (Kultusministerkonferenz)", "Die IHK", "Die Berufsschulen"],
       richtig: 0,
-      erklaerung: "Die Ausbildungsordnung wird auf Bundesebene auf Basis des BBiG erarbeitet und ist auf www.bibb.de abrufbar. Das Bundesinstitut für Berufsbildung (BIBB) ist maßgeblich an ihrer Erstellung beteiligt."
+      erklaerung: "Ausbildungsordnungen werden als Rechtsverordnung vom zuständigen Bundesministerium (für IT-Berufe: BMWK im Einvernehmen mit dem BMBF) erlassen (§ 4 BBiG). Das BIBB unterstützt die Entwicklung fachlich, ist aber nicht der Herausgeber."
     },
     // === Ausbildungsordnung / Rahmenlehrplan (6 Fragen) === richtig-Zielverteilung: 3,0,3,2,0,1
     {
@@ -157,12 +157,12 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Für wie viele Lernfelder sind die Vorgaben für alle vier IT-Berufe weitgehend gleich?",
-      optionen: ["Fuer die ersten sechs Lernfelder", "Fuer die ersten drei Lernfelder", "Fuer die ersten neun Lernfelder", "Alle Lernfelder sind gleich"],
+      optionen: ["Für die ersten sechs Lernfelder", "Für die ersten drei Lernfelder", "Für die ersten neun Lernfelder", "Alle Lernfelder sind gleich"],
       richtig: 0,
       erklaerung: "Die Lernfelder 1 bis 6 sind für alle vier IT-Berufe weitgehend gleich, sodass auch eine gemeinsame Beschulung und Vorbereitung auf Teil 1 der gestreckten Prüfung möglich ist."
     },
     {
-      frage: "Welches Lernfeld hat das Thema Arbeitsplaetze nach Kundenwunsch ausstatten?",
+      frage: "Welches Lernfeld hat das Thema Arbeitsplätze nach Kundenwunsch ausstatten?",
       optionen: ["Lernfeld 1", "Lernfeld 3", "Lernfeld 2", "Lernfeld 4"],
       richtig: 2,
       erklaerung: "Lernfeld 2 hat das Thema Arbeitsplätze nach Kundenwunsch ausstatten und ist das Lernfeld, auf dem der Schwerpunkt von Teil 1 der gestreckten Abschlussprüfung liegt."
@@ -175,13 +175,13 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Was regelt die Ausbildungsordnung für die IT-Berufe?",
-      optionen: ["Die betriebliche Ausbildung im Bereich der Informations- und Telekommunikationstechnik auf Bundesebene", "Den Unterricht in der Berufsschule nach Lernfeldern", "Die Verguetungsrichtlinien fuer Auszubildende", "Die Pruefungsmodalitaeten der Berufsschule"],
+      optionen: ["Die betriebliche Ausbildung im Bereich der Informations- und Telekommunikationstechnik auf Bundesebene", "Den Unterricht in der Berufsschule nach Lernfeldern", "Die Vergütungsrichtlinien für Auszubildende", "Die Prüfungsmodalitäten der Berufsschule"],
       richtig: 0,
       erklaerung: "Die Ausbildungsordnung regelt auf Basis des BBiG die betriebliche Berufsausbildung im Bereich der Informations- und Telekommunikationstechnik. Sie ist vom Bund erlassen und bundesweit einheitlich."
     },
     {
       frage: "Welche Besonderheit haben die Lernfelder 7 bis 9 in den IT-Berufen?",
-      optionen: ["Sie sind fuer alle IT-Berufe identisch", "Sie unterscheiden sich zwischen technischen und kaufmaennischen IT-Berufen", "Sie werden nur in der Berufsschule behandelt", "Sie entfallen bei einer Verkuerzung der Ausbildung"],
+      optionen: ["Sie sind für alle IT-Berufe identisch", "Sie unterscheiden sich zwischen technischen und kaufmännischen IT-Berufen", "Sie werden nur in der Berufsschule behandelt", "Sie entfallen bei einer Verkürzung der Ausbildung"],
       richtig: 1,
       erklaerung: "Ab den Lernfeldern 7-9 unterscheidet sich der berufliche Unterricht: Bei technischen IT-Berufen geht es um die Bereitstellung technischer Systeme und Netze, bei kaufmännischen IT-Berufen um Beschaffung und Begleitung von IT-Projekten."
     },
@@ -212,20 +212,20 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Was passiert mit der Ausbildungsdauer bei einer Teilzeitausbildung?",
-      optionen: ["Sie bleibt bei drei Jahren", "Sie verkuerzt sich auf zwei Jahre", "Sie halbiert sich automatisch", "Sie verlaengert sich entsprechend dem Teilzeitanteil"],
+      optionen: ["Sie bleibt bei drei Jahren", "Sie verkürzt sich auf zwei Jahre", "Sie halbiert sich automatisch", "Sie verlängert sich entsprechend dem Teilzeitanteil"],
       richtig: 3,
       erklaerung: "Bei einer Teilzeitausbildung verlängert sich die Ausbildungsdauer entsprechend dem gewählten Teilzeitanteil. Die Gesamtausbildungszeit ist also länger als drei Jahre."
     },
     {
-      frage: "Ein Auszubildender hat eine Pruefung nicht bestanden und moechte seine Ausbildungszeit verlaengern. Ist das moeglich?",
-      optionen: ["Nein, Verlaengerungen sind im BBiG nicht vorgesehen", "Nein, die Ausbildungsdauer ist unveraenderlich festgelegt", "Ja, auf Antrag bei besonderer Begruendung (z. B. Nichtbestehen einer Pruefung oder Krankheit)", "Ja, aber nur auf Initiative der Berufsschule"],
+      frage: "Ein Auszubildender hat eine Prüfung nicht bestanden und möchte seine Ausbildungszeit verlängern. Ist das möglich?",
+      optionen: ["Nein, Verlängerungen sind im BBiG nicht vorgesehen", "Nein, die Ausbildungsdauer ist unveränderlich festgelegt", "Ja, auf Antrag bei besonderer Begründung (z. B. Nichtbestehen einer Prüfung oder Krankheit)", "Ja, aber nur auf Initiative der Berufsschule"],
       richtig: 2,
       erklaerung: "Eine Verlängerung der Ausbildungszeit ist laut BBiG auf Antrag bei besonderer Begründung möglich, etwa wenn eine Prüfung nicht bestanden wurde oder die Ausbildung durch Krankheit unterbrochen wurde."
     },
     // === Prüfungswesen (4 Fragen) === richtig-Zielverteilung: 1,2,0,3
     {
       frage: "Wie lautet das Leitthema der schriftlichen Fachaufgabe in Teil 1 der gestreckten Abschlussprüfung?",
-      optionen: ["Netzwerke und Dienste bereitstellen", "Einrichten eines IT-gestuetzten Arbeitsplatzes", "Software zur Verwaltung von Daten anpassen", "Cyber-physische Systeme ergaenzen"],
+      optionen: ["Netzwerke und Dienste bereitstellen", "Einrichten eines IT-gestützten Arbeitsplatzes", "Software zur Verwaltung von Daten anpassen", "Cyber-physische Systeme ergänzen"],
       richtig: 1,
       erklaerung: "Das Leitthema des ersten Teils der gestreckten Abschlussprüfung lautet: Einrichten eines IT-gestützten Arbeitsplatzes. Dieser Prüfungsteil basiert auf den Lernfeldern 1-6 und ist für alle IT-Berufe gleich."
     },
@@ -236,14 +236,14 @@ window.QUIZ_DATA = {
       erklaerung: "Teil 1 der gestreckten Abschlussprüfung geht mit 20 % in die Gesamtnote ein, Teil 2 mit 80 %. Das Gewicht liegt damit klar auf dem zweiten, abschließenden Prüfungsteil."
     },
     {
-      frage: "Was ist eine Ergaenzungspruefung im Rahmen der gestreckten Abschlusspruefung?",
-      optionen: ["Eine muendliche Pruefung von 15 Minuten, die einen mangelhaft bewerteten Pruefungsbereich ausgleichen kann", "Eine freiwillige Zusatzpruefung fuer besonders gute Auszubildende", "Eine Wiederholungspruefung, die fruehestens nach einem Jahr abgelegt werden darf", "Eine Pruefung, die nur IT-Systemelektroniker ablegen muessen"],
+      frage: "Was ist eine Ergänzungsprüfung im Rahmen der gestreckten Abschlussprüfung?",
+      optionen: ["Eine mündliche Prüfung von 15 Minuten, die einen mangelhaft bewerteten Prüfungsbereich ausgleichen kann", "Eine freiwillige Zusatzprüfung für besonders gute Auszubildende", "Eine Wiederholungsprüfung, die frühestens nach einem Jahr abgelegt werden darf", "Eine Prüfung, die nur IT-Systemelektroniker ablegen müssen"],
       richtig: 0,
       erklaerung: "Die Ergänzungsprüfung ist eine mündliche Prüfung von 15 Minuten, die möglich ist, wenn damit ein mit mangelhaft bewerteter Prüfungsbereich in Teil 2 noch ausgeglichen werden kann. Das Ergebnis wird im Verhältnis 2:1 gewichtet."
     },
     {
-      frage: "Wann findet Teil 1 der gestreckten Abschlussgruefung statt?",
-      optionen: ["Am Anfang der Ausbildung, nach drei Monaten", "Am Ende des ersten Ausbildungsjahres, nach 12 Monaten", "Direkt am Ende der Ausbildung, gemeinsam mit Teil 2", "Nach etwa 15 Monaten, also ungefaehr Mitte des zweiten Ausbildungsjahres"],
+      frage: "Wann findet Teil 1 der gestreckten Abschlussprüfung statt?",
+      optionen: ["Am Anfang der Ausbildung, nach drei Monaten", "Am Ende des ersten Ausbildungsjahres, nach 12 Monaten", "Direkt am Ende der Ausbildung, gemeinsam mit Teil 2", "Nach etwa 15 Monaten, also ungefähr Mitte des zweiten Ausbildungsjahres"],
       richtig: 3,
       erklaerung: "Teil 1 der gestreckten Abschlussprüfung findet nach etwa 15 Monaten Ausbildung statt — ungefähr in der Mitte des zweiten Ausbildungsjahres. Die Prüfungszeit beträgt 90 Minuten."
     }
