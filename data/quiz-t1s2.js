@@ -233,7 +233,7 @@ window.QUIZ_DATA = {
     {
       frage: "Wie leitet die JAV Verbesserungsvorschläge und Beschwerden an den Arbeitgeber weiter?",
       optionen: ["Direkt und eigenständig an die Geschäftsleitung", "Über den Betriebsrat", "Über die zuständige IHK", "Über die Gewerkschaft ohne Beteiligung des Betriebsrats"],
-      richtig: 3,
+      richtig: 1,
       erklaerung: "Die JAV leitet Vorschläge und Beschwerden nicht direkt, sondern über den Betriebsrat an den Arbeitgeber weiter (§ 70 BetrVG). Sie hat kein eigenständiges Verhandlungsrecht gegenüber dem Arbeitgeber."
     },
 
