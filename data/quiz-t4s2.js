@@ -93,7 +93,7 @@ window.QUIZ_DATA = {
     },
 
     // === BLOCK B2: Weitere Kap.-1.5.3-Fragen (3 neue Fragen) ===
-    // richtig: 1, 2, 3
+    // richtig: 1, 0, 3
 
     {
       frage: "Eine Präsentierende wird während ihres Vortrags von einem Zuhörer mit einer Zwischenfrage unterbrochen. Wie sollte sie laut Vortragstechnik idealerweise reagieren?",
@@ -108,15 +108,15 @@ window.QUIZ_DATA = {
     },
 
     {
-      frage: "Welche Aussage zur Gewichtung der Bewertungskriterien bei einer Schülerpräsentation ist korrekt?",
+      frage: "Welche Aussage zum Sprechtempo und zum Einsatz von Pausen in einem Vortrag ist fachlich korrekt?",
       optionen: [
-        "Alle vier Kriterien (Inhalt, Struktur, Medien, Vortragsstil) werden zu gleichen Teilen mit je 25 % bewertet",
-        "Der Vortragsstil ist mit 40 % das am stärksten gewichtete Kriterium",
-        "Der fachliche Inhalt hat mit 40 % das höchste Gewicht; Struktur, Medien und Vortragsstil folgen mit je 20 %",
-        "Mediengestaltung und Vortragsstil zusammen machen 60 % der Gesamtnote aus"
+        "Bewusste Pausen nach wichtigen Aussagen wirken souverän und geben dem Publikum Zeit zum Verarbeiten",
+        "Ein gleichmäßig hohes Sprechtempo zeigt Kompetenz und hält das Publikum wach",
+        "Pausen sollten grundsätzlich vermieden werden, da sie Unsicherheit signalisieren",
+        "Das Sprechtempo sollte sich ausschließlich nach dem Tempo der eigenen Folien richten"
       ],
-      richtig: 2,
-      erklaerung: "Im Bewertungsschema für Präsentationen trägt der fachliche Inhalt (Richtigkeit, Vollständigkeit, roter Faden) mit 40 % den größten Anteil. Logischer Aufbau/Struktur, Mediengestaltung und Vortragsstil werden jeweils mit 20 % gewichtet."
+      richtig: 0,
+      erklaerung: "Gezielte Pausen nach zentralen Aussagen sind ein wirksames rhetorisches Mittel: Sie verleihen dem Vortrag Struktur, betonen wichtige Inhalte und wirken souverän statt nervös. Monotones Vorlesen oder ein dauerhaft hohes Tempo erschweren das Verständnis und ermüden das Publikum."
     },
 
     {
