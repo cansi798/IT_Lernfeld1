@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Wordle Session 8 — Präsentieren, Feedback & Gesamtwiederholung</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E; --bfw-accent:#F59E0B;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569; --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-border:#E2E8F0;
+  --g-correct:#10B981; --g-present:#F59E0B; --g-absent:#94A3B8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(180deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 240px); color: var(--bfw-ink); min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+.container { max-width: 560px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 1rem; }
+.tag-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--bfw-primary); color: white; border-radius: 999px; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+h1 { font-size: 1.6rem; color: var(--bfw-primary-dark); }
+.hint { background: white; border: 1px solid var(--bfw-border); border-left: 4px solid var(--bfw-accent); border-radius: 10px; padding: 0.85rem 1.1rem; margin-bottom: 1rem; font-size: 1rem; line-height: 1.45; }
+.hint b { color: var(--bfw-primary-dark); }
+details.how { background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); border-radius: 10px; padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); line-height: 1.5; }
+details.how summary { cursor: pointer; font-weight: 600; color: var(--bfw-primary-dark); }
+details.how p { margin: 0.5rem 0 0; }
+.tile.lock { border-color: var(--g-correct); background: #ECFDF5; }
+.grid { display: grid; gap: 6px; justify-content: center; margin-bottom: 1rem; }
+.row { display: grid; gap: 6px; }
+.tile { width: 46px; height: 46px; border: 2px solid var(--bfw-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; background: white; transition: transform 0.1s; }
+.tile.filled { border-color: var(--bfw-ink-soft); }
+.tile.correct { background: var(--g-correct); border-color: var(--g-correct); color: white; }
+.tile.present { background: var(--g-present); border-color: var(--g-present); color: white; }
+.tile.absent { background: var(--g-absent); border-color: var(--g-absent); color: white; }
+.msg { text-align: center; min-height: 1.6rem; font-weight: 600; margin-bottom: 0.75rem; }
+.msg.win { color: var(--g-correct); } .msg.lose { color: #EF4444; }
+.keyboard { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.krow { display: flex; gap: 5px; justify-content: center; width: 100%; }
+.key { flex: 1; min-width: 26px; max-width: 44px; height: 52px; border: none; border-radius: 7px; background: #E2E8F0; color: var(--bfw-ink); font-size: 1rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.key.wide { flex: 1.6; font-size: 0.75rem; max-width: 66px; }
+.key.correct { background: var(--g-correct); color: white; } .key.present { background: var(--g-present); color: white; } .key.absent { background: var(--g-absent); color: white; }
+.key:active { transform: translateY(1px); }
+.controls { text-align: center; margin: 1rem 0; }
+.btn { padding: 0.7rem 1.4rem; border: none; border-radius: 10px; background: var(--bfw-primary); color: white; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.stats { text-align: center; font-size: 0.85rem; color: var(--bfw-ink-soft); margin-top: 0.5rem; }
+footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--bfw-ink-soft); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="tag-pill">Session 8 · Wordle</span>
+    <h1>Präsentieren, Feedback & Gesamtwiederholung</h1>
+  </header>
+  <details class="how" open>
+    <summary>ℹ️ Spielanleitung</summary>
+    <p>Errate das gesuchte Fachwort in <b>6 Versuchen</b>. Der Hinweis oben verrät, worum es geht.
+    Tippe ein Wort mit der passenden Buchstabenzahl und drücke <b>Enter</b>. Nach jedem Versuch färben sich die Felder:</p>
+    <p>🟩 <b>Grün</b> = richtiger Buchstabe an der richtigen Stelle &nbsp;·&nbsp; 🟨 <b>Gelb</b> = Buchstabe kommt vor, aber an anderer Stelle &nbsp;·&nbsp; ⬜ <b>Grau</b> = Buchstabe kommt nicht vor.</p>
+    <p>Richtig platzierte (grüne) Buchstaben werden in der nächsten Reihe <b>automatisch vorausgefüllt</b>.</p>
+  </details>
+  <div class="hint" id="hint"><b>Hinweis:</b> <span id="hintText">…</span></div>
+  <div class="grid" id="grid"></div>
+  <div class="msg" id="msg"></div>
+  <div class="keyboard" id="keyboard"></div>
+  <div class="controls"><button class="btn" onclick="newGame()">🔄 Neues Wort</button></div>
+  <div class="stats" id="stats"></div>
+  <footer>BFW Lernplattform · IT Lernfeld 1 · © Can Siebert 2026</footer>
+</div>
+<script>
+const DAY_ID = 's8';
+const WORDS = [{"word":"VORTRAG","hint":"Strukturierte mündliche Darbietung eines Themas vor einem Publikum"},{"word":"KÖRPERSPRACHE","hint":"Gestik, Mimik und Haltung als nonverbale Ausdrucksformen beim Sprechen"},{"word":"BLICKKONTAKT","hint":"Augenkontakt mit dem Publikum — stärkt die Verbindung zu den Zuhörern"},{"word":"LAMPENFIEBER","hint":"Nervosität vor dem Auftritt — leicht positiv, stark hemmend"},{"word":"ATEMÜBUNG","hint":"Technik zur Beruhigung vor dem Vortrag: tief einatmen, langsam ausatmen"},{"word":"FEEDBACK","hint":"Rückmeldung auf eine Leistung — soll beschreibend und konstruktiv sein"},{"word":"ICHBOTSCHAFT","hint":"Feedbackform, die die eigene Wahrnehmung beschreibt statt Schuld zuzuweisen"},{"word":"REFLEXION","hint":"Kritische Rückschau auf die eigene Arbeit zur Erkennung von Stärken und Defiziten"},{"word":"REGULATION","hint":"Konsequenzen ziehen und Verbesserungen einleiten — zweite Strategie nach der Reflexion"},{"word":"BLITZLICHT","hint":"Kurze Rundrunde, bei der jede Person einen Satz zum Verlauf der Arbeit sagt"},{"word":"SPINNENNETZ","hint":"Methode zur Gruppenreflexion mit Bewertung mehrerer Kriterien auf einer Skala"},{"word":"BEURTEILUNG","hint":"Strukturierte Einschätzung einer Leistung anhand vorher festgelegter Kriterien"},{"word":"LERNTAGEBUCH","hint":"Persönliches Heft, in dem Lernfortschritte und Erkenntnisse regelmäßig festgehalten werden"},{"word":"EIGENCHECK","hint":"Selbstständige Überprüfung der eigenen Arbeit anhand vorgegebener Kriterien"},{"word":"FREMDKONTROLLE","hint":"Beurteilung durch andere Personen anhand transparenter Maßstäbe"},{"word":"PROBEVORTRAG","hint":"Testlauf einer Präsentation vor dem echten Auftritt — wichtigste Strategie gegen Lampenfieber"},{"word":"BEAMER","hint":"Projektor, der digitale Folien auf eine Leinwand überträgt"},{"word":"HANDOUT","hint":"Schriftliche Unterlagen, die den Vortrag kompakt zusammenfassen"},{"word":"VISUALISIERUNG","hint":"Bildliche Darstellung von Inhalten durch Grafiken, Diagramme oder Symbole"},{"word":"STIMME","hint":"Klang und Lautstärke beim Sprechen — wichtiges Ausdrucksmittel im Vortrag"},{"word":"BETONUNG","hint":"Hervorhebung von Schlüsselbegriffen durch veränderte Lautstärke oder Tonlage"},{"word":"TEMPO","hint":"Sprechgeschwindigkeit im Vortrag — soll angemessen und variiert sein"},{"word":"GESTIK","hint":"Unterstützende Handbewegungen beim Sprechen — darf nicht übertrieben werden"},{"word":"MIMIK","hint":"Gesichtsausdruck als Kommunikationsmittel — freundlich und präsent im Vortrag"},{"word":"HALTUNG","hint":"Körperliche Position beim Vortrag — aufrecht und offen ist professionell"},{"word":"ADRENALIN","hint":"Hormon, das bei Stress ausgeschüttet wird und die Konzentration steigert"},{"word":"DUALAUSBILDUNG","hint":"Ausbildungsform mit zwei Lernorten: Betrieb und Berufsschule"},{"word":"AUSBILDUNG","hint":"Berufliche Qualifikation in einem anerkannten Ausbildungsberuf nach BBiG"},{"word":"PROBEZEIT","hint":"Mindestens ein, höchstens vier Monate zu Beginn der Ausbildung (§ 20 BBiG)"},{"word":"BERUFSSCHULE","hint":"Staatlicher Lernort im dualen System, vermittelt allgemeine und fachliche Bildung"},{"word":"FACHRICHTUNG","hint":"Spezialisierung innerhalb eines Ausbildungsberufs, z. B. beim Fachinformatiker"},{"word":"RAHMENLEHRPLAN","hint":"Lehrplan der Berufsschule, abgestimmt mit der betrieblichen Ausbildungsordnung"},{"word":"JUGENDSCHUTZ","hint":"Gesetzliche Regelungen für arbeitende Personen unter 18 Jahren — Arbeitszeit und Urlaub"},{"word":"BETRIEBSRAT","hint":"Gewähltes Gremium der Arbeitnehmer im Betrieb — Mitbestimmungsrecht nach BetrVG"},{"word":"MITBESTIMMUNG","hint":"Recht der Arbeitnehmer, über den Betriebsrat an betrieblichen Entscheidungen beteiligt zu werden"},{"word":"UNTERNEHMEN","hint":"Wirtschaftliche Einheit mit Eigentümer und Zweck — umfasst einen oder mehrere Betriebe"},{"word":"BETRIEB","hint":"Örtlich-technische Einheit, an der Leistungen erbracht werden"},{"word":"FIRMA","hint":"Handelsname eines Kaufmanns im Rechtsverkehr nach § 17 HGB"},{"word":"LEITBILD","hint":"Schriftlich formulierte Grundwerte und Ziele eines Unternehmens"},{"word":"SACHZIEL","hint":"Produktions- oder Leistungsziel eines Unternehmens — was hergestellt oder angeboten wird"},{"word":"FORMALZIEL","hint":"Ergebnisziel wie Gewinn oder Rentabilität — die wirtschaftliche Messgröße"},{"word":"SOZIALZIEL","hint":"Soziales Verantwortungsziel wie Mitarbeiterzufriedenheit oder Umweltschutz"},{"word":"STAKEHOLDER","hint":"Alle Interessengruppen, die ein Unternehmen beeinflussen oder von ihm beeinflusst werden"},{"word":"GESELLSCHAFTER","hint":"Mitglied einer Personen- oder Kapitalgesellschaft, das Rechte und Pflichten trägt"},{"word":"WERTSCHÖPFUNG","hint":"Umsatzerlöse abzüglich Vorleistungen und Abschreibungen — wirtschaftlicher Mehrwert"},{"word":"KERNPROZESS","hint":"Geschäftsprozess mit direkter Wertschöpfung für den Kunden"},{"word":"SUPPORTPROZESS","hint":"Unterstützender Prozess ohne direkte Kundenwirkung wie Buchhaltung oder interne IT"},{"word":"ORGANIGRAMM","hint":"Grafische Darstellung der hierarchischen Struktur und Abteilungen eines Unternehmens"},{"word":"WERKSTOFF","hint":"Verbrauchbares Einsatzgut in der Produktion — einer der Elementarfaktoren nach Gutenberg"},{"word":"KAPITAL","hint":"Volkswirtschaftlicher Produktionsfaktor — produzierte Güter, die zur Produktion eingesetzt werden"},{"word":"KONSUMLISTE","hint":"Konsumgüter — Waren und Dienste, die Haushalte für den eigenen Bedarf nutzen"},{"word":"GELDSTROM","hint":"Zahlungsfluss im Wirtschaftskreislauf, der dem Güterstrom entgegenläuft"},{"word":"MARKTFORM","hint":"Klassifikation von Märkten nach Anzahl der Anbieter und Nachfrager: Monopol, Oligopol, Polypol"},{"word":"OLIGOPOL","hint":"Marktform mit wenigen Anbietern und vielen Nachfragern — z. B. Cloudmarkt"},{"word":"MARKTPREIS","hint":"Preis, bei dem sich Angebot und Nachfrage auf dem Markt ausgleichen"},{"word":"NETZWERKEFFEKT","hint":"Nutzen eines Produkts steigt mit der Zahl der Nutzer — typisch für IT-Plattformen"},{"word":"LOCKIN","hint":"Abhängigkeit von einem Anbieter, die den Wechsel zu einem anderen erschwert"},{"word":"IPERKA","hint":"Sechsphasen-Methode zur vollständigen Handlung: Informieren bis Auswerten"},{"word":"STORYBOARD","hint":"Skizze aller Folien in geplanter Reihenfolge zur Prüfung des logischen Aufbaus"},{"word":"KISSREGEL","hint":"Grundsatz für Präsentationen: Keep It Short and Simple — kurz und einfach bleiben"},{"word":"ZIELGRUPPE","hint":"Personenkreis, für den eine Präsentation gestaltet wird — bestimmt Sprache und Tiefe"},{"word":"PRÜFUNGSTEIL","hint":"Abschnitt der gestreckten IHK-Abschlussprüfung: Teil 1 zählt 20 %, Teil 2 zählt 80 %"},{"word":"GLIEDERUNG","hint":"Logische Einteilung eines Vortrags in Einstieg, Hauptteil und Schluss"}];
+const MAX_ROWS = 6;
+const LAYOUT = [['Q','W','E','R','T','Z','U','I','O','P','Ü'],['A','S','D','F','G','H','J','K','L','Ö','Ä'],['ENTER','Y','X','C','V','B','N','M','ß','DEL']];
+const STORAGE = 'wordle_' + DAY_ID;
+
+let target='', hint='', row=0, over=false, keyState={}, lastIdx=-1;
+let curRow=[], locked=new Set(), knownGreens={};
+function pickWord(){ let i; do { i=Math.floor(Math.random()*WORDS.length); } while(WORDS.length>1 && i===lastIdx); lastIdx=i; return WORDS[i]; }
+
+function loadStats(){ try { return JSON.parse(localStorage.getItem(STORAGE)) || {played:0,won:0}; } catch(e){ return {played:0,won:0}; } }
+function saveStats(s){ try { localStorage.setItem(STORAGE, JSON.stringify(s)); } catch(e){} }
+function renderStats(){ const s=loadStats(); document.getElementById('stats').textContent = `Gespielt: ${s.played} · Gewonnen: ${s.won}`; }
+
+function newGame(){
+  const pick = pickWord();
+  target = pick.word.toUpperCase(); hint = pick.hint;
+  row=0; over=false; keyState={}; knownGreens={};
+  document.getElementById('hintText').textContent = hint;
+  document.getElementById('msg').textContent=''; document.getElementById('msg').className='msg';
+  buildGrid(); initRow(); buildKeyboard();
+}
+
+// Neue Reihe vorbereiten: bereits bekannte grüne Buchstaben vorausfüllen & sperren
+function initRow(){
+  curRow = new Array(target.length).fill('');
+  locked = new Set();
+  for(const p in knownGreens){ curRow[+p] = knownGreens[p]; locked.add(+p); }
+  paintCurrent();
+}
+
+function buildGrid(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  g.style.gridTemplateRows=`repeat(${MAX_ROWS}, auto)`;
+  // adaptive Kachelgröße, damit auch lange Wörter (bis 14) passen
+  const avail = Math.min(520, (g.clientWidth || 520));
+  const size = Math.max(28, Math.min(46, Math.floor((avail - (target.length-1)*6) / target.length)));
+  const fs = Math.round(size*0.55);
+  for(let r=0;r<MAX_ROWS;r++){
+    const rowEl=document.createElement('div'); rowEl.className='row';
+    rowEl.style.gridTemplateColumns=`repeat(${target.length}, ${size}px)`;
+    for(let c=0;c<target.length;c++){ const t=document.createElement('div'); t.className='tile'; t.id=`t-${r}-${c}`; t.style.width=size+'px'; t.style.height=size+'px'; t.style.fontSize=fs+'px'; rowEl.appendChild(t); }
+    g.appendChild(rowEl);
+  }
+}
+
+function buildKeyboard(){
+  const kb=document.getElementById('keyboard'); kb.innerHTML='';
+  LAYOUT.forEach(rw=>{
+    const rowEl=document.createElement('div'); rowEl.className='krow';
+    rw.forEach(k=>{
+      const b=document.createElement('button'); b.className='key'+(k==='ENTER'||k==='DEL'?' wide':'');
+      b.textContent = k==='DEL'?'⌫':k; b.dataset.key=k;
+      if(keyState[k]) b.classList.add(keyState[k]);
+      b.onclick=()=>press(k);
+      rowEl.appendChild(b);
+    });
+    kb.appendChild(rowEl);
+  });
+}
+
+function press(k){
+  if(over) return;
+  if(k==='ENTER'){ submit(); return; }
+  if(k==='DEL'){ for(let i=target.length-1;i>=0;i--){ if(curRow[i] && !locked.has(i)){ curRow[i]=''; break; } } paintCurrent(); return; }
+  // Buchstabe an erster freier Stelle einfügen (gesperrte grüne Felder werden übersprungen)
+  for(let i=0;i<target.length;i++){ if(!curRow[i]){ curRow[i]=k; break; } }
+  paintCurrent();
+}
+
+function paintCurrent(){
+  for(let c=0;c<target.length;c++){ const t=document.getElementById(`t-${row}-${c}`); const ch=curRow[c]||''; t.textContent=ch; t.classList.toggle('filled', !!ch); t.classList.toggle('lock', locked.has(c)); }
+}
+
+function submit(){
+  if(curRow.some(c=>!c)){ flash('Bitte alle '+target.length+' Felder ausfüllen.'); return; }
+  const guess=curRow.join('');
+  // Färbung mit Duplikat-Behandlung
+  const res=new Array(target.length).fill('absent');
+  const counts={};
+  for(const ch of target) counts[ch]=(counts[ch]||0)+1;
+  for(let c=0;c<target.length;c++){ if(guess[c]===target[c]){ res[c]='correct'; counts[guess[c]]--; } }
+  for(let c=0;c<target.length;c++){ if(res[c]==='correct') continue; if(counts[guess[c]]>0){ res[c]='present'; counts[guess[c]]--; } }
+  for(let c=0;c<target.length;c++){
+    const t=document.getElementById(`t-${row}-${c}`); t.classList.add(res[c]);
+    const k=guess[c]; const rank={absent:0,present:1,correct:2};
+    if(!keyState[k] || rank[res[c]]>rank[keyState[k]]) keyState[k]=res[c];
+  }
+  // bekannte grüne Buchstaben merken (für Autofill der nächsten Reihe)
+  for(let c=0;c<target.length;c++){ if(res[c]==='correct') knownGreens[c]=guess[c]; }
+  buildKeyboard();
+  if(guess===target){ win(); return; }
+  row++;
+  if(row>=MAX_ROWS){ lose(); return; }
+  initRow();
+}
+
+function win(){ over=true; const m=document.getElementById('msg'); m.textContent='🎉 Richtig! '+target; m.className='msg win'; const s=loadStats(); s.played++; s.won++; saveStats(s); renderStats(); }
+function lose(){ over=true; const m=document.getElementById('msg'); m.textContent='Schade! Das Wort war: '+target; m.className='msg lose'; const s=loadStats(); s.played++; saveStats(s); renderStats(); }
+function flash(txt){ const m=document.getElementById('msg'); m.textContent=txt; setTimeout(()=>{ if(!over) m.textContent=''; }, 1500); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter') press('ENTER');
+  else if(e.key==='Backspace') press('DEL');
+  else { const c=e.key.toUpperCase(); if(/^[A-ZÄÖÜß]$/.test(c)) press(c); }
+});
+
+renderStats(); newGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 8 — Präsentieren, Feedback &amp; Gesamtwiederholung</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+.numlist { list-style: none; margin-left: 0; counter-reset: numitem; }
+.numlist li { padding-left: 3rem; position: relative; counter-increment: numitem; margin-bottom: 0.8rem; }
+.numlist li::before {
+  content: counter(numitem);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--bfw-primary); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 8</span>
+    <h1>Präsentieren, Feedback &amp; Gesamtwiederholung</h1>
+    <p class="subtitle">Vortragstechnik · Feedbackregeln · Reflexion · Wiederholung Lernfeld 1</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.5.3 + Wiederholung 1.1–1.5</span>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <h2>Was uns heute erwartet</h2>
+    <ol class="numlist">
+      <li>Vortragstechnik — Stimme, Körpersprache, Lampenfieber</li>
+      <li>Feedbackregeln — konstruktiv beobachten und rückmelden</li>
+      <li>Präsentationen durchführen und bewerten</li>
+      <li>Reflexionsmethoden — Blitzlicht und Spinnennetz</li>
+      <li>Gesamtwiederholung Lernfeld 1 — Sessions 1–7</li>
+    </ol>
+  </section>
+
+  <!-- 3. Vortragstechnik: Körpersprache -->
+  <section class="slide">
+    <h2>Vortragstechnik: Körpersprache</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">55-38-7-Regel</span>
+      55 % Körpersprache · 38 % Stimme · 7 % Inhalt bestimmen den ersten Eindruck.
+    </div>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Haltung</div>
+        Aufrecht, Füße schulterbreit — keine verschränkten Arme, keine Hände in den Taschen
+      </div>
+      <div class="card teal">
+        <div class="card-title">Blickkontakt</div>
+        Über den ganzen Raum verteilen — nicht auf Folie oder eine Person fixieren
+      </div>
+      <div class="card amber">
+        <div class="card-title">Gestik</div>
+        Ruhige, unterstützende Handbewegungen — übertriebene Gestik abbauen
+      </div>
+      <div class="card amber">
+        <div class="card-title">Mimik</div>
+        Freundlich und zugewandt — der Blick in die Folien unterbricht den Kontakt
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Vortragstechnik: Stimme -->
+  <section class="slide">
+    <h2>Vortragstechnik: Stimme</h2>
+    <ul>
+      <li><strong>Lautstärke:</strong> Klar und deutlich — auch die letzte Reihe muss alles hören</li>
+      <li><strong>Tempo:</strong> Angemessen langsam — Pausen bewusst einsetzen, damit Wichtiges wirkt</li>
+      <li><strong>Betonung:</strong> Schlüsselbegriffe hervorheben, Monotonie durch Variationen vermeiden</li>
+      <li><strong>Sprechpausen:</strong> Kurze Stille gibt dem Publikum Zeit zum Verarbeiten — kein Füllwort</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Merke</span>
+      Wer langsamer spricht als gewohnt, wirkt für das Publikum meist genau richtig —
+      eigene Nervosität lässt das Tempo oft unbewusst steigen.
+    </div>
+  </section>
+
+  <!-- 5. Lampenfieber -->
+  <section class="slide">
+    <h2>Umgang mit Lampenfieber</h2>
+    <p class="muted">Lampenfieber ist normal — Adrenalin schärft die Konzentration</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Gründliche Vorbereitung</div>
+        Wirksamste Strategie — Stoff beherrschen und Probevortrag halten
+      </div>
+      <div class="card teal">
+        <div class="card-title">Atemübungen</div>
+        4 s einatmen · kurz halten · 6 s ausatmen — beruhigt das Nervensystem
+      </div>
+      <div class="card amber">
+        <div class="card-title">Positive Selbstinstruktion</div>
+        An frühere Erfolge denken — Publikum als Partner, nicht als Prüfer sehen
+      </div>
+      <div class="card amber">
+        <div class="card-title">Umdeuten</div>
+        Lampenfieber = Zeichen von Einsatz und Verantwortungsgefühl — kein Makel
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Feedbackregeln -->
+  <section class="slide">
+    <h2>Die sechs Feedbackregeln</h2>
+    <table>
+      <thead><tr><th>Regel</th><th>Bedeutung</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Konkret</strong></td><td>Genaue Beobachtungen — keine vagen Eindrücke</td></tr>
+        <tr><td><strong>2. Beschreibend</strong></td><td>Was wurde wahrgenommen? Kein Urteil über die Person</td></tr>
+        <tr><td><strong>3. Ich-Botschaft</strong></td><td>„Ich habe bemerkt, dass …" — nicht „Sie haben falsch …"</td></tr>
+        <tr><td><strong>4. Zeitnah</strong></td><td>Direkt nach der Beobachtung — nicht Tage später</td></tr>
+        <tr><td><strong>5. Positiv beginnen</strong></td><td>Stärken zuerst, dann Verbesserungshinweise</td></tr>
+        <tr><td><strong>6. Veränderbar</strong></td><td>Nur auf Verhaltensweisen eingehen, die änderbar sind</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 7. Feedback annehmen -->
+  <section class="slide">
+    <h2>Feedback annehmen — auch eine Kompetenz</h2>
+    <ul>
+      <li><strong>Zuhören:</strong> Nicht sofort rechtfertigen oder abwehren</li>
+      <li><strong>Nachfragen:</strong> Bei Unklarheiten rückfragen — „Können Sie das genauer beschreiben?"</li>
+      <li><strong>Angebot verstehen:</strong> Feedback ist eine Entwicklungschance, kein Angriff</li>
+      <li><strong>Selbst entscheiden:</strong> Welche Hinweise nehme ich an? Was setze ich um?</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Merke</span>
+      Wer Feedback konstruktiv annehmen kann, wächst schneller — als Präsentator und als Teamplayer.
+    </div>
+  </section>
+
+  <!-- 8. Bewertungsbogen -->
+  <section class="slide">
+    <h2>Präsentationsbewertung: Vier Kriterien</h2>
+    <table>
+      <thead><tr><th>Kriterium</th><th>Gewicht</th><th>Was wird bewertet?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fachlicher Inhalt</strong></td><td>40 %</td><td>Richtigkeit, Vollständigkeit, roter Faden</td></tr>
+        <tr><td><strong>Struktur</strong></td><td>20 %</td><td>Einstieg – Hauptteil – Schluss, Übergänge</td></tr>
+        <tr><td><strong>Medien und Folien</strong></td><td>20 %</td><td>Lesbarkeit ≥ 30 Pt., keine Textwüsten</td></tr>
+        <tr><td><strong>Vortragsstil</strong></td><td>20 %</td><td>Körpersprache, Stimme, Blickkontakt</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:1rem;">Bogen <strong>vor</strong> der Präsentation verteilen — alle beurteilen nach denselben Maßstäben</p>
+  </section>
+
+  <!-- 9. Reflexionsmethoden -->
+  <section class="slide">
+    <h2>Reflexion der Teamarbeit (Kap. 1.5.3)</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Reflexionsstrategie</div>
+        Eigene Arbeit selbstkritisch hinterfragen — Stärken und Defizite erkennen
+      </div>
+      <div class="card amber">
+        <div class="card-title">Regulationsstrategie</div>
+        Konsequenzen ziehen — Lösungen erstellen, Lernstrategie anpassen, Ziele vereinbaren
+      </div>
+    </div>
+    <p style="margin-top:1.5rem;"><strong>Methoden:</strong></p>
+    <ul>
+      <li><strong>Blitzlicht:</strong> Jede Person nennt einen Satz — was gut lief, was verbessert werden sollte</li>
+      <li><strong>Spinnennetz:</strong> Mehrere Kriterien auf Skala bewerten und im Kreisdiagramm sichtbar machen</li>
+      <li>Weitere: Stimmungsbarometer · Fragebogen · Lerntagebuch · Interview</li>
+    </ul>
+  </section>
+
+  <!-- 10. Wiederholung: Session 1 & 2 -->
+  <section class="slide">
+    <h2>Wiederholung: IT-Berufe &amp; Ausbildungsrecht</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">4 IT-Berufe seit 2020</div>
+        Fachinformatiker/-in (4 FR) · IT-Systemelektroniker/-in · Kfm. IT-System-Management · Kfm. Digitalisierungsmanagement
+      </div>
+      <div class="card teal">
+        <div class="card-title">BBiG Schlüsselparagrafen</div>
+        § 11 Vertragsniederschrift · § 20 Probezeit 1–4 Monate · § 22 Kündigung
+      </div>
+      <div class="card amber">
+        <div class="card-title">JArbSchG</div>
+        Max. 8 h täglich / 40 h wöchentlich · Urlaub: unter 16 J. = 30 T, unter 17 J. = 27 T, unter 18 J. = 25 T
+      </div>
+      <div class="card amber">
+        <div class="card-title">JAV § 60 BetrVG</div>
+        Gewählte Interessenvertretung der Jugendlichen und Auszubildenden im Betrieb
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Wiederholung: Session 3 & 4 -->
+  <section class="slide">
+    <h2>Wiederholung: Betrieb, Ziele &amp; Rechtsformen</h2>
+    <ul>
+      <li><strong>Betrieb ≠ Unternehmen ≠ Firma:</strong> örtlich-techn. Einheit / wirtsch. Einheit / Handelsname § 17 HGB</li>
+      <li><strong>JIKU Hamburg:</strong> 32 Mitarbeiter, 8 Auszubildende; Verbund: 10 Systemhäuser, 480 MA</li>
+      <li><strong>Unternehmensziele:</strong> Sach-, Formal- und Sozialziele; SMART; komplementär vs. konkurrierend</li>
+      <li><strong>Mindestkapital:</strong> UG ab 1 € · GmbH 25.000 € · AG 50.000 €</li>
+      <li><strong>OHG / KG / GbR:</strong> persönliche Haftung, kein Mindestkapital</li>
+      <li><strong>Organisationsformen:</strong> Einlinien · Mehrlinie · Stablinien · Matrix</li>
+    </ul>
+  </section>
+
+  <!-- 12. Wiederholung: Session 5 & 6 -->
+  <section class="slide">
+    <h2>Wiederholung: Wertschöpfung &amp; Märkte</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Formel</span>
+      Wertschöpfung = Umsatzerlöse − Vorleistungen − Abschreibungen
+    </div>
+    <ul>
+      <li><strong>Verteilung:</strong> Mitarbeiter · Fremdkapitalgeber · Staat · Eigenkapitalgeber</li>
+      <li><strong>Kernprozess:</strong> direkte Wertschöpfung für den Kunden (z. B. IT-Beratung)</li>
+      <li><strong>Supportprozess:</strong> keine direkte Wertschöpfung (z. B. Buchhaltung)</li>
+      <li><strong>Marktformen:</strong> Monopol (1 Anbieter) · Oligopol (wenige) · Polypol (viele)</li>
+      <li><strong>IT-Markt:</strong> Netzwerkeffekte · Lock-in · Plattformökonomie · Winner-takes-all</li>
+    </ul>
+  </section>
+
+  <!-- 13. Wiederholung: Session 7 -->
+  <section class="slide">
+    <h2>Wiederholung: Präsentation vorbereiten</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">IPERKA</div>
+        Informieren · Planen · Entscheiden · Realisieren · Kontrollieren · Auswerten
+      </div>
+      <div class="card teal">
+        <div class="card-title">Tuckman-Phasen</div>
+        Forming · Storming · Norming · Performing (· Adjourning)
+      </div>
+      <div class="card amber">
+        <div class="card-title">KISS &amp; 10-20-30</div>
+        Keep It Short and Simple · max. 10 Folien · 20 Min. · Schrift ≥ 30 Pt.
+      </div>
+      <div class="card amber">
+        <div class="card-title">IHK-Bewertung</div>
+        Aufbau 10 P. · Sprache 10 P. · Zielgruppengerechtigkeit 10 P. = max. 30 P.
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. Prüfungstipps -->
+  <section class="slide">
+    <h2>Prüfungstipps für Lernfeld 1</h2>
+    <ul>
+      <li><strong>Gesetze und Paragrafen:</strong> BBiG §§ 11, 20, 22 · JArbSchG §§ 8, 19 · BetrVG § 60 · HGB § 17</li>
+      <li><strong>Zahlen präzise merken:</strong> GmbH 25.000 € · AG 50.000 € · Probezeit 1–4 Monate · 8 h / 40 h</li>
+      <li><strong>Begriffe klar abgrenzen:</strong> Betrieb ≠ Unternehmen ≠ Firma · Kern- ≠ Supportprozess</li>
+      <li><strong>Wertschöpfung berechnen:</strong> Formel und Verteilung sicher können</li>
+      <li><strong>Querverbindungen:</strong> Rechtsform → Haftung → Risikostrategie → Formalziel</li>
+    </ul>
+  </section>
+
+  <!-- 15. Abschlussfolie -->
+  <section class="slide cover">
+    <span class="cover-tag">Lernfeld 1 — Abschluss</span>
+    <h1>Das nehmen Sie mit</h1>
+    <ul>
+      <li>IT-Berufe und duales System · Ausbildungsrecht</li>
+      <li>Betrieb, Unternehmen, Ziele · Rechtsformen und Organisation</li>
+      <li>Wertschöpfung und Prozesse · Kreislauf und Märkte</li>
+      <li>Präsentation planen, durchführen und reflektieren</li>
+    </ul>
+    <div class="merksatz" style="margin-top:2rem;">
+      <span class="merksatz-label">Ausblick Lernfeld 2</span>
+      Arbeitsplätze nach Kundenwunsch ausstatten — Hardware, Software, Netzwerk, Sicherheit.
+      Die betriebswirtschaftlichen Grundlagen aus LF 1 bilden dafür das Fundament.
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>
