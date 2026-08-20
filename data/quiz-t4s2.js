@@ -224,13 +224,13 @@ window.QUIZ_DATA = {
     {
       frage: "Wie viele Mitarbeiterinnen und Mitarbeiter sowie Auszubildende gibt es am Hamburger Standort von JIKU IT-Solutions?",
       optionen: [
-        "32 Mitarbeiter und 8 Auszubildende",
+        "52 Mitarbeiter und 8 Auszubildende",
         "48 Mitarbeiter und 10 Auszubildende",
         "32 Mitarbeiter und 12 Auszubildende",
         "16 Mitarbeiter und 4 Auszubildende"
       ],
       richtig: 0,
-      erklaerung: "Am Hamburger Standort von JIKU IT-Solutions arbeiten 32 Mitarbeiterinnen und Mitarbeiter, darunter 8 Auszubildende. Im gesamten Verbund aus zehn Systemhäusern sind es 480 Mitarbeiter und 96 Auszubildende."
+      erklaerung: "Am Hamburger Standort von JIKU IT-Solutions arbeiten 52 Mitarbeiterinnen und Mitarbeiter, darunter 8 Auszubildende. Im gesamten Verbund aus zehn Systemhäusern sind es 480 Mitarbeiter und 96 Auszubildende."
     },
 
     {

@@ -773,7 +773,7 @@ tr.gleichgewicht td {
         <tr><th>Geldstrom</th><th>Erläuterung</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Direkte Steuern</strong></td><td>Haushalte → Staat: z. B. Kfz-Steuer, Grundsteuer, Einkommensteuer</td></tr>
+        <tr><td><strong>Direkte Steuern</strong></td><td>Haushalte → Staat: z. B. Kfz-Steuer, Grundsteuer, Einkommensteuer <small>(Hinweis: Lohnsteuer wird vom Arbeitgeber einbehalten und abgeführt — an der Einordnung als direkte Steuer ändert das nichts)</small></td></tr>
         <tr><td><strong>Indirekte Steuern</strong></td><td>Staat vereinnahmt über Unternehmen: z. B. Umsatzsteuer, Mineralölsteuer</td></tr>
         <tr><td><strong>Transferleistungen</strong></td><td>Staat → Haushalte: z. B. Kindergeld, Sozialhilfe, Sparzulage</td></tr>
         <tr><td><strong>Staatsausgaben</strong></td><td>Staat → Unternehmen/Infrastruktur: Bildung, Verkehr, Sicherheit</td></tr>
@@ -841,9 +841,9 @@ tr.gleichgewicht td {
         <line x1="612" y1="122" x2="452" y2="92" stroke="#F97316" stroke-width="1.8" marker-end="url(#arr-r)"/>
         <text x="548" y="120" font-family="system-ui,sans-serif" font-size="10" fill="#9a3412" text-anchor="middle">indir. Steuern</text>
 
-        <!-- H → Banken: Sparen -->
+        <!-- H → Banken: Sparen / Banken → H: Zinsen -->
         <line x1="128" y1="200" x2="295" y2="252" stroke="#475569" stroke-width="1.8" marker-end="url(#arr-g)"/>
-        <text x="196" y="240" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Sparen</text>
+        <text x="190" y="233" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Sparen ⇄ Zinsen</text>
         <!-- Banken → U: Kredite -->
         <line x1="450" y1="258" x2="610" y2="215" stroke="#475569" stroke-width="1.8" marker-end="url(#arr-g)"/>
         <text x="545" y="248" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Kredite</text>
@@ -851,9 +851,12 @@ tr.gleichgewicht td {
         <!-- H → U: Faktorleistungen -->
         <line x1="177" y1="150" x2="563" y2="150" stroke="#F59E0B" stroke-width="2" marker-end="url(#arr-a)"/>
         <text x="370" y="145" font-family="system-ui,sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="600">Faktorleistungen (Arbeit, Boden, Kapital)</text>
-        <!-- U → H: Einkommen -->
-        <line x1="563" y1="168" x2="177" y2="168" stroke="#0EA5A4" stroke-width="2" marker-end="url(#arr-t)"/>
-        <text x="370" y="185" font-family="system-ui,sans-serif" font-size="11" fill="#0F766E" text-anchor="middle" font-weight="600">Einkommen · Konsumgüter (€)</text>
+        <!-- U → H: Einkommen (Geldstrom) -->
+        <line x1="563" y1="162" x2="177" y2="162" stroke="#0EA5A4" stroke-width="2" marker-end="url(#arr-t)"/>
+        <text x="370" y="178" font-family="system-ui,sans-serif" font-size="10" fill="#0F766E" text-anchor="middle" font-weight="600">Einkommen (€) [Geldstrom]</text>
+        <!-- H ← U: Konsumgüter (Güterstrom) -->
+        <line x1="563" y1="175" x2="177" y2="175" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-a)"/>
+        <text x="370" y="190" font-family="system-ui,sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Konsumgüter [Güterstrom]</text>
 
         <!-- Ausland Label -->
         <rect x="295" y="148" width="150" height="22" rx="5" fill="white" stroke="#E2E8F0"/>
@@ -1113,12 +1116,12 @@ tr.gleichgewicht td {
         </tr>
       </thead>
       <tbody>
-        <tr><td>300</td><td>950</td><td>300</td><td>Nachfrageüberhang</td></tr>
-        <tr><td>350</td><td>850</td><td>400</td><td>Nachfrageüberhang</td></tr>
-        <tr><td>400</td><td>750</td><td>530</td><td>Nachfrageüberhang</td></tr>
+        <tr><td>300</td><td>1.400</td><td>200</td><td>Nachfrageüberhang</td></tr>
+        <tr><td>350</td><td>1.100</td><td>330</td><td>Nachfrageüberhang</td></tr>
+        <tr><td>400</td><td>950</td><td>550</td><td>Nachfrageüberhang</td></tr>
         <tr class="gleichgewicht"><td><strong>450</strong></td><td><strong>650</strong></td><td><strong>650</strong></td><td><strong>Gleichgewicht ✓</strong></td></tr>
-        <tr><td>500</td><td>520</td><td>780</td><td>Angebotsüberhang</td></tr>
-        <tr><td>550</td><td>390</td><td>880</td><td>Angebotsüberhang</td></tr>
+        <tr><td>500</td><td>400</td><td>750</td><td>Angebotsüberhang</td></tr>
+        <tr><td>550</td><td>250</td><td>900</td><td>Angebotsüberhang</td></tr>
       </tbody>
     </table>
     <p class="muted" style="font-size:0.92rem;margin-top:0.5rem;">Die grün hervorgehobene Zeile markiert den Gleichgewichtspunkt bei 450 € / 650 Stück (Quelle: Lehrbuchbeispiel).</p>

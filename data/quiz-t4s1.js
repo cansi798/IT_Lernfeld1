@@ -331,7 +331,7 @@ window.QUIZ_DATA = {
         "90 Prozent"
       ],
       richtig: 3,
-      erklaerung: "Laut Lehrbuch (Kap. 1.5.2) liegt die Behaltensquote bei 90 %, wenn alle Sinne einbezogen werden: Hören + Sehen + darüber sprechen + selber tun. Nur Hören ergibt lediglich 20 %."
+      erklaerung: "Laut Lehrbuch (Kap. 1.5.2) gibt es fünf Stufen: Nur Hören 20 %, nur Sehen 30 %, Hören + Sehen 50 %, Hören + Sehen + darüber sprechen 70 %, Hören + Sehen + sprechen + selber tun 90 %. Die höchste Stufe (alle vier Aktivitäten) ergibt 90 %."
     },
 
     {

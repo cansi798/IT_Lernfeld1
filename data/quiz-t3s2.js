@@ -220,7 +220,7 @@ window.QUIZ_DATA = {
         "Staatliche Preisfestsetzung durch Behörden"
       ],
       richtig: 3,
-      erklaerung: "Im vollkommenen Markt bildet sich der Preis frei durch Angebot und Nachfrage — staatliche Preisfestsetzung ist kein Merkmal. Die anderen drei Bedingungen (viele Anbieter/Nachfrager, Homogenität, Transparenz) sind dagegen kennzeichnend."
+      erklaerung: "Im vollkommenen Markt bildet sich der Preis frei durch Angebot und Nachfrage — staatliche Preisfestsetzung ist kein Merkmal. Die anderen vier Bedingungen (viele Anbieter/Nachfrager, Homogenität, Transparenz, Präferenzlosigkeit und Anpassungsfähigkeit) sind dagegen kennzeichnend."
     },
     // richtig: 0
     {
