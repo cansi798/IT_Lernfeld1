@@ -1,0 +1,352 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz · Session 4 — Rechtsformen & Aufbauorganisation</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+#app {
+  max-width: 680px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+.fortschritt-wrap {
+  margin-bottom: 1.4rem;
+}
+.fortschritt-label {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.fortschritt-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fortschritt-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.frage-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.4rem;
+  line-height: 1.45;
+}
+.optionen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.option-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+.option-btn:hover:not(:disabled) {
+  background: #ECFEFF;
+  border-color: var(--primary);
+}
+.option-btn:disabled { cursor: default; }
+.option-btn.richtig {
+  background: #DCFCE7;
+  border-color: var(--success);
+  color: #065F46;
+  font-weight: 600;
+}
+.option-btn.falsch {
+  background: #FFEDD5;
+  border-color: var(--warn);
+  color: #9A3412;
+}
+.erklaerung-box {
+  margin-top: 1.2rem;
+  background: var(--bg-soft);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+  display: none;
+}
+.erklaerung-box.sichtbar { display: block; }
+.erklaerung-label {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+.weiter-btn {
+  margin-top: 1.3rem;
+  display: none;
+  padding: 0.7rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.weiter-btn.sichtbar { display: inline-block; }
+.weiter-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.ergebnis-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.ergebnis-karte h2 {
+  font-size: 1.6rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+.ergebnis-punkte {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0.6rem 0;
+  line-height: 1;
+}
+.ergebnis-prozent {
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.8rem;
+}
+.nochmal-btn {
+  padding: 0.8rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.nochmal-btn:hover { background: #D97706; transform: translateY(-1px); }
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Session 4: Rechtsformen & Aufbauorganisation</h1>
+</header>
+<main id="app"></main>
+<script>const QUIZ = [{"frage":"Welches Mindeststammkapital ist für die Gründung einer GmbH erforderlich?","optionen":["1 Euro","12.500 Euro","25.000 Euro","50.000 Euro"],"richtig":2,"erklaerung":"Das GmbH-Gesetz schreibt in § 5 GmbHG ein Mindest-Stammkapital von 25.000 Euro vor. Bei der Gründung müssen mindestens 12.500 Euro sofort eingezahlt werden. 50.000 Euro ist das Mindestgrundkapital der AG."},{"frage":"Ab welchem Stammkapital darf eine UG (haftungsbeschränkt) gegründet werden?","optionen":["500 Euro","1.000 Euro","5.000 Euro","1 Euro"],"richtig":3,"erklaerung":"Die UG (haftungsbeschränkt) kann bereits ab 1 Euro Stammkapital gegründet werden. Dafür gilt die Thesaurierungspflicht: 25 % des Jahresüberschusses müssen zurückgelegt werden, bis 25.000 Euro erreicht sind."},{"frage":"Welches Mindestgrundkapital schreibt das Aktiengesetz (§ 7 AktG) für eine AG vor?","optionen":["25.000 Euro","50.000 Euro","100.000 Euro","10.000 Euro"],"richtig":1,"erklaerung":"Gemäß § 7 AktG beträgt das Mindestgrundkapital einer Aktiengesellschaft 50.000 Euro. Die GmbH benötigt lediglich 25.000 Euro Stammkapital."},{"frage":"Wie haften Gesellschafter einer OHG gegenüber Gläubigern?","optionen":["Nur bis zur Höhe ihrer Einlage","Persönlich, unbeschränkt und solidarisch","Nur die Gesellschaft haftet, nicht die Gesellschafter","Persönlich bis 50.000 Euro je Gesellschafter"],"richtig":1,"erklaerung":"Bei der OHG haften alle Gesellschafter persönlich, unbeschränkt und solidarisch — also auch mit ihrem Privatvermögen für sämtliche Schulden der Gesellschaft."},{"frage":"Was kennzeichnet die Haftung des Kommanditisten in einer KG?","optionen":["Er haftet persönlich und unbeschränkt wie der Komplementär","Er haftet gar nicht, da er kein Gesellschafter ist","Er haftet nur bis zur Höhe seiner geleisteten Einlage","Er haftet bis 25.000 Euro pauschal"],"richtig":2,"erklaerung":"Der Kommanditist haftet in einer KG nur bis zur Höhe seiner geleisteten Einlage. Ist die Einlage vollständig eingezahlt, tritt keine weitere persönliche Haftung ein. Der Komplementär hingegen haftet unbeschränkt und persönlich."},{"frage":"Welche Aussage zur GbR seit dem MoPeG 2024 ist korrekt?","optionen":["Die GbR ist weiterhin nicht rechtsfähig","Die GbR kann seit 2024 als eGbR in das Gesellschaftsregister eingetragen werden","Die GbR wurde 2024 vollständig abgeschafft","Seit 2024 müssen alle GbRs automatisch in OHGs umgewandelt werden"],"richtig":1,"erklaerung":"Seit Inkrafttreten des MoPeG 2024 ist die GbR rechtsfähig und kann optional als eingetragene GbR (eGbR) in das Gesellschaftsregister eingetragen werden. Sie bleibt eine Gesellschaft des bürgerlichen Rechts."},{"frage":"Welche Organe hat eine GmbH zwingend?","optionen":["Vorstand, Aufsichtsrat, Hauptversammlung","Geschäftsführer und Gesellschafterversammlung","Vorstand und Hauptversammlung","Geschäftsführer, Aufsichtsrat und Gesellschafterversammlung (immer)"],"richtig":1,"erklaerung":"Eine GmbH hat zwingend einen Geschäftsführer (Leitung) und eine Gesellschafterversammlung. Ein Aufsichtsrat ist erst ab 500 Arbeitnehmern mitbestimmungsrechtlich vorgeschrieben. Vorstand und Hauptversammlung sind Organe der AG."},{"frage":"Was ist die Thesaurierungspflicht bei der UG (haftungsbeschränkt)?","optionen":["Die UG muss 10 % des Umsatzes als Steuer abführen","Die UG muss 25 % des Jahresüberschusses als gesetzliche Rücklage zurückhalten","Die UG muss ihr Stammkapital jährlich um 1.000 Euro erhöhen","Die UG muss 50 % des Gewinns an den Staat abführen"],"richtig":1,"erklaerung":"Bei der UG (haftungsbeschränkt) müssen 25 % des jährlichen Überschusses als Rücklage thesauriert werden, bis das Stammkapital 25.000 Euro erreicht. Damit soll schrittweise das GmbH-Niveau aufgebaut werden."},{"frage":"Wie viele Gesellschafter sind für die Gründung einer GmbH mindestens erforderlich?","optionen":["Zwei Gesellschafter","Drei Gesellschafter","Ein Gesellschafter","Mindestens fünf Gesellschafter"],"richtig":2,"erklaerung":"Eine GmbH kann von einem einzigen Gesellschafter gegründet werden (Einpersonen-GmbH). Das GmbHG schreibt keine Mindestanzahl von zwei Gesellschaftern vor."},{"frage":"Welche drei Organe sind bei einer AG gesetzlich vorgeschrieben?","optionen":["Geschäftsführer, Gesellschafterversammlung, Beirat","Vorstand, Aufsichtsrat, Hauptversammlung","Direktor, Kontrollrat, Aktionärsversammlung","Vorstand, Geschäftsführer, Aufsichtsrat"],"richtig":1,"erklaerung":"Eine AG hat drei Pflichtorgane: die Hauptversammlung der Aktionäre (Grundbeschlüsse), den Aufsichtsrat (Kontrolle des Vorstands) und den Vorstand (Geschäftsführung und Vertretung nach außen)."},{"frage":"Welche Rechtsform kombiniert Haftungsbeschränkung mit steuerlichen Vorteilen einer Personengesellschaft?","optionen":["Stille Gesellschaft","OHG","eG (Genossenschaft)","GmbH & Co. KG"],"richtig":3,"erklaerung":"Die GmbH & Co. KG ist eine KG, bei der eine GmbH die Rolle des Komplementärs übernimmt. Dadurch ist die persönliche Haftung natürlicher Personen ausgeschlossen, während die Gesellschaft steuerlich als Personengesellschaft behandelt wird."},{"frage":"Was unterscheidet Einzelunternehmen und Kapitalgesellschaft bei der Ertragsbesteuerung?","optionen":["Einzelunternehmer zahlen Körperschaftsteuer, Kapitalgesellschaften Einkommensteuer","Beide zahlen Körperschaftsteuer","Einzelunternehmer zahlen Einkommensteuer auf den Gewinn, Kapitalgesellschaften zahlen Körperschaftsteuer","Es gibt keinen steuerlichen Unterschied"],"richtig":2,"erklaerung":"Einzelunternehmer und Personengesellschafter versteuern den Gewinn persönlich als Einkommensteuer (§§ 15 und 18 EStG). Kapitalgesellschaften sind eigene Steuersubjekte und zahlen Körperschaftsteuer auf den Gesellschaftsgewinn (§ 1 KStG)."},{"frage":"Eine GbR betreibt ein Handelsgewerbe und lässt sich ins Handelsregister eintragen. Was entsteht dadurch rechtlich?","optionen":["Eine KG","Eine GmbH","Eine OHG","Eine AG"],"richtig":2,"erklaerung":"Eine GbR, die ein Handelsgewerbe betreibt und sich ins Handelsregister einträgt, wird automatisch zur OHG (Offene Handelsgesellschaft). Sie muss dann den Zusatz 'OHG' oder '& Co.' im Firmennamen führen."},{"frage":"Welchen Zusatz muss ein Einzelkaufmann bei der Eintragung ins Handelsregister im Firmennamen führen?","optionen":["GmbH","AG","e. K. (eingetragener Kaufmann/Kauffrau)","KG"],"richtig":2,"erklaerung":"Ein im Handelsregister eingetragenes Einzelunternehmen muss den Zusatz 'e. K.' (eingetragener Kaufmann), 'e. Kfm.' oder 'e. Kffr.' im Firmennamen führen. Dadurch erlangt der Inhaber die Kaufmannseigenschaft und unterliegt dem HGB."},{"frage":"Welches Kriterium spricht bei der Rechtsformwahl hauptsächlich für eine Kapitalgesellschaft (GmbH, AG)?","optionen":["Man möchte die persönliche Haftung so gering wie möglich halten","Man hat mehrere Partner, die alle unbeschränkt haften sollen","Man möchte keine Buchführungspflicht haben","Man will möglichst wenig Gründungskapital einbringen"],"richtig":0,"erklaerung":"Das entscheidende Argument für eine Kapitalgesellschaft ist die Begrenzung der persönlichen Haftung: Bei GmbH und AG haftet nur die Gesellschaft, nicht die Gesellschafter persönlich. Dies schützt das Privatvermögen der Gründer."},{"frage":"Welcher Aspekt gehört zu den gesetzlich definierten Kriterien bei der Wahl der Rechtsform?","optionen":["Die Farbe des Logos","Die Anzahl der Mitbewerber","Die gesetzlichen Vorschriften über Umfang, Inhalt, Prüfung und Offenlegung des Jahresabschlusses","Die Größe des Büros"],"richtig":2,"erklaerung":"Zu den Kriterien der Rechtsformwahl gehören u. a.: Haftung, Kapital, Leitungsbefugnis, Steuerbelastung, Gründungsaufwand sowie gesetzliche Vorschriften über Umfang, Inhalt, Prüfung und Offenlegung des Jahresabschlusses (Publizitätspflicht)."},{"frage":"Warum ist die GmbH die am häufigsten im Handelsregister eingetragene Rechtsform?","optionen":["Weil sie keine Buchführung erfordert","Weil Haftungsbeschränkung, einfache Gründung und freie Wahl des Geschäftsführers sie attraktiv machen","Weil die AG zu teuer und die Personengesellschaft zu einfach ist","Weil nur die GmbH Prokura erteilen kann"],"richtig":1,"erklaerung":"Die GmbH vereint mehrere Vorteile: Die Haftung ist auf das Gesellschaftsvermögen beschränkt, ein einziger Gesellschafter reicht, der Geschäftsführer kann frei bestellt werden und muss kein Gesellschafter sein. Das macht sie zur beliebtesten Rechtsform."},{"frage":"Was versteht man unter 'Publizität' als Kriterium der Rechtsformwahl?","optionen":["Die Verpflichtung, den Jahresabschluss zu veröffentlichen (Offenlegungspflicht)","Das Recht des Unternehmens, Werbung zu schalten","Die Pflicht, einen Internetauftritt zu haben","Der Schutz des Firmennamens beim Markenamt"],"richtig":0,"erklaerung":"Publizität meint die Offenlegungspflicht — insbesondere die Verpflichtung, den Jahresabschluss zu veröffentlichen. Kapitalgesellschaften (GmbH, AG) haben umfangreiche Publizitätspflichten. Das kann ein Nachteil sein, wenn Unternehmen interne Daten schützen wollen."},{"frage":"Welche Rechtsform ist am besten geeignet, wenn ein Unternehmen über die Börse Kapital einwerben und Aktionäre beteiligen möchte?","optionen":["GbR","OHG","UG (haftungsbeschränkt)","AG (Aktiengesellschaft)"],"richtig":3,"erklaerung":"Die AG ist die bevorzugte Rechtsform für börsennotierte Unternehmen. Sie ermöglicht einfache Beteiligung vieler Kapitalgeber durch Aktien und eignet sich auch gut für die Mitarbeiterbeteiligung. Nur die AG kann Aktien an der Börse ausgeben."},{"frage":"Welches Kriterium bei der Rechtsformwahl beschreibt, wie einfach Gesellschafter aufgenommen oder entlassen werden können?","optionen":["Flexibilität bei der Änderung von Beteiligungsverhältnissen","Steuerbelastung","Haftungsumfang","Gründungskosten"],"richtig":0,"erklaerung":"Die Flexibilität bei der Änderung von Beteiligungsverhältnissen beschreibt, wie einfach Gesellschafter aufgenommen oder entlassen werden können. Bei Kapitalgesellschaften ist ein Gesellschafterwechsel i. d. R. einfacher zu gestalten als bei Personengesellschaften."},{"frage":"Was ist eine 'Stelle' im organisatorischen Sinne?","optionen":["Ein geografischer Standort des Unternehmens","Die kleinste Organisationseinheit, die Aufgaben, Kompetenzen und Verantwortung dauerhaft beschreibt","Eine Stabsstelle mit Beratungsfunktion","Ein Abteilungsleiter mit Weisungsbefugnis"],"richtig":1,"erklaerung":"Eine Stelle ist die kleinste organisatorische Einheit und beschreibt dauerhaft Aufgaben, Kompetenzen und Verantwortung — unabhängig davon, wer die Stelle gerade besetzt. Sie ist die Grundlage jeder Stellenbeschreibung."},{"frage":"Was unterscheidet eine Instanz von einer ausführenden Stelle?","optionen":["Eine Instanz befindet sich immer im Ausland","Eine Instanz besitzt Anordnungs- und Entscheidungsbefugnis gegenüber nachgeordneten Stellen","Ausführende Stellen haben mehr Verantwortung als Instanzen","Instanzen dürfen keine Mitarbeiter einstellen"],"richtig":1,"erklaerung":"Eine Instanz (Leitungsstelle) besitzt Anordnungs- und Entscheidungsbefugnis gegenüber rangniederen Stellen. Eine ausführende Stelle hingegen setzt Anweisungen um und hat keine Leitungs- oder Entscheidungsbefugnis."},{"frage":"Welche Funktion hat eine Stabsstelle im Unternehmen?","optionen":["Sie leitet Abteilungen und erteilt Weisungen an alle Mitarbeiter","Sie berät und entlastet Instanzen, hat aber keine Weisungsbefugnis","Sie ist identisch mit einem Abteilungsleiter","Sie kontrolliert ausschließlich die Finanzen des Unternehmens"],"richtig":1,"erklaerung":"Stabsstellen haben eine beratende und entscheidungsvorbereitende Funktion. Sie unterstützen Instanzen mit Fachwissen, dürfen aber keine Weisungen an Linienstellen erteilen. Sie haben jedoch normalerweise ein Informationsrecht aus allen Linienstellen."},{"frage":"Was ist ein Organigramm?","optionen":["Eine grafische Darstellung des Leitungssystems und der Hierarchie eines Unternehmens","Ein Plan zur Ablauforganisation von Produktionsprozessen","Eine Liste aller Mitarbeiter und ihrer Gehälter","Ein Diagramm des Umsatzverlaufs eines Unternehmens"],"richtig":0,"erklaerung":"Ein Organigramm ist ein Schaubild (Schaubild des Leitungssystems), das die Hierarchie und Leitungsbeziehungen eines Unternehmens grafisch darstellt. Es zeigt Stellen, Instanzen, Stabsstellen und ihre Beziehungen zueinander."},{"frage":"Was ist der Unterschied zwischen Aufbauorganisation und Ablauforganisation?","optionen":["Es gibt keinen wesentlichen Unterschied — beide Begriffe bedeuten dasselbe","Die Ablauforganisation legt Hierarchien fest, die Aufbauorganisation regelt Prozesse","Die Aufbauorganisation regelt Produktionsprozesse, die Ablauforganisation legt Stellen fest","Die Aufbauorganisation legt Stellen und Hierarchien fest; die Ablauforganisation regelt zeitliche und räumliche Arbeitsprozesse"],"richtig":3,"erklaerung":"Die Aufbauorganisation gliedert den Betrieb in Einheiten und legt Aufgaben, Kompetenzen und Verantwortung fest. Die Ablauforganisation regelt dagegen den zeitlichen, räumlichen und funktionalen Arbeitsablauf sowie den optimalen Einsatz vorhandener Kapazitäten."},{"frage":"Was versteht man unter einer Abteilung in der Aufbauorganisation?","optionen":["Eine einzelne Stelle ohne Leitungsbefugnis","Die Zusammenfassung mehrerer Stellen unter einer gemeinsamen Leitung (Instanz)","Eine externe Niederlassung des Unternehmens","Eine Stabsstelle mit Beratungsfunktion"],"richtig":1,"erklaerung":"Eine Abteilung ist die Zusammenfassung mehrerer Stellen unter einer gemeinsamen Leitung (Instanz). Sie fasst sachlich zusammengehörende Aufgaben zu einer organisatorischen Einheit zusammen."},{"frage":"Welches Informationsrecht besitzt eine Stabsstelle in der Regel?","optionen":["Informationsrecht aus allen Linienstellen, um die Beratungsaufgabe erfüllen zu können","Kein Informationsrecht — sie darf nur beraten, wenn sie gefragt wird","Informationsrecht gegenüber der Geschäftsleitung, nicht gegenüber Linienstellen","Informationsrecht gegenüber der Hauptversammlung der AG"],"richtig":0,"erklaerung":"Stabsstellen besitzen normalerweise ein Informationsrecht aus allen Linienstellen. Nur so können sie ihre beratende und entscheidungsvorbereitende Funktion wirkungsvoll ausüben — ohne jedoch Weisungen erteilen zu dürfen."},{"frage":"Was ist ein möglicher Nachteil einer stark hierarchischen Aufbauorganisation?","optionen":["Zu viele Stabsstellen blockieren die Entscheidungen","Mitarbeiter haben zu viel Eigenverantwortung und handeln unkontrolliert","Keine klaren Zuständigkeiten vorhanden","Lange Informations- und Entscheidungswege sowie mangelnde Innovationsbereitschaft"],"richtig":3,"erklaerung":"Stark hierarchische Strukturen führen zu langen Informations- und Entscheidungswegen. Studien zeigen: Unternehmen mit flacher Hierarchie sind innovativer und motivierter. Eine Überorganisierung kann auch zur Demotivation der Mitarbeiter führen."},{"frage":"Welches Leitungssystem ist durch klare Zuständigkeiten und eine einfache, überschaubare Struktur gekennzeichnet?","optionen":["Matrixorganisation","Mehrliniensystem","Einliniensystem","Stabliniensystem"],"richtig":2,"erklaerung":"Das Einliniensystem gilt als das klarste Leitungssystem: Jede untergeordnete Stelle hat genau einen Vorgesetzten. Dadurch entstehen klare Zuständigkeiten und eine überschaubare Beziehungsstruktur. Nachteil: lange Weisungswege."},{"frage":"Was ist ein charakteristischer Nachteil des Einliniensystems?","optionen":["Zu viele Vorgesetzte je Mitarbeiter führen zu Verwirrung","Unklare Zuständigkeiten und häufige Doppelweisungen","Lange Informations- und Weisungswege sowie mögliche Überlastung höherer Instanzen","Fehlende Fachkompetenz in der Führungsebene"],"richtig":2,"erklaerung":"Ein Nachteil des Einliniensystems sind die langen Informations- und Weisungswege, da Informationen immer die Hierarchie durchlaufen müssen. Außerdem besteht die Gefahr der Überlastung höherer Instanzen, zahlreicher Schnittstellen und mangelnder Flexibilität."},{"frage":"In welchem Leitungssystem kann eine Stelle von mehreren Instanzen gleichzeitig Weisungen erhalten?","optionen":["Einliniensystem","Stabliniensystem","Mehrliniensystem","Divisionale Organisation"],"richtig":2,"erklaerung":"Im Mehrliniensystem (auch Funktionsmeistersystem) kann eine untergeordnete Stelle Weisungen von mehreren Instanzen erhalten — also mehrere Vorgesetzte haben. Dies ermöglicht Spezialisierung, birgt aber das Risiko von Zuständigkeitskonflikten."},{"frage":"Welche Stärke bietet das Mehrliniensystem gegenüber dem Einliniensystem?","optionen":["Mitarbeiter können flexibler eingesetzt werden und Fachautorität wird stärker betont","Klarere Zuständigkeiten und weniger Konflikte zwischen den Instanzen","Kürzere Weisungswege durch eine einzige Leitungskette","Geringere Gesamtkosten durch weniger Führungsstellen"],"richtig":0,"erklaerung":"Das Mehrliniensystem bietet gegenüber dem Einliniensystem mehr Flexibilität beim Mitarbeitereinsatz und betont die Fachautorität. Durch Spezialisierung können Aufgaben effizienter erledigt werden. Nachteil: Zuständigkeitskonflikte und mögliche Überforderung der Mitarbeiter."},{"frage":"Was ist der wesentliche Unterschied zwischen Stabliniensystem und Einliniensystem?","optionen":["Im Stabliniensystem haben alle Stellen mehrere Vorgesetzte gleichzeitig","Im Stabliniensystem werden Stabsstellen ohne Weisungsbefugnis ergänzend eingesetzt","Das Stabliniensystem hat keine erkennbare Hierarchie","Im Stabliniensystem dürfen Stabsstellen direkt Weisungen erteilen"],"richtig":1,"erklaerung":"Das Stabliniensystem ergänzt das Einliniensystem um Stabsstellen, die Instanzen fachkundig beraten und entlasten. Stabsstellen haben keine Weisungsbefugnis — das ist der entscheidende Unterschied. Sie beraten nur, sie befehlen nicht."},{"frage":"Wie ist die Matrixorganisation im Vergleich zum Mehrliniensystem strukturiert?","optionen":["Jede Stelle hat genau einen Vorgesetzten wie im Einliniensystem","Stabsstellen leiten alle Abteilungen ohne Weisungsbefugnis","Jede ausführende Stelle wird von zwei gleichberechtigten Instanzen geführt, z. B. Produkt- und Funktionsleitung","Es gibt keine feste Hierarchie, alle Stellen sind gleichgestellt"],"richtig":2,"erklaerung":"In der Matrixorganisation wird jede ausführende Stelle von zwei gleichberechtigten Instanzen geführt — typischerweise einer produktorientierten und einer funktionsorientierten Linie. Sie ist eine Weiterentwicklung des Mehrliniensystems und eignet sich gut für Projektarbeit."},{"frage":"Welches Leitungssystem hat JIKU IT-Solutions GmbH laut Lehrbuch für seine IT-Solutions-Bereiche gewählt?","optionen":["Reines Einliniensystem","Reines Mehrliniensystem","Kombination aus Stabliniensystem und Matrixorganisation","Divisionale Organisation ohne Stabsstellen"],"richtig":2,"erklaerung":"JIKU hat sich für eine Kombination aus Stabliniensystem und Matrixorganisation entschieden. In den kundennahen IT-Solutions-Bereichen wird viel Projektarbeit geleistet, weshalb die Matrixorganisation dort am besten passt."},{"frage":"Was ist ein typischer Nachteil der Matrixorganisation für die Mitarbeiter?","optionen":["Fehlende Fachkompetenz in der Leitung","Zu einfache Struktur für komplexe Unternehmen","Streitigkeiten über Zuständigkeiten und mögliche ungleiche Arbeitsbelastung","Keine Möglichkeit zur Teamarbeit innerhalb der Organisation"],"richtig":2,"erklaerung":"Ein Nachteil der Matrixorganisation ist das Konfliktpotenzial: Da zwei Instanzen gleichberechtigt sind, entstehen häufig Streitigkeiten über Zuständigkeiten und den Einsatz der Mitarbeiter. Außerdem ist die gleichmäßige Aufgabenverteilung in der Matrix i. d. R. schwierig."},{"frage":"Welche Rechtsform hat JIKU IT-Solutions und was bedeutet das für die Haftung der Gesellschafter?","optionen":["OHG — alle Gesellschafter haften persönlich und unbeschränkt","GmbH — nur die Gesellschaft haftet; die Gesellschafter haften nicht persönlich","AG — Haftung beschränkt auf das Grundkapital von 50.000 Euro","KG — der Komplementär haftet unbeschränkt, Kommanditisten bis zur Einlage"],"richtig":1,"erklaerung":"JIKU IT-Solutions ist eine GmbH. Das bedeutet: Nur die Gesellschaft haftet für Verbindlichkeiten — die Gesellschafter riskieren nicht ihr persönliches Vermögen. Dies ist der zentrale Vorteil der GmbH gegenüber Personengesellschaften."},{"frage":"Welche Stabsstellen nennt das Lehrbuch als typische Beispiele im Stabliniensystem?","optionen":["Abteilungsleiter IT-Support und Vertriebsleiter","Assistent/-in der Geschäftsleitung, Qualitätsmanager/-in, Sicherheitsbeauftragte/-r","Hauptversammlung und Aufsichtsrat","Komplementär und Kommanditist"],"richtig":1,"erklaerung":"Laut Lehrbuch sind typische Stabsstellen: Assistent/-in der Geschäftsleitung, Orgaleiter/-in, Qualitätsmanager/-in, Sicherheitsbeauftragte/-r sowie Syndicus (Rechtsanwalt/-anwältin im Angestelltenverhältnis). JIKU hat solche Stabsstellen laut Organigramm eingerichtet."},{"frage":"Warum eignet sich die Matrixorganisation für die IT-Solutions-Bereiche von JIKU besonders gut?","optionen":["Weil alle Mitarbeiter nur einen einzigen Vorgesetzten haben sollen","Weil JIKU keine Stabsstellen braucht und deshalb flexibel ist","Weil viel Projektarbeit mit unterschiedlichen Fachkompetenzen stattfindet","Weil die Matrixorganisation die günstigste Organisationsform ist"],"richtig":2,"erklaerung":"In den kundennahen IT-Solutions-Bereichen von JIKU wird viel Projektarbeit geleistet. Unterschiedliche Kundenprojekte erfordern unterschiedliche Fachkompetenzen. Die Matrixorganisation erlaubt es, Mitarbeiter sowohl nach Projekten als auch nach Fachfunktionen zu führen."},{"frage":"Welchen Vorteil hat JIKU durch die Rechtsform GmbH gegenüber einer OHG?","optionen":["Geringere Gründungskosten als bei der OHG","Kein Mindestkapital bei der GmbH erforderlich","Die Gesellschafter sind vor einer persönlichen Haftung für Unternehmensschulden geschützt","Keine Buchführungspflicht im Gegensatz zur OHG"],"richtig":2,"erklaerung":"Als GmbH haften die Gesellschafter von JIKU nicht persönlich für Unternehmensschulden — nur das Gesellschaftsvermögen haftet. Bei einer OHG würden alle Gesellschafter mit ihrem Privatvermögen unbeschränkt haften. Das ist der entscheidende Vorteil der GmbH für Systemhäuser."}];
+
+(function() {
+  var fragen = [];
+  var aktuell = 0;
+  var richtigCount = 0;
+  var app = document.getElementById('app');
+
+  function mischen(arr) {
+    // Fisher-Yates in-place
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function fragenVorbereiten() {
+    // Kopie der Original-Fragen
+    var kopie = QUIZ.map(function(f) { return Object.assign({}, f, { optionen: f.optionen.slice() }); });
+    mischen(kopie);
+
+    fragen = kopie.map(function(f) {
+      // Optionen mischen, korrekten Index mitführen
+      var n = f.optionen.length;
+      var indizes = [];
+      for (var k = 0; k < n; k++) indizes.push(k);
+      // Fisher-Yates auf Indizes
+      for (var i = n - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = indizes[i]; indizes[i] = indizes[j]; indizes[j] = tmp;
+      }
+      // neues Optionen-Array in gemischter Reihenfolge
+      var gemischteOptionen = indizes.map(function(idx) { return f.optionen[idx]; });
+      // neuer Index der richtigen Antwort
+      var neuerRichtig = indizes.indexOf(f.richtig);
+      return {
+        frage: f.frage,
+        optionen: gemischteOptionen,
+        richtig: neuerRichtig,
+        erklaerung: f.erklaerung
+      };
+    });
+  }
+
+  function start() {
+    aktuell = 0;
+    richtigCount = 0;
+    fragenVorbereiten();
+    zeigeFrage();
+  }
+
+  function zeigeFrage() {
+    if (aktuell >= fragen.length) {
+      zeigeErgebnis();
+      return;
+    }
+    var f = fragen[aktuell];
+    var prozent = Math.round((aktuell / fragen.length) * 100);
+
+    var html = '<div class="fortschritt-wrap">'
+      + '<div class="fortschritt-label">Frage ' + (aktuell + 1) + ' von ' + fragen.length + '</div>'
+      + '<div class="fortschritt-bar"><div class="fortschritt-fill" style="width:' + prozent + '%"></div></div>'
+      + '</div>'
+      + '<div class="karte">'
+      + '<div class="frage-text">' + escHtml(f.frage) + '</div>'
+      + '<div class="optionen">';
+
+    f.optionen.forEach(function(opt, idx) {
+      html += '<button class="option-btn" data-idx="' + idx + '">' + escHtml(opt) + '</button>';
+    });
+
+    html += '</div>'
+      + '<div class="erklaerung-box" id="erklaerung">'
+      + '<div class="erklaerung-label">Erklärung</div>'
+      + '<div id="erklaerung-text"></div>'
+      + '</div>'
+      + '<button class="weiter-btn" id="weiter-btn">'
+      + (aktuell + 1 < fragen.length ? 'Weiter →' : 'Auswertung')
+      + '</button>'
+      + '</div>';
+
+    app.innerHTML = html;
+
+    // Event-Listener auf Buttons
+    var btns = app.querySelectorAll('.option-btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var gewaehlt = parseInt(btn.getAttribute('data-idx'));
+        antwortenVerarbeiten(gewaehlt, btns);
+      });
+    });
+
+    document.getElementById('weiter-btn').addEventListener('click', function() {
+      aktuell++;
+      zeigeFrage();
+    });
+  }
+
+  function antwortenVerarbeiten(gewaehlt, btns) {
+    var f = fragen[aktuell];
+    var richtigIdx = f.richtig;
+
+    // Alle Buttons deaktivieren
+    btns.forEach(function(b) { b.disabled = true; });
+
+    // Gewählte Option einfärben
+    if (gewaehlt === richtigIdx) {
+      btns[gewaehlt].classList.add('richtig');
+      richtigCount++;
+    } else {
+      btns[gewaehlt].classList.add('falsch');
+      btns[richtigIdx].classList.add('richtig');
+    }
+
+    // Erklärung anzeigen
+    var erkBox = document.getElementById('erklaerung');
+    var erkText = document.getElementById('erklaerung-text');
+    erkText.textContent = f.erklaerung;
+    erkBox.classList.add('sichtbar');
+
+    // Weiter-Button anzeigen
+    document.getElementById('weiter-btn').classList.add('sichtbar');
+  }
+
+  function zeigeErgebnis() {
+    var gesamt = fragen.length;
+    var prozent = Math.round((richtigCount / gesamt) * 100);
+    var bewertung = prozent >= 80 ? '🎉 Sehr gut!' : prozent >= 60 ? '👍 Gut gemacht!' : '💪 Weiter üben!';
+
+    app.innerHTML = '<div class="ergebnis-karte">'
+      + '<h2>Auswertung</h2>'
+      + '<div class="ergebnis-punkte">' + richtigCount + ' / ' + gesamt + '</div>'
+      + '<div class="ergebnis-prozent">' + prozent + ' % richtig — ' + bewertung + '</div>'
+      + '<button class="nochmal-btn" id="nochmal-btn">Nochmal</button>'
+      + '</div>';
+
+    document.getElementById('nochmal-btn').addEventListener('click', start);
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  start();
+})();
+</script></body></html>

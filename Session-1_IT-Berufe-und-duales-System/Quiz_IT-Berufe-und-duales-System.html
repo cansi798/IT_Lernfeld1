@@ -1,0 +1,352 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz · Session 1 — IT-Berufe & duales System</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+#app {
+  max-width: 680px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+.fortschritt-wrap {
+  margin-bottom: 1.4rem;
+}
+.fortschritt-label {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.fortschritt-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fortschritt-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.frage-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.4rem;
+  line-height: 1.45;
+}
+.optionen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.option-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+.option-btn:hover:not(:disabled) {
+  background: #ECFEFF;
+  border-color: var(--primary);
+}
+.option-btn:disabled { cursor: default; }
+.option-btn.richtig {
+  background: #DCFCE7;
+  border-color: var(--success);
+  color: #065F46;
+  font-weight: 600;
+}
+.option-btn.falsch {
+  background: #FFEDD5;
+  border-color: var(--warn);
+  color: #9A3412;
+}
+.erklaerung-box {
+  margin-top: 1.2rem;
+  background: var(--bg-soft);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+  display: none;
+}
+.erklaerung-box.sichtbar { display: block; }
+.erklaerung-label {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+.weiter-btn {
+  margin-top: 1.3rem;
+  display: none;
+  padding: 0.7rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.weiter-btn.sichtbar { display: inline-block; }
+.weiter-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.ergebnis-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.ergebnis-karte h2 {
+  font-size: 1.6rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+.ergebnis-punkte {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0.6rem 0;
+  line-height: 1;
+}
+.ergebnis-prozent {
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.8rem;
+}
+.nochmal-btn {
+  padding: 0.8rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.nochmal-btn:hover { background: #D97706; transform: translateY(-1px); }
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Session 1: IT-Berufe & duales System</h1>
+</header>
+<main id="app"></main>
+<script>const QUIZ = [{"frage":"Wie viele IT-Ausbildungsberufe gibt es seit der Neuordnung 2020?","optionen":["Zwei","Drei","Vier","Fünf"],"richtig":2,"erklaerung":"Seit 2020 gibt es vier IT-Berufe: Fachinformatiker, IT-Systemelektroniker, Kaufmann für IT-System-Management und Kaufmann für Digitalisierungsmanagement."},{"frage":"Welche der folgenden Berufsbezeichnungen gehört NICHT zu den vier IT-Ausbildungsberufen seit 2020?","optionen":["Informatikkaufmann/-frau","Fachinformatiker/-in","IT-Systemelektroniker/-in","Kaufmann/-frau für Digitalisierungsmanagement"],"richtig":0,"erklaerung":"Informatikkaufmann/-frau ist kein Beruf der IT-Neuordnung 2020. Die vier Berufe sind: Fachinformatiker, IT-Systemelektroniker, Kaufmann für IT-System-Management und Kaufmann für Digitalisierungsmanagement."},{"frage":"In wie viele Fachrichtungen ist der Beruf des Fachinformatikers seit 2020 gegliedert?","optionen":["Zwei","Drei","Vier","Sechs"],"richtig":2,"erklaerung":"Der Fachinformatiker wird seit 2020 in vier Fachrichtungen ausgebildet: Anwendungsentwicklung, Systemintegration, Digitale Vernetzung und Daten- und Prozessanalyse."},{"frage":"Welche zwei Fachrichtungen des Fachinformatikers wurden mit der Neuordnung 2020 neu eingeführt?","optionen":["Anwendungsentwicklung und Systemintegration","Systemintegration und Digitale Vernetzung","Digitale Vernetzung und Daten- und Prozessanalyse","Anwendungsentwicklung und Daten- und Prozessanalyse"],"richtig":2,"erklaerung":"Mit der Neuordnung 2020 wurden die Fachrichtungen Digitale Vernetzung (FIDV) und Daten- und Prozessanalyse (FIDP) neu eingeführt, weil hier zukünftig hoher Bedarf erwartet wird."},{"frage":"Ein Unternehmen sucht jemanden, der cyber-physische Systeme in Produktionsanlagen vernetzt und überwacht. Welche Fachrichtung des Fachinformatikers passt am besten?","optionen":["Anwendungsentwicklung","Systemintegration","Daten- und Prozessanalyse","Digitale Vernetzung"],"richtig":3,"erklaerung":"Fachinformatiker der Fachrichtung Digitale Vernetzung (FIDV) analysieren und planen Systeme zur Vernetzung und Automation, insbesondere in Produktionsbetrieben, und arbeiten mit cyber-physischen Systemen."},{"frage":"Welcher IT-Beruf ist laut Lehrbuch der am meisten nachgefragte?","optionen":["IT-Systemelektroniker/-in","Kaufmann/-frau für IT-System-Management","Fachinformatiker/-in","Kaufmann/-frau für Digitalisierungsmanagement"],"richtig":2,"erklaerung":"Fachinformatiker sind der am meisten nachgefragte IT-Beruf, weil ein hoher Bedarf an Systemintegration, Softwareentwicklung und Vernetzung besteht."},{"frage":"Welches Berufsbild umfasst ausdrücklich elektrotechnische Arbeiten im IT-Bereich?","optionen":["Fachinformatiker/-in Fachrichtung Digitale Vernetzung","Kaufmann/-frau für IT-System-Management","Fachinformatiker/-in Fachrichtung Systemintegration","IT-Systemelektroniker/-in"],"richtig":3,"erklaerung":"IT-Systemelektroniker/-innen führen elektrotechnische Arbeiten im IT-Bereich durch, prüfen die elektrische Sicherheit und sind bei Herstellern und Betreibern von IT-Infrastrukturen sowie Sicherheitstechnikfirmen tätig."},{"frage":"Welche Berufsgruppe ist besonders für das Management der Digitalisierung von Geschäftsprozessen auf operativer Ebene zuständig?","optionen":["Kaufleute für Digitalisierungsmanagement","Fachinformatiker/-in Fachrichtung Daten- und Prozessanalyse","IT-Systemelektroniker/-in","Kaufleute für IT-System-Management"],"richtig":0,"erklaerung":"Kaufleute für Digitalisierungsmanagement managen die Digitalisierung von Geschäftsprozessen auf der operativen Ebene und erschließen wirtschaftlichen Nutzen aus der zunehmenden Digitalisierung."},{"frage":"Was kennzeichnet das duale System der Berufsausbildung?","optionen":["Die Ausbildung findet an zwei Lernorten statt: Ausbildungsbetrieb und Berufsschule","Eine Ausbildung in zwei verschiedenen Betrieben","Ein Studium an zwei Hochschulen parallel","Eine Ausbildung mit zwei Abschlussprüfungen"],"richtig":0,"erklaerung":"Das duale System der Berufsausbildung bezeichnet die Ausbildung an zwei Lernorten gleichzeitig: dem Ausbildungsbetrieb für die praktische Ausbildung und der Berufsschule für den theoretischen Unterricht."},{"frage":"Welches Gesetz bildet die Rechtsgrundlage für die duale Berufsausbildung in Deutschland?","optionen":["Berufsbildungsgesetz (BBiG)","Handelsgesetzbuch (HGB)","Bürgerliches Gesetzbuch (BGB)","Arbeitnehmerüberlassungsgesetz (AÜG)"],"richtig":0,"erklaerung":"Das Berufsbildungsgesetz (BBiG) bildet die rechtliche Grundlage für die duale Berufsausbildung in Deutschland und regelt u. a. die Rechte und Pflichten aller Beteiligten."},{"frage":"Wie viele staatlich anerkannte Ausbildungsberufe gibt es in Deutschland, in denen eine duale Berufsausbildung möglich ist?","optionen":["Mehr als 100","Mehr als 200","Mehr als 300","Mehr als 500"],"richtig":2,"erklaerung":"In Deutschland ist die duale Berufsausbildung in über 300 staatlich anerkannten Ausbildungsberufen möglich."},{"frage":"Welche Fächer werden in der Berufsschule neben den beruflichen Lernfeldern noch unterrichtet?","optionen":["Nur Informatik und Mathematik","Physik, Chemie und Biologie","Nur Wirtschaft und Soziales (WISO)","Deutsch, Englisch, Politik/WISO und Sport"],"richtig":3,"erklaerung":"In der Berufsschule werden neben den beruflichen Lernfeldern auch allgemeinbildende Fächer unterrichtet: Deutsch, Englisch, Politik/WISO und Sport."},{"frage":"Wie kann der Berufsschulunterricht zeitlich organisiert sein?","optionen":["Ausschließlich täglich","Je nach Bundesland ein bis zwei Tage pro Woche oder im Blockunterricht","Immer drei Tage pro Woche","Nur in den ersten zwei Jahren"],"richtig":1,"erklaerung":"Die Organisation des Berufsschulunterrichts unterscheidet sich je nach Bundesland: Er kann ein bis zwei Tage pro Woche oder in Blöcken stattfinden."},{"frage":"Was ist das Ziel der Berufsausbildung nach § 1 BBiG?","optionen":["Die Qualifizierung für eine Führungsposition","Die Vorbereitung auf ein Hochschulstudium","Den Erwerb des Abiturs während der Ausbildung","Die Vermittlung beruflicher Handlungsfähigkeit"],"richtig":3,"erklaerung":"Das Ziel der Berufsausbildung nach § 1 BBiG ist die Vermittlung beruflicher Handlungsfähigkeit — also der Fertigkeiten, Kenntnisse und Fähigkeiten für eine qualifizierte berufliche Tätigkeit."},{"frage":"Wer erstellt auf Basis des Rahmenlehrplans die schulische didaktische Jahresplanung?","optionen":["Die Berufsschule selbst","Die IHK","Der Ausbildungsbetrieb","Das Bundesinstitut für Berufsbildung (BIBB)"],"richtig":0,"erklaerung":"Die Berufsschule erstellt auf Basis des staatlich verordneten Rahmenlehrplans eine eigene didaktische Jahresplanung, um den Unterricht an die Bedingungen und Lernsituationen vor Ort anzupassen."},{"frage":"Was unterscheidet ein duales Studium von einer dualen Berufsausbildung?","optionen":["Ein Studium an zwei verschiedenen Hochschulen","Eine Berufsausbildung mit anschließendem Studium","Ein Fernstudium mit Praktikumsphasen","Ein Studium an einer Hochschule oder Berufsakademie mit integrierter Berufsausbildung oder Praxisphasen im Unternehmen"],"richtig":3,"erklaerung":"Als duales Studium wird ein Studium an einer Hochschule oder Berufsakademie mit integrierter Berufsausbildung bzw. Praxisphasen in einem Unternehmen bezeichnet, wobei die Lernorte eng miteinander verzahnt sind."},{"frage":"Wer ist die zuständige Stelle nach BBiG für die Überwachung der betrieblichen Ausbildung in IT-Berufen?","optionen":["Das Bundesministerium für Bildung","Die Berufsschule (BBS)","Die IHK (Industrie- und Handelskammer)","Das Jobcenter"],"richtig":2,"erklaerung":"Die Industrie- und Handelskammer (IHK) ist die zuständige Stelle nach BBiG. Sie lässt Ausbildungsbetriebe zu, registriert Ausbildungsverträge und nimmt Abschlussprüfungen ab."},{"frage":"Welche Aufgabe hat die IHK im Zusammenhang mit dem Ausbildungsvertrag?","optionen":["Sie erstellt den Ausbildungsvertrag für den Betrieb","Sie registriert den Ausbildungsvertrag und berät bei Fragen","Sie unterschreibt den Ausbildungsvertrag als Vertragspartei","Sie erstellt die Ausbildungsordnung"],"richtig":1,"erklaerung":"Der Ausbildungsvertrag wird zwischen Betrieb und Auszubildendem geschlossen und muss bei der IHK registriert werden. Die IHK berät außerdem alle Ausbildungsbeteiligten bei Fragen zur Ausbildung."},{"frage":"Welche Voraussetzungen muss ein Ausbilder im Betrieb erfüllen?","optionen":["Nur fachliche Eignung ist erforderlich","Mindestens ein Hochschulabschluss","Mindestens 5 Jahre Berufserfahrung","Persönliche und fachliche Eignung; die Eignung stellt die IHK fest"],"richtig":3,"erklaerung":"Ein Ausbilder im Betrieb muss persönlich und fachlich geeignet sein (§§ 28–30 BBiG, AEVO). Die Eignung wird von der zuständigen Stelle (IHK) festgestellt. Ein gesetzliches Mindestalter von 24 Jahren ist im BBiG oder der AEVO nicht vorgesehen; maßgeblich sind allein die persönliche und fachliche Eignung."},{"frage":"Welches Dokument erstellt der Ausbildungsbetrieb auf Basis der Ausbildungsordnung als Anlage zum Ausbildungsvertrag?","optionen":["Den Rahmenlehrplan","Den Ausbildungsnachweis","Den Ausbildungsplan (sachliche und zeitliche Gliederung)","Das IHK-Prüfungszeugnis"],"richtig":2,"erklaerung":"Der Ausbildungsbetrieb erstellt auf Basis der Ausbildungsordnung einen individuellen Ausbildungsplan (sachliche und zeitliche Gliederung der Ausbildung) als Anlage zum Ausbildungsvertrag."},{"frage":"Wer hat die Aufsicht über die schulische Ausbildung in der Berufsschule?","optionen":["Die Schulleitung und die obere Schulaufsichtsbehörde","Die IHK","Der Ausbildungsbetrieb","Das BIBB"],"richtig":0,"erklaerung":"Die Aufsicht über die schulische Ausbildung in der Berufsschule obliegt der Schulleitung bzw. der oberen Schulaufsichtsbehörde — nicht der IHK, die für die betriebliche Seite zuständig ist."},{"frage":"Wer führt während der Ausbildung den Ausbildungsnachweis?","optionen":["Der Ausbilder im Betrieb","Die IHK","Die Berufsschule","Der Auszubildende selbst"],"richtig":3,"erklaerung":"Der Auszubildende ist verpflichtet, während der gesamten Ausbildungszeit einen schriftlichen Ausbildungsnachweis (Berichtsheft) zu führen. Der Ausbilder sieht diesen regelmäßig durch."},{"frage":"In welcher Form muss der Berufsausbildungsvertrag abgeschlossen werden?","optionen":["Mündlich genügt","Schriftlich (§ 11 BBiG)","Notariell beglaubigt","Nur per E-Mail"],"richtig":1,"erklaerung":"Der Berufsausbildungsvertrag muss gemäß § 11 BBiG (Vertragsniederschrift) schriftlich niedergelegt werden. Er kommt zwischen Ausbildendem (Betrieb) und Auszubildendem als privatrechtlicher Vertrag zustande."},{"frage":"Welche Institution gibt die Ausbildungsordnung für IT-Berufe auf Bundesebene heraus?","optionen":["Das zuständige Bundesministerium (BMWK im Einvernehmen mit BMBF)","Die KMK (Kultusministerkonferenz)","Die IHK","Die Berufsschulen"],"richtig":0,"erklaerung":"Ausbildungsordnungen werden als Rechtsverordnung vom zuständigen Bundesministerium (für IT-Berufe: BMWK im Einvernehmen mit dem BMBF) erlassen (§ 4 BBiG). Das BIBB unterstützt die Entwicklung fachlich, ist aber nicht der Herausgeber."},{"frage":"Von wem werden die Rahmenlehrpläne für den schulischen Unterricht in der Berufsschule verabschiedet?","optionen":["Vom Bundesministerium für Wirtschaft","Von der IHK","Von den einzelnen Berufsschulen","Von der KMK (Kultusministerkonferenz)"],"richtig":3,"erklaerung":"Die Rahmenlehrpläne für den beruflichen Unterricht werden von der KMK (Kultusministerkonferenz) verabschiedet und sind auf www.kmk.org abrufbar."},{"frage":"Für wie viele Lernfelder sind die Vorgaben für alle vier IT-Berufe weitgehend gleich?","optionen":["Für die ersten sechs Lernfelder","Für die ersten drei Lernfelder","Für die ersten neun Lernfelder","Alle Lernfelder sind gleich"],"richtig":0,"erklaerung":"Die Lernfelder 1 bis 6 sind für alle vier IT-Berufe weitgehend gleich, sodass auch eine gemeinsame Beschulung und Vorbereitung auf Teil 1 der gestreckten Prüfung möglich ist."},{"frage":"Welches Lernfeld hat das Thema Arbeitsplätze nach Kundenwunsch ausstatten?","optionen":["Lernfeld 1","Lernfeld 3","Lernfeld 2","Lernfeld 4"],"richtig":2,"erklaerung":"Lernfeld 2 hat das Thema Arbeitsplätze nach Kundenwunsch ausstatten und ist das Lernfeld, auf dem der Schwerpunkt von Teil 1 der gestreckten Abschlussprüfung liegt."},{"frage":"Welche Lernfelder sind ab dem dritten Ausbildungsjahr speziell auf die einzelnen IT-Berufe und Fachrichtungen ausgerichtet?","optionen":["Lernfelder 1 bis 3","Lernfelder 7 bis 9","Lernfelder 10 bis 13","Lernfelder 4 bis 6"],"richtig":2,"erklaerung":"Ab Lernfeld 10 bzw. dem dritten Ausbildungsjahr wird die Ausbildung speziell auf die einzelnen IT-Berufe und Fachrichtungen ausgerichtet. Die Lernfelder 7-9 unterscheiden sich bereits zwischen kaufmännischen und technischen IT-Berufen."},{"frage":"Was regelt die Ausbildungsordnung für die IT-Berufe?","optionen":["Die betriebliche Ausbildung im Bereich der Informations- und Telekommunikationstechnik auf Bundesebene","Den Unterricht in der Berufsschule nach Lernfeldern","Die Vergütungsrichtlinien für Auszubildende","Die Prüfungsmodalitäten der Berufsschule"],"richtig":0,"erklaerung":"Die Ausbildungsordnung regelt auf Basis des BBiG die betriebliche Berufsausbildung im Bereich der Informations- und Telekommunikationstechnik. Sie ist vom Bund erlassen und bundesweit einheitlich."},{"frage":"Welche Besonderheit haben die Lernfelder 7 bis 9 in den IT-Berufen?","optionen":["Sie sind für alle IT-Berufe identisch","Sie unterscheiden sich zwischen technischen und kaufmännischen IT-Berufen","Sie werden nur in der Berufsschule behandelt","Sie entfallen bei einer Verkürzung der Ausbildung"],"richtig":1,"erklaerung":"Ab den Lernfeldern 7-9 unterscheidet sich der berufliche Unterricht: Bei technischen IT-Berufen geht es um die Bereitstellung technischer Systeme und Netze, bei kaufmännischen IT-Berufen um Beschaffung und Begleitung von IT-Projekten."},{"frage":"Wie lange dauert die Regelausbildung in allen vier IT-Berufen?","optionen":["Zwei Jahre","Zweieinhalb Jahre","Drei Jahre","Dreieinhalb Jahre"],"richtig":2,"erklaerung":"Die Regelausbildungsdauer beträgt für alle vier IT-Ausbildungsberufe drei Jahre. Verkürzungen und Verlängerungen sind auf Antrag möglich."},{"frage":"Welche Paragraphen des BBiG sind für die Verkürzung der Ausbildungszeit relevant?","optionen":["§§ 1 und 2 BBiG","§§ 7 und 8 BBiG","§§ 11 und 14 BBiG","§§ 17 und 18 BBiG"],"richtig":1,"erklaerung":"§ 7 BBiG regelt die Anrechnung beruflicher Vorbildung auf die Ausbildungszeit und § 8 BBiG die Verkürzung der Ausbildungszeit auf Antrag. Beide Paragraphen sind für eine mögliche Verkürzung relevant."},{"frage":"Unter welchen Voraussetzungen kann die Ausbildungszeit verkürzt werden?","optionen":["Bei Anrechnung anerkannter Bildungsabschlüsse, z. B. Fachhochschulreife oder abgebrochenes Studium","Nur bei sehr guten schulischen Leistungen im ersten Ausbildungsjahr","Auf Wunsch des Ausbildungsbetriebs ohne weitere Bedingungen","Nur bei einem Meisterabschluss oder Gesellenbrief"],"richtig":0,"erklaerung":"Eine Verkürzung der Ausbildungszeit ist möglich, wenn bereits erworbene Kenntnisse und Fertigkeiten angerechnet werden können, z. B. durch Fachhochschulreife, Abitur oder einen abgebrochenen Studiengang."},{"frage":"Welcher Paragraph des BBiG regelt die Möglichkeit der Teilzeitausbildung?","optionen":["§ 5 BBiG","§ 14 BBiG","§ 17 BBiG","§ 7a BBiG"],"richtig":3,"erklaerung":"§ 7a BBiG regelt die Teilzeitausbildung. Diese ist bei berechtigtem Interesse (z. B. Kindererziehung oder Pflege von Angehörigen) möglich und verlängert entsprechend die Ausbildungsdauer."},{"frage":"Was passiert mit der Ausbildungsdauer bei einer Teilzeitausbildung?","optionen":["Sie bleibt bei drei Jahren","Sie verkürzt sich auf zwei Jahre","Sie halbiert sich automatisch","Sie verlängert sich entsprechend dem Teilzeitanteil"],"richtig":3,"erklaerung":"Bei einer Teilzeitausbildung verlängert sich die Ausbildungsdauer entsprechend dem gewählten Teilzeitanteil. Die Gesamtausbildungszeit ist also länger als drei Jahre."},{"frage":"Ein Auszubildender hat eine Prüfung nicht bestanden und möchte seine Ausbildungszeit verlängern. Ist das möglich?","optionen":["Nein, Verlängerungen sind im BBiG nicht vorgesehen","Nein, die Ausbildungsdauer ist unveränderlich festgelegt","Ja, auf Antrag bei besonderer Begründung (z. B. Nichtbestehen einer Prüfung oder Krankheit)","Ja, aber nur auf Initiative der Berufsschule"],"richtig":2,"erklaerung":"Eine Verlängerung der Ausbildungszeit ist laut BBiG auf Antrag bei besonderer Begründung möglich, etwa wenn eine Prüfung nicht bestanden wurde oder die Ausbildung durch Krankheit unterbrochen wurde."},{"frage":"Wie lautet das Leitthema der schriftlichen Fachaufgabe in Teil 1 der gestreckten Abschlussprüfung?","optionen":["Netzwerke und Dienste bereitstellen","Einrichten eines IT-gestützten Arbeitsplatzes","Software zur Verwaltung von Daten anpassen","Cyber-physische Systeme ergänzen"],"richtig":1,"erklaerung":"Das Leitthema des ersten Teils der gestreckten Abschlussprüfung lautet: Einrichten eines IT-gestützten Arbeitsplatzes. Dieser Prüfungsteil basiert auf den Lernfeldern 1-6 und ist für alle IT-Berufe gleich."},{"frage":"Wie werden die Teile der gestreckten Abschlussprüfung gewichtet?","optionen":["Teil 1: 50 %, Teil 2: 50 %","Teil 1: 30 %, Teil 2: 70 %","Teil 1: 20 %, Teil 2: 80 %","Teil 1: 10 %, Teil 2: 90 %"],"richtig":2,"erklaerung":"Teil 1 der gestreckten Abschlussprüfung geht mit 20 % in die Gesamtnote ein, Teil 2 mit 80 %. Das Gewicht liegt damit klar auf dem zweiten, abschließenden Prüfungsteil."},{"frage":"Was ist eine Ergänzungsprüfung im Rahmen der gestreckten Abschlussprüfung?","optionen":["Eine mündliche Prüfung von 15 Minuten, die einen mangelhaft bewerteten Prüfungsbereich ausgleichen kann","Eine freiwillige Zusatzprüfung für besonders gute Auszubildende","Eine Wiederholungsprüfung, die frühestens nach einem Jahr abgelegt werden darf","Eine Prüfung, die nur IT-Systemelektroniker ablegen müssen"],"richtig":0,"erklaerung":"Die Ergänzungsprüfung ist eine mündliche Prüfung von 15 Minuten, die möglich ist, wenn damit ein mit mangelhaft bewerteter Prüfungsbereich in Teil 2 noch ausgeglichen werden kann. Das Ergebnis wird im Verhältnis 2:1 gewichtet."},{"frage":"Wann findet Teil 1 der gestreckten Abschlussprüfung statt?","optionen":["Am Anfang der Ausbildung, nach drei Monaten","Am Ende des ersten Ausbildungsjahres, nach 12 Monaten","Direkt am Ende der Ausbildung, gemeinsam mit Teil 2","Nach etwa 15 Monaten, also ungefähr Mitte des zweiten Ausbildungsjahres"],"richtig":3,"erklaerung":"Teil 1 der gestreckten Abschlussprüfung findet nach etwa 15 Monaten Ausbildung statt — ungefähr in der Mitte des zweiten Ausbildungsjahres. Die Prüfungszeit beträgt 90 Minuten."}];
+
+(function() {
+  var fragen = [];
+  var aktuell = 0;
+  var richtigCount = 0;
+  var app = document.getElementById('app');
+
+  function mischen(arr) {
+    // Fisher-Yates in-place
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function fragenVorbereiten() {
+    // Kopie der Original-Fragen
+    var kopie = QUIZ.map(function(f) { return Object.assign({}, f, { optionen: f.optionen.slice() }); });
+    mischen(kopie);
+
+    fragen = kopie.map(function(f) {
+      // Optionen mischen, korrekten Index mitführen
+      var n = f.optionen.length;
+      var indizes = [];
+      for (var k = 0; k < n; k++) indizes.push(k);
+      // Fisher-Yates auf Indizes
+      for (var i = n - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = indizes[i]; indizes[i] = indizes[j]; indizes[j] = tmp;
+      }
+      // neues Optionen-Array in gemischter Reihenfolge
+      var gemischteOptionen = indizes.map(function(idx) { return f.optionen[idx]; });
+      // neuer Index der richtigen Antwort
+      var neuerRichtig = indizes.indexOf(f.richtig);
+      return {
+        frage: f.frage,
+        optionen: gemischteOptionen,
+        richtig: neuerRichtig,
+        erklaerung: f.erklaerung
+      };
+    });
+  }
+
+  function start() {
+    aktuell = 0;
+    richtigCount = 0;
+    fragenVorbereiten();
+    zeigeFrage();
+  }
+
+  function zeigeFrage() {
+    if (aktuell >= fragen.length) {
+      zeigeErgebnis();
+      return;
+    }
+    var f = fragen[aktuell];
+    var prozent = Math.round((aktuell / fragen.length) * 100);
+
+    var html = '<div class="fortschritt-wrap">'
+      + '<div class="fortschritt-label">Frage ' + (aktuell + 1) + ' von ' + fragen.length + '</div>'
+      + '<div class="fortschritt-bar"><div class="fortschritt-fill" style="width:' + prozent + '%"></div></div>'
+      + '</div>'
+      + '<div class="karte">'
+      + '<div class="frage-text">' + escHtml(f.frage) + '</div>'
+      + '<div class="optionen">';
+
+    f.optionen.forEach(function(opt, idx) {
+      html += '<button class="option-btn" data-idx="' + idx + '">' + escHtml(opt) + '</button>';
+    });
+
+    html += '</div>'
+      + '<div class="erklaerung-box" id="erklaerung">'
+      + '<div class="erklaerung-label">Erklärung</div>'
+      + '<div id="erklaerung-text"></div>'
+      + '</div>'
+      + '<button class="weiter-btn" id="weiter-btn">'
+      + (aktuell + 1 < fragen.length ? 'Weiter →' : 'Auswertung')
+      + '</button>'
+      + '</div>';
+
+    app.innerHTML = html;
+
+    // Event-Listener auf Buttons
+    var btns = app.querySelectorAll('.option-btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var gewaehlt = parseInt(btn.getAttribute('data-idx'));
+        antwortenVerarbeiten(gewaehlt, btns);
+      });
+    });
+
+    document.getElementById('weiter-btn').addEventListener('click', function() {
+      aktuell++;
+      zeigeFrage();
+    });
+  }
+
+  function antwortenVerarbeiten(gewaehlt, btns) {
+    var f = fragen[aktuell];
+    var richtigIdx = f.richtig;
+
+    // Alle Buttons deaktivieren
+    btns.forEach(function(b) { b.disabled = true; });
+
+    // Gewählte Option einfärben
+    if (gewaehlt === richtigIdx) {
+      btns[gewaehlt].classList.add('richtig');
+      richtigCount++;
+    } else {
+      btns[gewaehlt].classList.add('falsch');
+      btns[richtigIdx].classList.add('richtig');
+    }
+
+    // Erklärung anzeigen
+    var erkBox = document.getElementById('erklaerung');
+    var erkText = document.getElementById('erklaerung-text');
+    erkText.textContent = f.erklaerung;
+    erkBox.classList.add('sichtbar');
+
+    // Weiter-Button anzeigen
+    document.getElementById('weiter-btn').classList.add('sichtbar');
+  }
+
+  function zeigeErgebnis() {
+    var gesamt = fragen.length;
+    var prozent = Math.round((richtigCount / gesamt) * 100);
+    var bewertung = prozent >= 80 ? '🎉 Sehr gut!' : prozent >= 60 ? '👍 Gut gemacht!' : '💪 Weiter üben!';
+
+    app.innerHTML = '<div class="ergebnis-karte">'
+      + '<h2>Auswertung</h2>'
+      + '<div class="ergebnis-punkte">' + richtigCount + ' / ' + gesamt + '</div>'
+      + '<div class="ergebnis-prozent">' + prozent + ' % richtig — ' + bewertung + '</div>'
+      + '<button class="nochmal-btn" id="nochmal-btn">Nochmal</button>'
+      + '</div>';
+
+    document.getElementById('nochmal-btn').addEventListener('click', start);
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  start();
+})();
+</script></body></html>

@@ -1,0 +1,352 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz · Session {{NR}} — {{THEMA}}</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+#app {
+  max-width: 680px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+.fortschritt-wrap {
+  margin-bottom: 1.4rem;
+}
+.fortschritt-label {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.fortschritt-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fortschritt-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.frage-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.4rem;
+  line-height: 1.45;
+}
+.optionen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.option-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+.option-btn:hover:not(:disabled) {
+  background: #ECFEFF;
+  border-color: var(--primary);
+}
+.option-btn:disabled { cursor: default; }
+.option-btn.richtig {
+  background: #DCFCE7;
+  border-color: var(--success);
+  color: #065F46;
+  font-weight: 600;
+}
+.option-btn.falsch {
+  background: #FFEDD5;
+  border-color: var(--warn);
+  color: #9A3412;
+}
+.erklaerung-box {
+  margin-top: 1.2rem;
+  background: var(--bg-soft);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.97rem;
+  color: var(--ink-soft);
+  display: none;
+}
+.erklaerung-box.sichtbar { display: block; }
+.erklaerung-label {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+.weiter-btn {
+  margin-top: 1.3rem;
+  display: none;
+  padding: 0.7rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.weiter-btn.sichtbar { display: inline-block; }
+.weiter-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.ergebnis-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.ergebnis-karte h2 {
+  font-size: 1.6rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+.ergebnis-punkte {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0.6rem 0;
+  line-height: 1;
+}
+.ergebnis-prozent {
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.8rem;
+}
+.nochmal-btn {
+  padding: 0.8rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.nochmal-btn:hover { background: #D97706; transform: translateY(-1px); }
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Session {{NR}}: {{THEMA}}</h1>
+</header>
+<main id="app"></main>
+<script>const QUIZ = {{QUIZ_JSON}};
+
+(function() {
+  var fragen = [];
+  var aktuell = 0;
+  var richtigCount = 0;
+  var app = document.getElementById('app');
+
+  function mischen(arr) {
+    // Fisher-Yates in-place
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function fragenVorbereiten() {
+    // Kopie der Original-Fragen
+    var kopie = QUIZ.map(function(f) { return Object.assign({}, f, { optionen: f.optionen.slice() }); });
+    mischen(kopie);
+
+    fragen = kopie.map(function(f) {
+      // Optionen mischen, korrekten Index mitführen
+      var n = f.optionen.length;
+      var indizes = [];
+      for (var k = 0; k < n; k++) indizes.push(k);
+      // Fisher-Yates auf Indizes
+      for (var i = n - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = indizes[i]; indizes[i] = indizes[j]; indizes[j] = tmp;
+      }
+      // neues Optionen-Array in gemischter Reihenfolge
+      var gemischteOptionen = indizes.map(function(idx) { return f.optionen[idx]; });
+      // neuer Index der richtigen Antwort
+      var neuerRichtig = indizes.indexOf(f.richtig);
+      return {
+        frage: f.frage,
+        optionen: gemischteOptionen,
+        richtig: neuerRichtig,
+        erklaerung: f.erklaerung
+      };
+    });
+  }
+
+  function start() {
+    aktuell = 0;
+    richtigCount = 0;
+    fragenVorbereiten();
+    zeigeFrage();
+  }
+
+  function zeigeFrage() {
+    if (aktuell >= fragen.length) {
+      zeigeErgebnis();
+      return;
+    }
+    var f = fragen[aktuell];
+    var prozent = Math.round((aktuell / fragen.length) * 100);
+
+    var html = '<div class="fortschritt-wrap">'
+      + '<div class="fortschritt-label">Frage ' + (aktuell + 1) + ' von ' + fragen.length + '</div>'
+      + '<div class="fortschritt-bar"><div class="fortschritt-fill" style="width:' + prozent + '%"></div></div>'
+      + '</div>'
+      + '<div class="karte">'
+      + '<div class="frage-text">' + escHtml(f.frage) + '</div>'
+      + '<div class="optionen">';
+
+    f.optionen.forEach(function(opt, idx) {
+      html += '<button class="option-btn" data-idx="' + idx + '">' + escHtml(opt) + '</button>';
+    });
+
+    html += '</div>'
+      + '<div class="erklaerung-box" id="erklaerung">'
+      + '<div class="erklaerung-label">Erklärung</div>'
+      + '<div id="erklaerung-text"></div>'
+      + '</div>'
+      + '<button class="weiter-btn" id="weiter-btn">'
+      + (aktuell + 1 < fragen.length ? 'Weiter →' : 'Auswertung')
+      + '</button>'
+      + '</div>';
+
+    app.innerHTML = html;
+
+    // Event-Listener auf Buttons
+    var btns = app.querySelectorAll('.option-btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var gewaehlt = parseInt(btn.getAttribute('data-idx'));
+        antwortenVerarbeiten(gewaehlt, btns);
+      });
+    });
+
+    document.getElementById('weiter-btn').addEventListener('click', function() {
+      aktuell++;
+      zeigeFrage();
+    });
+  }
+
+  function antwortenVerarbeiten(gewaehlt, btns) {
+    var f = fragen[aktuell];
+    var richtigIdx = f.richtig;
+
+    // Alle Buttons deaktivieren
+    btns.forEach(function(b) { b.disabled = true; });
+
+    // Gewählte Option einfärben
+    if (gewaehlt === richtigIdx) {
+      btns[gewaehlt].classList.add('richtig');
+      richtigCount++;
+    } else {
+      btns[gewaehlt].classList.add('falsch');
+      btns[richtigIdx].classList.add('richtig');
+    }
+
+    // Erklärung anzeigen
+    var erkBox = document.getElementById('erklaerung');
+    var erkText = document.getElementById('erklaerung-text');
+    erkText.textContent = f.erklaerung;
+    erkBox.classList.add('sichtbar');
+
+    // Weiter-Button anzeigen
+    document.getElementById('weiter-btn').classList.add('sichtbar');
+  }
+
+  function zeigeErgebnis() {
+    var gesamt = fragen.length;
+    var prozent = Math.round((richtigCount / gesamt) * 100);
+    var bewertung = prozent >= 80 ? '🎉 Sehr gut!' : prozent >= 60 ? '👍 Gut gemacht!' : '💪 Weiter üben!';
+
+    app.innerHTML = '<div class="ergebnis-karte">'
+      + '<h2>Auswertung</h2>'
+      + '<div class="ergebnis-punkte">' + richtigCount + ' / ' + gesamt + '</div>'
+      + '<div class="ergebnis-prozent">' + prozent + ' % richtig — ' + bewertung + '</div>'
+      + '<button class="nochmal-btn" id="nochmal-btn">Nochmal</button>'
+      + '</div>';
+
+    document.getElementById('nochmal-btn').addEventListener('click', start);
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  start();
+})();
+</script></body></html>
