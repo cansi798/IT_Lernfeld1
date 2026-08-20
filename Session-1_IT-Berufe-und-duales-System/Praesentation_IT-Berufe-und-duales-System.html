@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 1 — IT-Berufe &amp; duales System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 1</span>
+    <h1>IT-Berufe &amp; duales System</h1>
+    <p class="subtitle">Von der Neuordnung 2020 bis zur gestreckten Abschlussprüfung</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.1 IT-Ausbildungsberufe und Beteiligte im dualen System</span>
+      <span><strong>Modellunternehmen</strong>JIKU IT-Solutions GmbH</span>
+    </div>
+  </section>
+
+  <!-- 2. Lernziele -->
+  <section class="slide">
+    <h2>Was Sie in dieser Session lernen</h2>
+    <p class="subtitle">Am Ende können Sie ...</p>
+    <ul class="checklist">
+      <li>die <strong>vier IT-Ausbildungsberufe</strong> seit 2020 benennen und voneinander abgrenzen</li>
+      <li>die <strong>vier Fachrichtungen des Fachinformatikers</strong> und ihre Aufgaben beschreiben</li>
+      <li>das <strong>duale System</strong> mit seinen zwei Lernorten erklären</li>
+      <li>die <strong>Beteiligten der Ausbildung</strong> (Betrieb, Berufsschule, IHK) und ihre Aufgaben darstellen</li>
+      <li>die <strong>gestreckte Abschlussprüfung</strong> in ihrer Struktur skizzieren</li>
+    </ul>
+  </section>
+
+  <!-- 3. Agenda -->
+  <section class="slide">
+    <h2>Überblick dieser Session</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">1. IT-Berufe seit 2020</div>
+        <p style="font-size:1rem;">Vier neu geordnete Berufe und ihre Berufsbilder</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">2. Vier Fachrichtungen</div>
+        <p style="font-size:1rem;">Fachinformatiker: Anwendungsentwicklung, Systemintegration, Digitale Vernetzung, Daten- und Prozessanalyse</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">3. Duales System</div>
+        <p style="font-size:1rem;">Zwei Lernorte, Rechtsgrundlagen, über 300 Berufe</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">4. Beteiligte &amp; Prüfung</div>
+        <p style="font-size:1rem;">Betrieb, Berufsschule, IHK, gestreckte Abschlussprüfung</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Die vier IT-Berufe -->
+  <section class="slide">
+    <h2>Die vier IT-Ausbildungsberufe seit 2020</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">IT-Systemelektroniker/-in</div>
+        <p style="font-size:1rem;">Herstellen und Betreuen von IT-Infrastrukturen; elektrotechnische Arbeiten; IT-Sicherheit</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Kaufmann/-frau IT-Systemmanagement</div>
+        <p style="font-size:1rem;">Vermarktung und Administration von IT-Lösungen; Angebote; Kundenberatung</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Kaufmann/-frau Digitalisierungsmanagement</div>
+        <p style="font-size:1rem;">Daten und Prozesse betriebswirtschaftlich; Digitalisierung von Geschäftsprozessen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Fachinformatiker/-in</div>
+        <p style="font-size:1rem;">Vier Fachrichtungen; meistgesuchter IT-Beruf; Software, Systeme, Vernetzung, Daten</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Alle vier Berufe teilen gemeinsame <strong>Kernqualifikationen</strong> in den Lernfeldern 1–6 — gemeinsame Beschulung und Teil 1 der Prüfung sind für alle gleich.
+    </div>
+  </section>
+
+  <!-- 5. Vier Fachrichtungen -->
+  <section class="slide">
+    <h2>Fachinformatiker: vier Fachrichtungen</h2>
+    <table>
+      <tr><th>Fachrichtung</th><th>Kürzel</th><th>Schwerpunkt</th><th>Neu 2020?</th></tr>
+      <tr><td>Anwendungsentwicklung</td><td>FIAE</td><td>Softwarelösungen für interne/externe Kunden</td><td>Nein</td></tr>
+      <tr><td>Systemintegration</td><td>FISI</td><td>Vernetzte IT-Systeme installieren und administrieren</td><td>Nein</td></tr>
+      <tr><td>Digitale Vernetzung</td><td>FIDV</td><td>Vernetzung und Automation, cyber-physische Systeme</td><td><strong>Ja</strong></td></tr>
+      <tr><td>Daten- und Prozessanalyse</td><td>FIDP</td><td>Geschäftsprozesse analysieren, Daten zur Optimierung nutzen</td><td><strong>Ja</strong></td></tr>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Digitale Vernetzung und Daten- und Prozessanalyse wurden <strong>neu eingeführt</strong>, weil hier zukünftig hoher Bedarf erwartet wird.
+    </div>
+  </section>
+
+  <!-- 6. Kaufmännische Berufe -->
+  <section class="slide">
+    <h2>Die kaufmännischen IT-Berufe im Vergleich</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Kaufmann/-frau für IT-Systemmanagement</div>
+        <p style="font-size:1rem;"><strong>Aufgaben:</strong> Vermarktung und Anbieten von IT-Dienstleistungen (Hardware, Software, Services); Angebotserstellung; Auftragsbearbeitung; Beschaffung; Kundenberatung; Administration von IT-Systemen</p>
+        <p style="font-size:1rem;"><strong>Nachfrager:</strong> ITK-Dienstleistungsunternehmen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Kaufmann/-frau für Digitalisierungsmanagement</div>
+        <p style="font-size:1rem;"><strong>Aufgaben:</strong> Daten und Prozesse aus ökonomisch-betriebswirtschaftlicher Perspektive; Wissen verfügbar machen; wirtschaftlichen Nutzen aus Digitalisierung ziehen; Geschäftsprozesse auf operativer Ebene managen</p>
+        <p style="font-size:1rem;"><strong>Nachfrager:</strong> ITK-Dienstleistungsunternehmen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Das duale System -->
+  <section class="slide">
+    <h2>Das duale System — zwei Lernorte</h2>
+    <p>„Dual" bedeutet: Sie lernen an <strong>zwei Orten gleichzeitig</strong>. Beide sind eng miteinander verzahnt.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Lernort 1: Ausbildungsbetrieb</div>
+        <p style="font-size:1rem;">Praktische Ausbildung nach Ausbildungsordnung und betrieblichem Ausbildungsplan. Betrieb muss bei der IHK zugelassen sein.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Lernort 2: Berufsschule (BBS)</div>
+        <p style="font-size:1rem;">Theoretischer Unterricht in Lernfeldern und allgemeinbildenden Fächern (Deutsch, Englisch, WISO, Sport) nach Rahmenlehrplan der KMK.</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Rechtsgrundlage</span>
+      Das <strong>Berufsbildungsgesetz (BBiG)</strong> regelt die duale Berufsausbildung in Deutschland — in über <strong>300</strong> staatlich anerkannten Ausbildungsberufen.
+    </div>
+  </section>
+
+  <!-- 8. Ziel nach § 1 BBiG -->
+  <section class="slide">
+    <h2>Ziel der Berufsbildung — § 1 BBiG</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">§ 1 BBiG — Ziel der Berufsbildung</span>
+      Die Berufsausbildung hat die für die Ausübung einer qualifizierten beruflichen Tätigkeit in einer sich wandelnden Arbeitswelt notwendigen beruflichen Fertigkeiten, Kenntnisse und Fähigkeiten (<strong>berufliche Handlungsfähigkeit</strong>) in einem geordneten Ausbildungsgang zu vermitteln. Sie hat ferner den Erwerb der erforderlichen <strong>Berufserfahrungen</strong> zu ermöglichen.
+    </div>
+    <p class="muted" style="margin-top:1rem;">Rechtsquellen: BBiG (www.gesetze-im-internet.de) · Ausbildungsordnung (www.bibb.de) · Rahmenlehrplan (www.kmk.org)</p>
+  </section>
+
+  <!-- 9. Beteiligte -->
+  <section class="slide">
+    <h2>Beteiligte der Berufsausbildung</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Ausbildungsbetrieb (Ausbildender)</div>
+        <p style="font-size:1rem;">Stellt Auszubildende ein; schließt Berufsausbildungsvertrag ab; erstellt Ausbildungsplan; muss bei IHK zugelassen sein</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Ausbilder/-in</div>
+        <p style="font-size:1rem;">Führt Ausbildung im Betrieb durch; muss <strong>persönlich und fachlich geeignet</strong> und <strong>mindestens 24 Jahre</strong> alt sein; IHK stellt Eignung fest</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Berufsschule (BBS)</div>
+        <p style="font-size:1rem;">Unterricht nach Rahmenlehrplan; Jahresplanung; Berufsschulzeugnis</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">IHK</div>
+        <p style="font-size:1rem;">Zuständige Stelle; lässt Betriebe zu; nimmt Prüfungen ab; berät Beteiligte</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Nicht verwechseln!</span>
+      <strong>Ausbildender</strong> = der Betrieb (Vertragspartner) — <strong>Ausbilder</strong> = die Person, die anleitet.
+    </div>
+  </section>
+
+  <!-- 10. Ausbildungsdauer -->
+  <section class="slide">
+    <h2>Ausbildungsdauer und Verkürzung</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Regelausbildungsdauer</div>
+        <p style="font-size:1rem;"><strong>3 Jahre</strong> für alle vier IT-Berufe</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Verkürzung (§§ 7, 8 BBiG)</div>
+        <p style="font-size:1rem;">Möglich bei Anrechnung anerkannter Bildungsgänge (z. B. Hochschulreife, Studienabbruch) — Antrag bei der IHK</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Verlängerung</div>
+        <p style="font-size:1rem;">Auf Antrag bei besonderer Begründung möglich (z. B. Nichtbestehen)</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Teilzeitausbildung</div>
+        <p style="font-size:1rem;">Möglich bei berechtigtem Interesse — verlängert die Ausbildungsdauer entsprechend</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Gestreckte Abschlussprüfung -->
+  <section class="slide">
+    <h2>Die gestreckte Abschlussprüfung der IHK</h2>
+    <table>
+      <tr><th>Prüfungsteil</th><th>Gewichtung</th><th>Zeitpunkt</th><th>Inhalt</th></tr>
+      <tr><td><strong>Teil 1</strong></td><td>20 %</td><td>Nach ca. 15 Monaten</td><td>Schriftlich, 90 Min.; Lernfelder 1–6; für alle IT-Berufe gleich; Leitthema: „Einrichten eines IT-gestützten Arbeitsplatzes"</td></tr>
+      <tr><td><strong>Teil 2</strong></td><td>80 %</td><td>Zum Ausbildungsende</td><td>Projektarbeit + Fachgespräch (50 %), zwei berufsspez. Aufgaben (je 10 %), WISO (10 %)</td></tr>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Bestanden wenn ...</span>
+      Gesamtergebnis und Teil 2 mindestens <strong>ausreichend (ab 50 %)</strong>. Ergänzungsprüfung (15 Min.) möglich bei einem mangelhaften Prüfungsbereich.
+    </div>
+  </section>
+
+  <!-- 12. Handlungskompetenz -->
+  <section class="slide">
+    <h2>Handlungskompetenz — das übergeordnete Ziel</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Definition (KMK)</span>
+      Handlungskompetenz ist die Bereitschaft und Befähigung, sich in beruflichen, privaten und gesellschaftlichen Situationen <strong>sachgerecht, individuell, durchdacht und sozial verantwortlich</strong> zu verhalten.
+    </div>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Fachkompetenz</div>
+        <p style="font-size:1rem;">Fachkenntnisse · Fertigkeiten · Arbeitsqualität · Arbeitsleistung</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Sozialkompetenz</div>
+        <p style="font-size:1rem;">Teamfähigkeit · Höflichkeit · Konfliktfähigkeit · Toleranz</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Selbstkompetenz</div>
+        <p style="font-size:1rem;">Selbstständigkeit · Zuverlässigkeit · Flexibilität · Sorgfalt</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:0.5rem;">Methodenkompetenz, kommunikative Kompetenz und Lernkompetenz sind immanenter Bestandteil aller drei Dimensionen.</p>
+  </section>
+
+  <!-- 13. Lebenslanges Lernen -->
+  <section class="slide">
+    <h2>Lebenslanges Lernen in der IT</h2>
+    <p>Die Arbeitswelt wandelt sich fortlaufend. Alte Berufe verschwinden, neue Felder entstehen. IT-Fachkräfte müssen:</p>
+    <ul>
+      <li>Bereit sein, sich immer wieder neuen Aufgaben zu stellen</li>
+      <li>Routinierte Arbeitsabläufe durch flexible, projektbezogene Arbeitsweisen ersetzen</li>
+      <li>In <strong>wechselnden Teams</strong> mit veränderten Aufgaben arbeiten können</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Erfolgsfaktor</span>
+      Erfolg im Arbeitsleben basiert zu <strong>50–60 %</strong> auf Fachkompetenz — Soft Skills gewinnen zunehmend an Bedeutung.
+    </div>
+    <p class="muted">Tipp: Zu Beginn der Ausbildung viele Fragen stellen, Notizen machen und Aufgaben nur nach Anweisung und unter Aufsicht bearbeiten.</p>
+  </section>
+
+  <!-- 14. Das nehmen Sie mit -->
+  <section class="slide">
+    <h2>Das nehmen Sie mit</h2>
+    <ul>
+      <li>Seit <strong>2020</strong> gibt es vier neu geordnete IT-Berufe — Fachinformatiker hat vier Fachrichtungen (zwei davon neu)</li>
+      <li>Das <strong>duale System</strong> bildet gleichzeitig an zwei Orten aus: Betrieb und Berufsschule</li>
+      <li>Rechtsgrundlage: <strong>BBiG</strong> — Ausbildungsordnung — Rahmenlehrplan — betrieblicher Ausbildungsplan</li>
+      <li>Beteiligte: Ausbildender ≠ Ausbilder · Berufsschule · <strong>IHK</strong> als zuständige Stelle</li>
+      <li>Ausbildungsdauer: <strong>3 Jahre</strong>; Verkürzung nach §§ 7, 8 BBiG möglich</li>
+      <li>Gestreckte Prüfung: <strong>Teil 1 (20 %)</strong> nach 15 Monaten, <strong>Teil 2 (80 %)</strong> zum Ausbildungsende</li>
+      <li><strong>Handlungskompetenz</strong> = Fach- + Sozial- + Selbstkompetenz: das übergeordnete Ausbildungsziel</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Ausblick Session 2</span>
+      Rechte und Pflichten in der Ausbildung: Berufsausbildungsvertrag, Vergütung, Freistellung, Jugendarbeitsschutz
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num">IT Lernfeld 1 · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>

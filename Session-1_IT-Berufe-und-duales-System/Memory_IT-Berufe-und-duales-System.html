@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Memory Session 1 — IT-Berufe & duales System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E; --bfw-accent:#F59E0B;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569; --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-bg-green:#D1FAE5; --bfw-border:#E2E8F0; --bfw-success:#10B981;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(180deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 240px); color: var(--bfw-ink); min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+.container { max-width: 820px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 1rem; }
+.tag-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--bfw-primary); color: white; border-radius: 999px; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+h1 { font-size: 1.6rem; color: var(--bfw-primary-dark); }
+details.how { background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); border-radius: 10px; padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); line-height: 1.5; }
+details.how summary { cursor: pointer; font-weight: 600; color: var(--bfw-primary-dark); }
+details.how p { margin: 0.5rem 0 0; }
+.stats { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; background: white; border: 1px solid var(--bfw-border); border-radius: 12px; padding: 0.7rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); }
+.stats b { color: var(--bfw-primary-dark); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 620px){ .grid { grid-template-columns: repeat(2, 1fr); } }
+.mcard { position: relative; min-height: 120px; border-radius: 12px; cursor: pointer; border: 2px solid var(--bfw-border);
+  background: var(--bfw-primary); color: white; display: flex; align-items: center; justify-content: center;
+  padding: 0.6rem; text-align: center; transition: transform 0.12s, background 0.2s; user-select: none; }
+.mcard:active { transform: scale(0.98); }
+.mcard .content { display: none; font-size: 0.82rem; line-height: 1.35; color: var(--bfw-ink); overflow: auto; max-height: 150px; }
+.mcard .facedown { font-size: 1.8rem; }
+.mcard .label { position: absolute; top: 5px; left: 8px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.mcard.up { background: white; cursor: default; }
+.mcard.up.term { border-color: var(--bfw-primary); }
+.mcard.up.term .content { font-weight: 700; font-size: 1rem; color: var(--bfw-primary-dark); }
+.mcard.up .content { display: block; }
+.mcard.up .facedown { display: none; }
+.mcard.up .label { color: var(--bfw-ink-soft); }
+.mcard.matched { background: var(--bfw-bg-green); border-color: var(--bfw-success); cursor: default; }
+.mcard.matched .content { display: block; }
+.mcard.matched .facedown { display: none; }
+.mcard.matched.term .content { color: #065F46; }
+.msg { text-align: center; min-height: 1.6rem; font-weight: 600; margin: 1rem 0; }
+.msg.win { color: var(--bfw-success); }
+.controls { text-align: center; margin-top: 0.5rem; }
+.btn { padding: 0.7rem 1.4rem; border: none; border-radius: 10px; background: var(--bfw-primary); color: white; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.stats2 { text-align: center; font-size: 0.85rem; color: var(--bfw-ink-soft); margin-top: 0.5rem; }
+footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--bfw-ink-soft); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="tag-pill">Session 1 · Memory</span>
+    <h1>IT-Berufe & duales System</h1>
+  </header>
+  <details class="how" open>
+    <summary>ℹ️ Spielanleitung</summary>
+    <p>Finde die zusammengehörenden Paare: Jede Karte zeigt entweder einen <b>Begriff</b> oder eine <b>Definition</b>.
+    Decke zwei Karten auf – gehören Begriff und Definition zusammen, bleiben sie offen (grün).</p>
+    <p>Passt es nicht, werden beide wieder umgedreht. Ziel: alle <b>8 Paare</b> mit möglichst wenigen Zügen aufdecken – so prägst du dir Begriffe und ihre Bedeutung ein.</p>
+  </details>
+  <div class="stats">
+    <div>Paare: <b id="pairs">0</b> / 8</div>
+    <div>Züge: <b id="moves">0</b></div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="msg" id="msg"></div>
+  <div class="controls"><button class="btn" onclick="newGame()">🔄 Neues Spiel</button></div>
+  <div class="stats2" id="best"></div>
+  <footer>BFW Lernplattform · IT Lernfeld 1 · © Can Siebert 2026</footer>
+</div>
+<script>
+const DAY_ID = 's1';
+const PAIRS = [{"term":"Wie viele IT-Ausbildungsberufe gibt es seit der Neuordnung 2020?","def":"Seit 2020 gibt es vier neu geordnete IT-Berufe: IT-Systemelektroniker, Kaufmann für IT-Systemmanagement, Kaufmann für Digitalisierungsmanagement und Fachinformatiker."},{"term":"Seit wann wird in den neu geordneten IT-Berufen ausgebildet?","def":"Die Neuordnung der IT-Berufe gilt seit 2020. Seit 1969 wurde bereits in Berufen der Datenverarbeitung ausgebildet."},{"term":"In wie viele Fachrichtungen ist der Fachinformatiker gegliedert?","def":"Der Fachinformatiker wird in vier Fachrichtungen ausgebildet: Anwendungsentwicklung, Systemintegration, Digitale Vernetzung und Daten- und Prozessanalyse."},{"term":"Welche zwei Fachrichtungen des Fachinformatikers sind neu seit 2020?","def":"Neu hinzugekommen sind die Fachrichtungen Digitale Vernetzung und Daten- und Prozessanalyse, da hier zukünftig hoher Bedarf erwartet wird."},{"term":"Welche Aufgaben hat ein Fachinformatiker der Fachrichtung Anwendungsentwicklung?","def":"Er konzipiert und entwickelt Softwarelösungen für interne und externe Kunden, beachtet IT-Sicherheit und Datenschutz und ist am Auftragsabschluss beteiligt."},{"term":"Welche Aufgaben hat ein Fachinformatiker der Fachrichtung Systemintegration?","def":"Er konzipiert, installiert und administriert vernetzte IT-Systeme für interne und externe Kunden, betreut IT-Systeme und ist für IT-Sicherheit und Datenschutz zuständig."},{"term":"Womit befasst sich die Fachrichtung Digitale Vernetzung?","def":"Fachinformatiker dieser Fachrichtung analysieren und planen Systeme zur Vernetzung und Automation, insbesondere in Produktionsbetrieben, und arbeiten mit cyber-physischen Systemen."},{"term":"Was macht ein Fachinformatiker der Fachrichtung Daten- und Prozessanalyse?","def":"Er analysiert Arbeits- und Geschäftsprozesse sowie Datenquellen, sichert Qualität und Verfügbarkeit von Daten und nutzt Daten zur Optimierung von Prozessen und Geschäftsmodellen."},{"term":"Welche Aufgaben hat ein IT-Systemelektroniker?","def":"Er stellt IT-Infrastruktur her und betreut sie, führt Service- und Instandsetzungsarbeiten durch, prüft elektrische Sicherheit und IT-Sicherheit und arbeitet auch elektrotechnisch."},{"term":"Was unterscheidet Kaufleute für IT-Systemmanagement von Kaufleuten für Digitalisierungsmanagement?","def":"IT-Systemmanagement-Kaufleute vermarkten IT-Dienstleistungen und administrieren IT-Systeme. Digitalisierungsmanagement-Kaufleute befassen sich mit Daten und Prozessen aus betriebswirtschaftlicher Perspektive."},{"term":"Wie lang ist die Regelausbildungsdauer in den IT-Berufen?","def":"Die Ausbildungsdauer beträgt drei Jahre. Eine Verkürzung oder Verlängerung ist auf Antrag möglich (vgl. §§ 7, 8, 45 BBiG)."},{"term":"Unter welchen Bedingungen kann die Ausbildungszeit verkürzt werden?","def":"Eine Verkürzung ist möglich bei Anrechnung anerkannter Bildungsgänge, zum Beispiel bei Hochschulreife oder Studienabbruch. Der Antrag ist bei der IHK zu stellen (§§ 7, 8 BBiG)."},{"term":"Was versteht man unter dem dualen System der Berufsausbildung?","def":"Ausbildung an zwei Lernorten gleichzeitig: im Ausbildungsbetrieb (Praxis) und in der Berufsschule (Theorie). In Deutschland gibt es über 300 staatlich anerkannte duale Ausbildungsberufe."},{"term":"Welche Rechtsgrundlage regelt die duale Berufsausbildung in Deutschland?","def":"Das Berufsbildungsgesetz (BBiG) regelt die Berufsausbildung in Deutschland; es ist auf www.gesetze-im-internet.de abrufbar."},{"term":"Was ist das Ziel der Berufsbildung laut § 1 BBiG?","def":"Die Berufsausbildung soll berufliche Handlungsfähigkeit in einem geordneten Ausbildungsgang vermitteln und den Erwerb erforderlicher Berufserfahrungen ermöglichen."},{"term":"Was vermittelt die Berufsschule im dualen System?","def":"Die Berufsschule vermittelt theoretischen Unterricht in beruflichen Lernfeldern und allgemeinbildenden Fächern wie Deutsch, Englisch, Politik/WISO und Sport."},{"term":"Welche Aufgaben hat der Ausbildungsbetrieb im dualen System?","def":"Der Betrieb schließt den Berufsausbildungsvertrag ab, erstellt einen Ausbildungsplan und muss bei der zuständigen IHK zur Ausbildung zugelassen sein."},{"term":"Was ist der Unterschied zwischen Ausbildendem und Ausbilder?","def":"Der Ausbildende ist der Betrieb als Vertragspartner. Der Ausbilder ist die konkrete Person, die die Ausbildung im Betrieb praktisch durchführt und persönlich sowie fachlich geeignet und mindestens 24 Jahre alt sein muss."},{"term":"Welche Aufgaben hat die IHK in der Berufsausbildung?","def":"Die IHK lässt Betriebe zur Ausbildung zu, berät Ausbildungsbeteiligte, nimmt Abschlussprüfungen ab und trägt das Berufsausbildungsverhältnis ein."},{"term":"Welche Pflicht hat der Auszubildende bezüglich des Ausbildungsnachweises?","def":"Der Auszubildende muss während der Ausbildungszeit einen schriftlichen Ausbildungsnachweis (Berichtsheft) führen, der vom Ausbildenden regelmäßig durchzusehen ist."},{"term":"Wie ist die gestreckte Abschlussprüfung der IT-Berufe aufgebaut?","def":"Sie besteht aus drei Teilen: Teil 1 schriftlich nach etwa 15 Monaten (20 %), Teil 2 schriftlich ca. 3 Monate vor Ausbildungsende (50 % + berufsspezifisch) und Teil 3 mündlich mit Projektarbeit zum Ausbildungsende."},{"term":"Wie wird Teil 1 der gestreckten Abschlussprüfung gewichtet?","def":"Teil 1 geht mit 20 % in die Gesamtnote der Abschlussprüfung ein. Er umfasst Lernfelder 1 bis 6 mit dem Leitthema 'Einrichten eines IT-gestützten Arbeitsplatzes' und dauert 90 Minuten."},{"term":"Wann findet Teil 1 der gestreckten Abschlussprüfung statt?","def":"Teil 1 findet etwa in der Mitte des zweiten Ausbildungsjahres statt, also nach etwa 15 Monaten Ausbildungszeit."},{"term":"Was versteht man unter Handlungskompetenz?","def":"Handlungskompetenz ist die Bereitschaft und Befähigung, sich in beruflichen, privaten und gesellschaftlichen Situationen sachgerecht, individuell, durchdacht und sozial verantwortlich zu verhalten."},{"term":"Welche Dimensionen hat die Handlungskompetenz?","def":"Handlungskompetenz entfaltet sich in Fachkompetenz, Sozialkompetenz und Selbstkompetenz. Methodenkompetenz, kommunikative Kompetenz und Lernkompetenz sind immanenter Bestandteil aller drei Dimensionen."},{"term":"Was versteht man unter einem dualen Studium?","def":"Ein duales Studium verbindet ein Studium an einer Hochschule oder Berufsakademie mit integrierter Berufsausbildung oder Praxisphasen in einem Unternehmen. Beide Lernorte sind eng miteinander verzahnt."},{"term":"Was ist der Unterschied zwischen praxisintegrierendem und ausbildungsintegrierendem dualen Studium?","def":"Beim praxisintegrierenden Modell wechseln Studium und Praxisphasen in Blöcken. Beim ausbildungsintegrierenden Modell wird zusätzlich ein Berufsabschluss (z. B. Fachinformatiker) mit IHK-Prüfung erworben."},{"term":"Warum ist Lernbereitschaft in IT-Berufen besonders wichtig?","def":"Die Arbeitslandschaft verändert sich ständig. Neue Technologien und Märkte erfordern flexibles Handeln und lebenslanges Lernen, da routinierte Arbeitsabläufe zunehmend von projektspezifischen Teams abgelöst werden."},{"term":"Welche Notenstufen gelten bei der IHK-Prüfung für 'ausreichend'?","def":"Ausreichend entspricht ab 50 % Prüfungsleistung. Gut gilt ab 81 %, Sehr gut ab 92 %."},{"term":"Was ist eine Ergänzungsprüfung bei der IHK-Abschlussprüfung?","def":"Eine 15-minütige mündliche Ergänzungsprüfung ist möglich, wenn dadurch ein mit mangelhaft bewerteter Prüfungsbereich noch ausgeglichen werden kann. Das bisherige Ergebnis und die mündliche Note werden im Verhältnis 2:1 gewichtet."}];       // [{term, def}, ...] – ganzer Tagespool
+const PAIRS_PER_GAME = 8;
+const STORAGE = 'memory_' + DAY_ID;
+
+let deck=[], flipped=[], matched=0, moves=0, busy=false;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function loadBest(){ try { return JSON.parse(localStorage.getItem(STORAGE)); } catch(e){ return null; } }
+function saveBest(m){ try { localStorage.setItem(STORAGE, JSON.stringify(m)); } catch(e){} }
+function renderBest(){ const b=loadBest(); document.getElementById('best').textContent = b!=null ? `Bestleistung: ${b} Züge` : ''; }
+
+function newGame(){
+  const n = Math.min(PAIRS_PER_GAME, PAIRS.length);
+  const chosen = shuffle(PAIRS.map((p,i)=>i)).slice(0, n);
+  deck = [];
+  chosen.forEach((pi, k) => {
+    deck.push({ pair:k, kind:'term', text:PAIRS[pi].term });
+    deck.push({ pair:k, kind:'def',  text:PAIRS[pi].def  });
+  });
+  shuffle(deck);
+  flipped=[]; matched=0; moves=0; busy=false;
+  document.getElementById('pairs').textContent='0';
+  document.getElementById('pairs').nextSibling; // noop
+  document.getElementById('moves').textContent='0';
+  document.querySelector('.stats').firstElementChild.innerHTML = `Paare: <b id="pairs">0</b> / ${n}`;
+  document.getElementById('msg').textContent=''; document.getElementById('msg').className='msg';
+  render();
+  renderBest();
+}
+
+function render(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  deck.forEach((card, i)=>{
+    const el=document.createElement('div');
+    el.className='mcard'; el.id='c'+i;
+    el.innerHTML = `<span class="label"></span><span class="facedown">🧠</span><span class="content"></span>`;
+    el.onclick=()=>flip(i);
+    g.appendChild(el);
+  });
+}
+
+function flip(i){
+  if(busy) return;
+  const card=deck[i]; const el=document.getElementById('c'+i);
+  if(el.classList.contains('up') || el.classList.contains('matched')) return;
+  el.classList.add('up', card.kind);
+  el.querySelector('.content').textContent = card.text;
+  el.querySelector('.label').textContent = card.kind==='term' ? 'Begriff' : 'Definition';
+  flipped.push(i);
+  if(flipped.length===2){
+    moves++; document.getElementById('moves').textContent=moves;
+    const [a,b]=flipped;
+    if(deck[a].pair===deck[b].pair && deck[a].kind!==deck[b].kind){
+      // Treffer
+      document.getElementById('c'+a).classList.add('matched');
+      document.getElementById('c'+b).classList.add('matched');
+      flipped=[]; matched++;
+      document.getElementById('pairs').textContent=matched;
+      if(matched === deck.length/2) win();
+    } else {
+      busy=true;
+      setTimeout(()=>{
+        [a,b].forEach(idx=>{ const e=document.getElementById('c'+idx); e.classList.remove('up','term','def'); e.querySelector('.content').textContent=''; e.querySelector('.label').textContent=''; });
+        flipped=[]; busy=false;
+      }, 1000);
+    }
+  }
+}
+
+function win(){
+  const m=document.getElementById('msg'); m.textContent=`🎉 Geschafft in ${moves} Zügen!`; m.className='msg win';
+  const best=loadBest();
+  if(best==null || moves<best){ saveBest(moves); renderBest(); m.textContent += ' Neue Bestleistung!'; }
+}
+
+newGame();
+</script>
+</body>
+</html>
