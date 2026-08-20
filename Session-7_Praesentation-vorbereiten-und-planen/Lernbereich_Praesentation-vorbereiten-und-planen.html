@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 7 — Präsentation vorbereiten & planen</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 7 — Präsentation vorbereiten & planen</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"IPERKA-Methode","punkte":8,"aufgabentext":"<p><strong>Kontext:</strong> Sie sind Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong> in Hamburg. Ihr Ausbildungsleiter Herr Brandt hat das Team beauftragt, den Ausbildungsbetrieb vor einer Gruppe von Schülerinnen und Schülern zu präsentieren, die einen Betriebsbesuch planen. Das Team hat 90 Minuten Zeit zur Vorbereitung und wird die Präsentation in drei Wochen halten.</p><ol type='a'><li><strong>Nennen</strong> Sie die sechs Phasen der IPERKA-Methode und <strong>erläutern</strong> Sie jede Phase kurz. <em>(6 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden Arbeitsschritte der richtigen IPERKA-Phase zu: <em>(2 P.)</em><table><tr><th>Arbeitsschritt</th><th>IPERKA-Phase</th></tr><tr><td>Das Team bespricht nach der Präsentation mit Herrn Brandt, was gut lief und was verbessert werden kann.</td><td></td></tr><tr><td>Mia Schulz legt fest, welche Folien bis wann fertig sein müssen und wer welchen Abschnitt übernimmt.</td><td></td></tr><tr><td>Leon Kraft hält die Präsentation vor den Besuchern.</td><td></td></tr><tr><td>Das Team liest die Aufgabenstellung und fragt Herrn Brandt nach den Anforderungen.</td><td></td></tr></table></li></ol>","loesung":"<p><strong>(a)</strong> Die sechs IPERKA-Phasen:</p><ul><li><strong>I — Informieren:</strong> Aufgabe verstehen; benötigte Informationen recherchieren oder erfragen.</li><li><strong>P — Planen:</strong> Arbeitsschritte, Zeitbedarf, Hilfsmittel, Teilziele und Termine festhalten; Maßnahmenplan erstellen.</li><li><strong>E — Entscheiden:</strong> Festlegen, welcher Plan umgesetzt wird; Alternativen abwägen; Projektleitung bestimmen.</li><li><strong>R — Realisieren:</strong> Den Arbeitsplan wie vereinbart umsetzen.</li><li><strong>K — Kontrollieren:</strong> Ergebnisse prüfen, bevor sie dem Auftraggeber übergeben werden; Selbst- und Fremdkontrolle anhand eines Kriterienbogens.</li><li><strong>A — Auswerten:</strong> Mit dem Auftraggeber reflektieren, was gut lief und wo Verbesserungspotenzial liegt.</li></ul><p><em>Typischer Fehler: Das &bdquo;A&rdquo; (Auswerten) wird oft vergessen oder mit dem Kontrollieren verwechselt. Auswerten findet mit dem Auftraggeber statt.</em></p><p><strong>(b)</strong> Zuordnung:</p><ul><li>Nachbesprechung mit Herrn Brandt: <strong>A — Auswerten</strong></li><li>Mia legt Termine und Verantwortungen fest: <strong>P — Planen</strong></li><li>Leon hält die Präsentation: <strong>R — Realisieren</strong></li><li>Team liest Aufgabenstellung und fragt Herrn Brandt: <strong>I — Informieren</strong></li></ul>"},{"nr":2,"titel":"Projektteam und Teamrollen","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Beschreiben</strong> Sie, was ein Projektteam von einer einfachen Arbeitsgruppe unterscheidet. <em>(3 P.)</em></li><li><strong>Nennen</strong> Sie die fünf Erfolgsfaktoren für ein gutes Projektteam laut Lehrbuch. <em>(5 P.)</em></li><li>Das JIKU-Präsentationsteam hat neun Mitglieder. <strong>Beurteilen</strong> Sie, ob diese Größe optimal ist, und begründen Sie Ihre Antwort. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Bei der <strong>einfachen Gruppenarbeit</strong> arbeiten alle gleichwertig und wenig arbeitsteilig an einer gemeinsamen Aufgabe. Ein <strong>Projektteam</strong> setzt sich aus Personen mit <em>unterschiedlichen Kompetenzen</em> zusammen, arbeitet auf ein befristetes besonderes Ziel hin und benötigt eine Projektleitung, die koordiniert und den Gesamtüberblick behält.</p><p><strong>(b)</strong> Die fünf Erfolgsfaktoren:</p><ol><li>Klares Ziel</li><li>Richtige Teamgröße (5–8 Personen)</li><li>Unterschiedliche Teampersönlichkeiten</li><li>Akzeptierte Projektleitung</li><li>Funktionierende Kommunikation</li></ol><p><strong>(c)</strong> Neun Mitglieder liegen leicht über der optimalen Größe von 5–8 Personen. Es entstehen mehr Reibungsverluste und Einigungsprozesse dauern länger. Empfehlung: Das Team in zwei Teilgruppen (z. B. Planung und Gestaltung) aufteilen, die jeweils eigenverantwortlich arbeiten.</p>"},{"nr":3,"titel":"Teamentwicklung nach Tuckman","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie die vier Hauptphasen des Teamentwicklungsmodells von Bruce Tuckman und ordnen Sie jeweils ein typisches Merkmal zu. <em>(4 P.)</em></li><li>Im JIKU-Team gibt es Streit: Zwei Mitglieder wollen nicht zusammenarbeiten, Beschlüsse werden angezweifelt. <strong>Benennen</strong> Sie die Tuckman-Phase und <strong>erläutern</strong> Sie, wie Projektleiterin Ana Kovac darauf reagieren sollte. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Die vier Hauptphasen nach Tuckman:</p><ul><li><strong>Forming</strong> (Einstieg): Kennenlernen, höflicher Umgang, erste Regeln.</li><li><strong>Storming</strong> (Streit): Unterschwellige Konflikte, Cliquenbildung, Sacharbeit tritt in den Hintergrund.</li><li><strong>Norming</strong> (Regelung): Regeln werden diskutiert und anerkannt; Rollen festigen sich.</li><li><strong>Performing</strong> (Leistung): Zielorientiert, ideenreich, produktiv; gegenseitige Wertschätzung.</li></ul><p><strong>(b)</strong> Die Situation beschreibt die <strong>Storming-Phase</strong>. Ana Kovac sollte: (1) Konflikt offen ansprechen, ohne zu eskalieren; (2) Klare Regeln vereinbaren (z. B. Entscheidungen durch Mehrheit); (3) Rollen klar zuweisen mit namentlicher Verantwortung; (4) Eine kurze Feedbackrunde einplanen, um Spannungen konstruktiv abzubauen. Die Phase ist normal und geht bei guter Moderation in die Norming-Phase über.</p>"},{"nr":4,"titel":"Zielgruppenanalyse und Rahmenbedingungen","punkte":10,"aufgabentext":"<p>Das Präsentationsteam erfährt: Die Besucher sind Schüler der 10. Klasse, ca. 20 Personen, kaum IT-Kenntnisse, Interesse an Ausbildungsberufen. Die Präsentation findet im JIKU-Schulungsraum statt (Beamer vorhanden, 45 Minuten Zeit inklusive Fragen, kein Druckkostenbudget).</p><ol type='a'><li><strong>Beschreiben</strong> Sie die Zielgruppe (Vorkenntnisse, Erwartungen, Interessen) und leiten Sie daraus zwei konkrete Konsequenzen für Inhalt und Sprache der Präsentation ab. <em>(4 P.)</em></li><li>Erstellen Sie eine Rahmenbedingungen-Übersicht für die beschriebene Situation: Kosten, Zeit, Vorkenntnisse, Raum, Unterlagen. <em>(4 P.)</em></li><li>Wie viele Folien sind laut 10-20-30-Regel maximal zulässig? <strong>Erläutern</strong> Sie, was die Regel außerdem vorschreibt. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Zielgruppe: Schüler der 10. Klasse, kaum IT-Kenntnisse, interessiert an Ausbildungsberufen. Konsequenzen: (1) <strong>Einfache Sprache</strong> ohne Fachbegriffe oder mit Erklärung bei jedem Fachbegriff — keine Annahme von IT-Vorwissen. (2) <strong>Inhaltliche Breite</strong> statt Tiefe: Überblick über Betrieb, Ausbildungsberufe und Einstiegsmöglichkeiten statt technischer Details.</p><p><strong>(b)</strong> Rahmenbedingungen bei JIKU:</p><ul><li><strong>Kosten:</strong> Kein Druckkostenbudget — kein Handout in Papierform; ggf. digitale Version.</li><li><strong>Zeit:</strong> 45 Minuten gesamt inklusive Fragen — ca. 30–35 Minuten reiner Vortrag.</li><li><strong>Vorkenntnisse:</strong> Kaum IT-Kenntnisse; allgemeinverständliche Sprache erforderlich.</li><li><strong>Raum/Medien:</strong> Schulungsraum mit Beamer — Folienpräsentation möglich.</li><li><strong>Unterlagen:</strong> Keine gedruckten Unterlagen; ggf. Link zu digitalen Materialien.</li></ul><p><strong>(c)</strong> Laut 10-20-30-Regel: maximal <strong>10 Folien</strong>. Die Regel schreibt außerdem vor: Vortragsdauer max. 20 Minuten und keine Schrift kleiner als 30 Punkt.</p>"},{"nr":5,"titel":"Gliederung und roter Faden","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Beschreiben</strong> Sie die drei Strukturabschnitte einer Präsentation (Einstieg, Hauptteil, Schluss) und nennen Sie je eine wichtige Funktion. <em>(6 P.)</em></li><li>Das JIKU-Team plant folgende Folienreihenfolge: <em>Folie 1: Produktportfolio · Folie 2: Firmenname und Logo · Folie 3: Ausbildungsberufe · Folie 4: Teamvorstellung · Folie 5: Außenansicht des Gebäudes.</em> <strong>Beurteilen</strong> Sie, ob diese Reihenfolge einen roten Faden ergibt, und <strong>schlagen</strong> Sie eine verbesserte Gliederung vor. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Die drei Strukturabschnitte:</p><ul><li><strong>Einstieg:</strong> Interesse wecken, Thema nennen, Überblick geben. Die ersten Sätze prägen sich dem Publikum am stärksten ein.</li><li><strong>Hauptteil:</strong> Sachlogisch gegliederte Kernaussagen; Spannungsbogen halten; Beispiele verwenden. Zeitanteil ca. 70–75 %.</li><li><strong>Schluss:</strong> Zusammenfassung, Fazit, Ausblick. Die letzten Sätze bleiben ebenfalls lang in Erinnerung.</li></ul><p><strong>(b)</strong> Die vorliegende Reihenfolge ergibt <strong>keinen roten Faden</strong>: Die Präsentation beginnt mit Details (Produktportfolio) statt mit der Unternehmensvorstellung. Verbesserte Gliederung: Folie 1: Firmenname, Standort und Logo (Einstieg/Überblick) → Folie 2: Außen-/Innenansicht (Orientierung) → Folie 3: Branche und Hauptgeschäftsfelder (Kerngeschäft) → Folie 4: Ausbildungsberufe bei JIKU (Hauptinteresse der Zielgruppe) → Folie 5: Teamvorstellung und Kontakt (Abschluss).</p>"},{"nr":6,"titel":"Medienwahl","punkte":6,"aufgabentext":"<p><strong>Nennen</strong> Sie drei unterschiedliche Visualisierungsmedien und <strong>beschreiben</strong> Sie je einen Vorteil und einen Nachteil in Bezug auf die JIKU-Betriebspräsentation. <em>(6 P.)</em></p>","loesung":"<ul><li><strong>Beamer-Präsentation:</strong> Vorteil: Strukturiert, gut sichtbar für alle, Fotos und Diagramme möglich. Nachteil: Technikabhängigkeit; bei Ausfall kein Ersatz.</li><li><strong>Flip-Chart:</strong> Vorteil: Flexibel, spontane Ergänzungen möglich, kein Technikrisiko. Nachteil: Für mehr als 15 Personen schwer lesbar; Erstellung ist zeitaufwendig.</li><li><strong>Handout:</strong> Vorteil: Verbleibt bei den Teilnehmern; ermöglicht Nacharbeitung. Nachteil: Kein Druckkostenbudget vorhanden — bei dieser JIKU-Situation daher nicht einsetzbar.</li></ul>"},{"nr":7,"titel":"Fallaufgabe: Betriebspräsentation planen","punkte":10,"aufgabentext":"<p>Sie sollen für die JIKU IT-Solutions GmbH ein Storyboard (Folienskizze) für eine fünfminütige Präsentation vor Schülerinnen und Schülern erstellen.</p><ol type='a'><li><strong>Skizzieren</strong> Sie fünf Folien: Notieren Sie zu jeder Folie einen Titel und maximal drei Stichpunkte. Beachten Sie die Reihenfolge Einstieg–Hauptteil–Schluss. <em>(6 P.)</em></li><li><strong>Wählen</strong> Sie für jede der fünf Folien ein passendes Visualisierungselement (Foto, Diagramm, Aufzählung, Tabelle o. Ä.) und begründen Sie Ihre Wahl kurz. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Mögliches Storyboard:</p><ol><li><strong>Einstieg: Wir sind JIKU IT-Solutions</strong> — Firmenname, Standort Hamburg, Gründungsjahr</li><li><strong>Was wir tun: IT-Dienstleistungen und -Produkte</strong> — Softwareentwicklung, IT-Beratung, Managed Services</li><li><strong>Unsere Ausbildungsberufe</strong> — Fachinformatiker/-in (Systemintegration / Anwendungsentwicklung), Kaufmann/-frau für IT-System-Management</li><li><strong>Ein Tag als Azubi bei JIKU</strong> — Typische Aufgaben, Team, Lernmöglichkeiten</li><li><strong>Zusammenfassung und Kontakt</strong> — Kernbotschaft, nächste Schritte (Bewerbung), Ansprechperson</li></ol><p><strong>(b)</strong> Visualisierungselemente: Folie 1: <strong>Logo</strong> — Wiedererkennungswert; Folie 2: <strong>Tabelle</strong> (Leistungsübersicht) — strukturierter Vergleich; Folie 3: <strong>Aufzählung mit Icons</strong> — schnelle Erfassbarkeit; Folie 4: <strong>Foto</strong> (Azubis im Büro) — persönliche Nähe, Authentizität; Folie 5: <strong>QR-Code</strong> (Bewerbungsseite) — direkter Handlungsaufruf.</p>"}];
+var SESSION_NR = '7';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

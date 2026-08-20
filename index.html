@@ -475,6 +475,7 @@ function renderSessions() {
     k.push(kachelHTML(base + '/Hangman_' + s.slug + '.html', 'game', '&#127919;', 'Hangman', '&#8594;'));
     k.push(kachelHTML(base + '/Memory_' + s.slug + '.html', 'game', '&#129504;', 'Memory', '&#8594;'));
     k.push(kachelHTML(base + '/Aufgabenheft_' + s.slug + '.pdf', 'pdf', 'PDF', 'Aufgabenheft mit Lösungen', '&#8595;'));
+    k.push(kachelHTML(base + '/Lernbereich_' + s.slug + '.html', 'html', '&#9997;', 'Lernbereich', '&#8594;'));
     // Grundlagen + Arbeitsbuch: initially disabled; activated by HEAD check
     k.push('<div class="kachel disabled pdf" id="grundlagen-' + s.nr + '" data-href="' + base + '/Grundlagen_' + s.slug + '.pdf"><span class="ki">PDF</span><span class="kachel-label">Grundlagen (lokal)</span><span class="soon-badge">folgt</span></div>');
     k.push('<div class="kachel disabled pdf" id="arbeitsbuch-' + s.nr + '" data-href="' + base + '/Arbeitsbuch_' + s.slug + '.pdf"><span class="ki">PDF</span><span class="kachel-label">Arbeitsbuch (lokal)</span><span class="soon-badge">folgt</span></div>');

@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 5 — Geschäftsprozesse, Produktionsfaktoren & Güterarten</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 5 — Geschäftsprozesse, Produktionsfaktoren & Güterarten</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"Wertschöpfungsberechnung","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> JIKU IT-Solutions hat im vergangenen Geschäftsjahr folgende Zahlen erzielt: Umsatzerlöse (netto) 6,5 Mio. €, Vorleistungen (eingekaufte IT-Komponenten und Fremddienstleistungen) 2,8 Mio. €, Abschreibungen auf Sachanlagen 0,4 Mio. €. Die Wertschöpfung wurde zu 38 % an Mitarbeiter, zu 22 % an Fremdkapitalgeber, zu 18 % an den Staat und zum Rest an Eigenkapitalgeber ausgeschüttet. JIKU beschäftigt 40 Mitarbeiter.</p><ol type='a'><li><strong>Berechnen</strong> Sie die Wertschöpfung von JIKU IT-Solutions. <em>(3 P.)</em></li><li><strong>Berechnen</strong> Sie die Wertschöpfung pro Mitarbeiter (W/M). <em>(2 P.)</em></li><li><strong>Berechnen</strong> Sie die Wertschöpfungstiefe. <em>(2 P.)</em></li><li><strong>Ermitteln</strong> Sie den absoluten Betrag, der an die Eigenkapitalgeber ausgeschüttet wird. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Wertschöpfung = Umsatzerlöse − Vorleistungen − Abschreibungen = 6,5 Mio. € − 2,8 Mio. € − 0,4 Mio. € = <strong>3,3 Mio. €</strong></p><p><em>Häufiger Fehler: Personalkosten als Abzugsposten ansetzen. Löhne und Gehälter sind Teil der Wertschöpfungsverteilung, nicht der Berechnung.</em></p><p><strong>(b)</strong> W/M = 3,3 Mio. € ÷ 40 Mitarbeiter = <strong>82.500 € pro Mitarbeiter</strong></p><p><strong>(c)</strong> Wertschöpfungstiefe = 3,3 Mio. € ÷ 6,5 Mio. € = <strong>ca. 0,508 (rund 50,8 %)</strong></p><p><strong>(d)</strong> Anteil Eigenkapitalgeber = 100 % − 38 % − 22 % − 18 % = 22 %; Absolutbetrag = 3,3 Mio. € × 0,22 = <strong>726.000 €</strong></p>"},{"nr":2,"titel":"Wertschöpfungskette","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Beschreiben</strong> Sie, was unter der Wertschöpfungskette eines Unternehmens zu verstehen ist, und <strong>erläutern</strong> Sie, welche Tätigkeiten ausdrücklich nicht dazuzählen. <em>(3 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden Tätigkeiten bei JIKU der korrekten Wertschöpfungskettenposition zu (Beschaffung, Marketing, Verkauf, Dienstleistung/Service) oder begründen Sie, warum sie nicht zur Wertschöpfungskette gehören. <em>(5 P.)</em><br><table><tr><th>Tätigkeit</th><th>Position</th><th>Begründung</th></tr><tr><td>Netzwerkinstallation beim Kunden</td><td></td><td></td></tr><tr><td>Lohnabrechnung der Mitarbeiter</td><td></td><td></td></tr><tr><td>Anfrage bei Lieferanten</td><td></td><td></td></tr><tr><td>Angebotserstellung für Neukunden</td><td></td><td></td></tr><tr><td>After-Sales-Support per Telefon</td><td></td><td></td></tr></table></li></ol>","loesung":"<p><strong>(a)</strong> Die Wertschöpfungskette zeigt die kundennahen und wertschöpfungsintensiven Tätigkeitsbereiche eines Unternehmens. Verwaltende Tätigkeiten (z. B. Personalwesen, Rechnungswesen, interne IT) zählen ausdrücklich <em>nicht</em> zur Wertschöpfungskette.</p><p><strong>(b)</strong></p><ul><li>Netzwerkinstallation beim Kunden: <strong>Dienstleistung</strong> — kundennah und wertschöpfungsintensiv.</li><li>Lohnabrechnung der Mitarbeiter: <strong>nicht in der Wertschöpfungskette</strong> — interne Verwaltungsaufgabe (Supportprozess).</li><li>Anfrage bei Lieferanten: <strong>Beschaffung</strong> — Einstieg in die Wertschöpfungskette.</li><li>Angebotserstellung für Neukunden: <strong>Verkauf</strong> — direkte Kundeninteraktion zur Leistungsanbahnung.</li><li>After-Sales-Support: <strong>Service</strong> — letztes Glied der Wertschöpfungskette.</li></ul>"},{"nr":3,"titel":"Geschäftsprozesse","punkte":10,"aufgabentext":"<p>Frau Meyerhoff erklärt Ihnen, dass bei JIKU verschiedene Prozesstypen unterschieden werden.</p><ol type='a'><li><strong>Unterscheiden</strong> Sie Kernprozesse und Supportprozesse hinsichtlich Wertschöpfung, Kundenorientierung und Beispielen. <em>(4 P.)</em></li><li><strong>Ordnen</strong> Sie folgende JIKU-Aktivitäten dem richtigen Prozesstyp zu (Kernprozess, Supportprozess oder Führungsprozess) und <strong>begründen</strong> Sie kurz. <em>(6 P.)</em><ul><li>Einrichtung eines WLAN-Netzwerks beim Unternehmenskunden</li><li>Erstellung der Jahresplanung und Umsatzziele durch die Geschäftsleitung</li><li>Pflege der internen JIKU-Server und des Firmennetzwerks</li><li>Migration der Cloud-Infrastruktur eines Mittelstandskunden</li><li>Monatliche Gehaltsabrechnungen für die JIKU-Mitarbeiter</li><li>Strategische Ressourcenplanung für das nächste Quartal</li></ul></li></ol>","loesung":"<p><strong>(a)</strong> <strong>Kernprozesse:</strong> kundennah und wertschöpfungsintensiv; das Unternehmen weist Kernkompetenzen nach (z. B. IT-Systembau, Serviceleistungen). Ohne Kernprozesse keine Erlöse. <strong>Supportprozesse:</strong> nicht direkt wertschöpfend, aber notwendig für die Kernprozesse; erzeugen keinen direkten Kundennutzen (z. B. Buchhaltung, Gehaltsabrechnung).</p><p><strong>(b)</strong></p><ul><li>Netzwerkeinrichtung beim Kunden: <strong>Kernprozess</strong> — direkter Kundennutzen, wertschöpfungsintensiv.</li><li>Jahresplanung durch Geschäftsleitung: <strong>Führungsprozess</strong> — koordiniert und steuert das Unternehmen auf Zielebene.</li><li>Pflege der internen JIKU-Server: <strong>Supportprozess</strong> — interne Infrastruktur ohne direkten Kundennutzen.</li><li>Cloud-Migration für Mittelstandskunden: <strong>Kernprozess</strong> — kundennah, wertschöpfungsintensiv, Kernkompetenz.</li><li>Monatliche Gehaltsabrechnungen: <strong>Supportprozess</strong> — interne Verwaltungsaufgabe.</li><li>Ressourcenplanung für nächstes Quartal: <strong>Führungsprozess</strong> — Planung und Organisation durch Leitung.</li></ul>"},{"nr":4,"titel":"Betriebliche Produktionsfaktoren nach Gutenberg","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie die drei Elementarfaktoren nach Gutenberg und <strong>erläutern</strong> Sie je einen kurz. <em>(6 P.)</em></li><li><strong>Ordnen</strong> Sie folgende Ressourcen bei JIKU dem richtigen Produktionsfaktor zu und <strong>begründen</strong> Sie kurz. <em>(4 P.)</em><br><table><tr><th>Ressource</th><th>Produktionsfaktor</th><th>Begründung</th></tr><tr><td>Netzwerkkabel und Festplatten für Kundenaufträge</td><td></td><td></td></tr><tr><td>Serverracks im JIKU-Rechenzentrum</td><td></td><td></td></tr><tr><td>IT-Techniker, der Switches beim Kunden installiert</td><td></td><td></td></tr><tr><td>Standortleiterin, die Personaleinsatz koordiniert</td><td></td><td></td></tr></table></li></ol>","loesung":"<p><strong>(a)</strong> Drei Elementarfaktoren nach Gutenberg:</p><ul><li><strong>Werkstoffe:</strong> Alle Güter, die zur Erstellung eines Produktes notwendig sind: Rohstoffe (Hauptbestandteil), Hilfsstoffe (Nebenbestandteil), Betriebsstoffe (nicht direkt zurechenbar), Fertigteile.</li><li><strong>Betriebsmittel:</strong> Technische Ausstattungen, die im Produktionsprozess verwendet werden: Betriebsgebäude, Maschinen, Systeme, Fahrzeuge.</li><li><strong>Ausführende Arbeit:</strong> Menschliche Arbeitsleistung <em>ohne</em> Leitungs-, Planungs-, Organisations- oder Kontrollfunktion.</li></ul><p><em>Ergänzend: Dispositiver Faktor = Geschäftsleitung mit Leitung, Planung, Organisation, Kontrolle; Information als moderner Ergänzungsfaktor.</em></p><p><strong>(b)</strong></p><ul><li>Netzwerkkabel und Festplatten: <strong>Werkstoffe</strong> (Hilfs- bzw. Einbauteile, zur Leistungserstellung notwendig).</li><li>Serverracks im Rechenzentrum: <strong>Betriebsmittel</strong> (technische Ausstattung).</li><li>IT-Techniker bei Kundeninstallation: <strong>Ausführende Arbeit</strong> (operativ, ohne Leitungsfunktion).</li><li>Standortleiterin, koordiniert Personal: <strong>Dispositiver Faktor</strong> (Leitung und Organisation).</li></ul>"},{"nr":5,"titel":"Güterarten","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Erläutern</strong> Sie den Unterschied zwischen freien und wirtschaftlichen Gütern sowie zwischen Verbrauchs- und Gebrauchsgütern. Geben Sie je ein Beispiel aus dem JIKU-Umfeld. <em>(4 P.)</em></li><li><strong>Klassifizieren</strong> Sie eine Softwarelizenz (z. B. Betriebssystem) nach <em>allen</em> relevanten Gütermerkmalen (Beschaffenheit, Knappheit, Ort/Zweck, Ausschließbarkeit) und <strong>begründen</strong> Sie jeden Aspekt. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> <strong>Freie Güter</strong> sind in der Natur unbegrenzt vorhanden und haben keinen Preis (z. B. Atemluft). <strong>Wirtschaftliche Güter</strong> sind knapp und haben einen Preis (z. B. Netzwerkkabel, Strom für das Rechenzentrum). <strong>Verbrauchsgüter</strong> werden bei der Nutzung einmalig verbraucht (z. B. Druckerpapier, Stromverbrauch der Server). <strong>Gebrauchsgüter</strong> können wiederholt genutzt werden (z. B. Serverrack, Arbeitsplatzrechner).</p><p><strong>(b)</strong> Softwarelizenz:</p><ul><li><strong>Beschaffenheit:</strong> immateriell (kein physisches Produkt; es ist ein Nutzungsrecht).</li><li><strong>Knappheit:</strong> wirtschaftliches Gut (kostenpflichtig, begrenzte Lizenzen verfügbar).</li><li><strong>Ort/Zweck:</strong> Investitionsgut (zur betrieblichen Nutzung) und Gebrauchsgut (wiederholt über die Lizenzlaufzeit nutzbar).</li><li><strong>Ausschließbarkeit:</strong> privates Gut (ohne Lizenzschlüssel kein Zugang; Ausschlussmöglichkeit durch DRM und Lizenzverwaltung).</li></ul>"},{"nr":6,"titel":"Fallaufgabe: Digitale Transformation bei JIKU","punkte":10,"aufgabentext":"<p>JIKU IT-Solutions überlegt, seinen Kunden eine eigene digitale Plattform für IT-Support und Remote-Monitoring anzubieten, die rund um die Uhr verfügbar ist. Gleichzeitig möchte JIKU seinen bisherigen papierbasierten Bestellprozess für IT-Komponenten durch ein E-Procurement-System ersetzen.</p><ol type='a'><li><strong>Unterscheiden</strong> Sie, welche der beiden Maßnahmen als &bdquo;digitale Transformation&rdquo; und welche — falls überhaupt — als &bdquo;digitale Disruption&rdquo; eingestuft werden kann. <strong>Begründen</strong> Sie Ihre Einschätzung. <em>(4 P.)</em></li><li><strong>Benennen</strong> Sie für den Bestellprozess das geeignete integrierte Softwaresystem (Kürzel genügt) und <strong>erläutern</strong> Sie kurz, was dieses System leistet. <em>(2 P.)</em></li><li><strong>Erklären</strong> Sie, warum die eigene Support-Plattform als Kernprozess einzustufen ist, und <strong>nennen</strong> Sie zwei Güterkategorien, die JIKU über die Plattform anbietet. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> <strong>E-Procurement-Einführung:</strong> digitale Transformation — ein bestehender Prozess (Bestellung) wird von analog auf digital umgestellt; die grundsätzliche Art der Beschaffung bleibt gleich. <strong>Support-Plattform:</strong> ebenfalls digitale Transformation (bestehende Serviceleistung über neuen Kanal 24/7 verfügbar machen). Echte Disruption würde bedeuten, das Kundenproblem auf eine komplett andere, neuartige Weise zu lösen — z. B. eine KI-gestützte Plattform, die selbst IT-Fehler behebt, ohne dass JIKU manuell eingreift (ganz neues Geschäftsmodell).</p><p><strong>(b)</strong> <strong>E-P</strong> (E-Procurement): elektronische Beschaffung von Gütern über das Internet und spezielle Beschaffungsplattformen; ersetzt papierbasierte Bestellprozesse und verbessert Transparenz und Geschwindigkeit.</p><p><strong>(c)</strong> Die Support-Plattform ist ein <strong>Kernprozess</strong>, weil sie unmittelbaren Kundennutzen stiftet (direkter Kundenkontakt, wertschöpfungsintensiv) und zu den Kernkompetenzen von JIKU als IT-Systemhaus gehört. Güterkategorien (Auswahl): <strong>Dienstleistungen</strong> (Remote-Support, Monitoring) und <strong>immateriell-wirtschaftliche Güter / Rechte</strong> (Zugang zur Plattform als kostenpflichtiger Dienst).</p>"}];
+var SESSION_NR = '5';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

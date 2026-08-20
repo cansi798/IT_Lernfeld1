@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 6 — Wirtschaftskreislauf & Marktsituationen</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 6 — Wirtschaftskreislauf & Marktsituationen</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"Einfacher Wirtschaftskreislauf","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> Sie sind Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong> in Hamburg. Ihre Ausbilderin Frau Meyerhoff erklärt Ihnen, dass JIKU in verschiedenen Märkten aktiv ist — als Anbieter von IT-Dienstleistungen gegenüber Unternehmenskunden und als Nachfrager auf dem Beschaffungsmarkt für Hardware und Software.</p><ol type='a'><li><strong>Beschreiben</strong> Sie die zwei Wirtschaftssubjekte im einfachen Wirtschaftskreislauf und erläutern Sie, welche Ströme zwischen ihnen verlaufen. <em>(4 P.)</em></li><li><strong>Erklären</strong> Sie, warum Geld- und Güterströme im Wirtschaftskreislauf stets entgegengesetzt verlaufen, und geben Sie je ein konkretes Beispiel für einen Geldstrom und einen Güterstrom zwischen Haushalten und Unternehmen. <em>(3 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden Vorgänge dem richtigen Strom im einfachen Wirtschaftskreislauf zu: <em>(3 P.)</em><table><tr><th>Vorgang</th><th>Strom (Faktorleistung / Einkommen / Konsumgut / Konsumausgabe)</th></tr><tr><td>Frau Müller kauft bei JIKU einen Laptop für privat</td><td></td></tr><tr><td>Ein JIKU-Techniker arbeitet 40 Stunden pro Woche im Betrieb</td><td></td></tr><tr><td>JIKU überweist Frau Meyerhoff ihr Monatsgehalt</td><td></td></tr></table></li></ol>","loesung":"<p><strong>(a)</strong> Wirtschaftssubjekte: <strong>Haushalte</strong> und <strong>Unternehmen</strong>. Haushalte stellen Faktorleistungen (Arbeit, Boden, Kapital) bereit; Unternehmen zahlen dafür Einkommen (Löhne, Gehälter, Zinsen, Miete). Unternehmen produzieren Konsumgüter; Haushalte zahlen dafür Konsumausgaben.</p><p><strong>(b)</strong> Güter- und Geldströme verlaufen entgegengesetzt, weil jeder Austausch eine Leistung <em>und</em> eine Gegenleistung umfasst. Beispiel Geldstrom: JIKU zahlt Gehalt an Frau Meyerhoff. Beispiel Güterstrom: Frau Meyerhoff stellt ihre Arbeitskraft bereit.</p><p><strong>(c)</strong></p><ul><li>Frau Müller kauft Laptop: <strong>Konsumausgabe</strong> (Geldstrom von Haushalt zu Unternehmen)</li><li>JIKU-Techniker arbeitet: <strong>Faktorleistung</strong> (Arbeit von Haushalt zu Unternehmen)</li><li>JIKU überweist Gehalt: <strong>Einkommen</strong> (Geldstrom von Unternehmen zu Haushalt)</li></ul>"},{"nr":2,"titel":"Erweiterter Wirtschaftskreislauf","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie die fünf Wirtschaftssubjekte des erweiterten Wirtschaftskreislaufs und erläutern Sie kurz die spezifische Rolle des Staates. <em>(4 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden Geldströme dem richtigen Wirtschaftssubjekt als Quelle und Ziel zu: <em>(4 P.)</em><table><tr><th>Geldstrom</th><th>Von</th><th>An</th></tr><tr><td>JIKU erhält Investitionszulage für neue Server</td><td></td><td></td></tr><tr><td>Herr Mayer zahlt Kfz-Steuer</td><td></td><td></td></tr><tr><td>JIKU verkauft IT-Systeme nach Frankreich</td><td></td><td></td></tr><tr><td>Die Bank schreibt Herrn Mayer Zinsen auf sein Sparkonto gut</td><td></td><td></td></tr></table></li></ol>","loesung":"<p><strong>(a)</strong> Fünf Wirtschaftssubjekte des erweiterten Wirtschaftskreislaufs:</p><ul><li><strong>Haushalte:</strong> Stellen Faktorleistungen bereit und konsumieren Güter.</li><li><strong>Unternehmen:</strong> Produzieren Güter und beschäftigen Arbeitskräfte.</li><li><strong>Staat:</strong> Vereinnahmt direkte Steuern von Haushalten und indirekte Steuern über Unternehmen; gibt diese als Staatsausgaben, Transferleistungen und Subventionen aus.</li><li><strong>Banken:</strong> Vermitteln zwischen Sparanlagen von Haushalten und Kreditvergabe an Unternehmen.</li><li><strong>Ausland:</strong> Nimmt an Exporten und Importen teil; beeinflusst den Wirtschaftskreislauf durch Handelsströme.</li></ul><p><em>Typischer Fehler: Direkte und indirekte Steuern verwechseln. Direkte Steuern = Haushalt → Staat. Indirekte Steuern = Haushalt zahlt an Unternehmen, Unternehmen an Staat.</em></p><p><strong>(b)</strong></p><ul><li>Investitionszulage: Von <strong>Staat</strong> an <strong>Unternehmen</strong> (Subvention)</li><li>Kfz-Steuer: Von <strong>Haushalt</strong> an <strong>Staat</strong> (direkte Steuer)</li><li>JIKU verkauft nach Frankreich: Von <strong>Ausland</strong> an <strong>Unternehmen</strong> (Exporterlös)</li><li>Zinsgutschrift: Von <strong>Bank</strong> an <strong>Haushalt</strong> (Zinszahlung auf Ersparnisse)</li></ul>"},{"nr":3,"titel":"Marktarten und Marktformen","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Unterscheiden</strong> Sie freien Markt und geschlossenen Markt sowie Gütermarkt und Faktorenmarkt. Geben Sie je ein Beispiel aus der IT-Branche. <em>(4 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden IT-Marktsituationen der richtigen Marktform zu (Angebotsmonopol, Angebotsoligopol, Polypol, Nachfragemonopol, beschränktes Angebotsmonopol) und begründen Sie kurz. <em>(6 P.)</em><ul><li>Auf dem Markt für Desktop-Betriebssysteme hält Microsoft Windows einen Marktanteil von über 70 %.</li><li>Im Markt für Cloud-Infrastruktur teilen sich AWS, Microsoft Azure und Google Cloud den Großteil.</li><li>Auf dem Markt für einfache WordPress-Plugins gibt es Hunderte Anbieter und Millionen Nutzer.</li><li>Ein Hersteller produziert eine spezialisierte KI-Chip-Variante, die ausschließlich von zwei staatlichen Forschungseinrichtungen abgenommen wird.</li></ul></li></ol>","loesung":"<p><strong>(a)</strong> <strong>Freier Markt:</strong> Jeder hat Zugang (z. B. offener IT-Komponentenmarkt). <strong>Geschlossener Markt:</strong> Zugang beschränkt (z. B. Großhandelsmarkt für IT-Distributoren). <strong>Gütermarkt:</strong> Handel mit Waren/Dienstleistungen (z. B. Softwaremarkt). <strong>Faktorenmarkt:</strong> Handel mit Produktionsfaktoren (z. B. IT-Fachkräftearbeitsmarkt, Serverpark-Mietmarkt).</p><p><strong>(b)</strong></p><ul><li>Microsoft Windows &gt; 70 %: <strong>Angebotsmonopol / Quasimonopol</strong> — ein Anbieter dominiert, viele Nachfrager; ab 40 % gilt Marktbeherrschung (§ 18 Abs. 4 GWB).</li><li>AWS, Azure, Google: <strong>Angebotsoligopol</strong> — wenige Anbieter, viele Nachfrager.</li><li>Hunderte Plugin-Anbieter, Millionen Nutzer: <strong>Polypol</strong> — viele Anbieter und viele Nachfrager; Marktpreis bildet sich frei.</li><li>1 Hersteller, 2 staatliche Abnehmer: <strong>Beschränktes Angebotsmonopol</strong> — ein Anbieter, wenige (hier: zwei) Nachfrager; klassische Nischenmarktsituation.</li></ul>"},{"nr":4,"titel":"Preisbildung am Markt","punkte":10,"aufgabentext":"<p>Auf dem IT-Komponentenmarkt für einen bestimmten Prozessortyp gelten folgende Daten:</p><table><tr><th>Preis in €</th><th>Angebotsmenge (Stück)</th><th>Nachfragemenge (Stück)</th></tr><tr><td>300</td><td>800</td><td>1.400</td></tr><tr><td>450</td><td>650</td><td>650</td></tr><tr><td>600</td><td>1.050</td><td>180</td></tr></table><ol type='a'><li><strong>Bestimmen</strong> Sie den Gleichgewichtspreis und die Gleichgewichtsmenge. <em>(2 P.)</em></li><li><strong>Beurteilen</strong> Sie, ob bei einem Preis von 300 € ein Angebots- oder Nachfrageüberhang vorliegt, und berechnen Sie dessen Größe. <em>(3 P.)</em></li><li><strong>Erklären</strong> Sie, ob bei einem Marktpreis von 300 € ein Käufer- oder Verkäufermarkt vorliegt, und begründen Sie, in welche Richtung sich der Preis bewegt. <em>(3 P.)</em></li><li><strong>Erläutern</strong> Sie, was passiert, wenn alle JIKU-Kunden durch eine Steuerentlastung mehr Geld zur Verfügung haben und deshalb mehr IT-Komponenten nachfragen — stellen Sie dar, wie sich die Nachfragekurve verschiebt und was mit dem Gleichgewichtspreis geschieht. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> <strong>Gleichgewichtspreis:</strong> 450 €; <strong>Gleichgewichtsmenge:</strong> 650 Stück (Angebot = Nachfrage = 650 Stück).</p><p><strong>(b)</strong> Bei 300 €: Angebot = 800 Stück, Nachfrage = 1.400 Stück. Nachfrage &gt; Angebot → <strong>Nachfrageüberhang</strong> von 1.400 − 800 = <strong>600 Stück</strong>.</p><p><strong>(c)</strong> Bei Nachfrageüberhang übersteigt die Nachfrage das Angebot → <strong>Verkäufermarkt</strong>: Die Verkäufer können den Preis erhöhen, bis der Gleichgewichtspreis von 450 € erreicht ist.</p><p><strong>(d)</strong> Einkommenserhöhung → mehr Kaufbereitschaft → <strong>Nachfragekurve verschiebt sich nach rechts</strong> (von N0 nach N1) → neuer Gleichgewichtspreis liegt <em>höher</em> als zuvor, da bei jedem Preis nun mehr nachgefragt wird.</p>"},{"nr":5,"titel":"Vollkommener Markt","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie die fünf Bedingungen des vollkommenen Marktes und erläutern Sie jede kurz. <em>(5 P.)</em></li><li><strong>Beurteilen</strong> Sie, ob der Markt für IT-Dienstleistungen in Hamburg als vollkommener oder unvollkommener Markt einzustufen ist. <strong>Begründen</strong> Sie Ihre Entscheidung anhand von mindestens zwei Kriterien. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Fünf Bedingungen des vollkommenen Marktes:</p><ul><li><strong>Vollkommene Konkurrenz:</strong> Viele Anbieter und Nachfrager.</li><li><strong>Güterhomogenität:</strong> Alle Güter sind gleichartig.</li><li><strong>Markttransparenz:</strong> Alle Teilnehmer kennen alle Preise und Anbieter.</li><li><strong>Präferenzlosigkeit:</strong> Keine Markenpräferenz oder persönlichen Vorlieben.</li><li><strong>Anpassungsfähigkeit:</strong> Sofortige Reaktion auf Preisänderungen.</li></ul><p><strong>(b)</strong> IT-Dienstleistungsmarkt Hamburg: <strong>unvollkommener Markt</strong>, weil mindestens zwei Bedingungen nicht erfüllt sind: (1) <strong>Keine Güterhomogenität</strong> — IT-Dienstleistungen unterscheiden sich stark in Qualität, Spezialisierung und Service. (2) <strong>Keine Markttransparenz</strong> — Kunden haben keinen vollständigen Überblick über alle Anbieter und Preise (Informationsasymmetrie).</p>"},{"nr":6,"titel":"Fallaufgabe: JIKU im Marktumfeld","punkte":10,"aufgabentext":"<p>JIKU IT-Solutions analysiert sein Marktumfeld, um die Vertriebsstrategie für das nächste Geschäftsjahr zu planen. Das Unternehmen bedient hauptsächlich mittelständische Unternehmenskunden (B2B) und hat festgestellt, dass die Nachfrage nach IT-Infrastruktur in Krisenzeiten stark zurückgeht.</p><ol type='a'><li><strong>Benennen</strong> Sie den Transaktionsbereich, in dem JIKU überwiegend tätig ist, und erläutern Sie den Unterschied zum B2C-Bereich. <em>(2 P.)</em></li><li><strong>Beschreiben</strong> Sie, welche konjunkturellen, saisonalen und strukturellen Faktoren die Nachfrage nach JIKU-Leistungen beeinflussen könnten. Geben Sie je ein konkretes Beispiel. <em>(6 P.)</em></li><li><strong>Erklären</strong> Sie, welche Maßnahme JIKU ergreifen könnte, um in einem Verkäufermarkt (z. B. bei Chip-Engpässen) die Mehrkosten weiterzugeben oder zu vermeiden. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> JIKU ist überwiegend im <strong>B2B-Bereich</strong> tätig (Business-to-Business): Unternehmen handelt mit Unternehmen. Unterschied zu B2C (Business-to-Consumer): Im B2C-Bereich beliefert das Unternehmen Privatverbraucher (z. B. über einen Online-Shop); der B2B-Markt hat häufig höhere Auftragsvolumina, andere rechtliche Anforderungen und längere Vertragslaufzeiten.</p><p><strong>(b)</strong></p><ul><li><strong>Konjunkturell:</strong> In einer Rezession kürzen Unternehmen IT-Investitionen; Nachfrage nach JIKU-Dienstleistungen sinkt (z. B. Stornierungen von Netzwerkprojekten).</li><li><strong>Saisonal:</strong> Gegen Jahresende erhöhen viele Unternehmen ihre IT-Ausgaben (Budgetreste), während im Sommer die Nachfrage schwächer ist.</li><li><strong>Strukturell:</strong> Die Umstellung auf Cloud-Computing verändert die Nachfrage nach klassischer On-Premise-Hardware zugunsten von Cloud-Dienstleistungen und -Beratung.</li></ul><p><strong>(c)</strong> Bei Chip-Engpässen (Verkäufermarkt) kann JIKU (a) die Mehrkosten über <strong>höhere Angebotspreise</strong> an Kunden weitergeben, (b) durch <strong>Rahmenverträge mit Lieferanten</strong> Preissteigerungen abfedern oder (c) auf <strong>Alternativkomponenten</strong> ausweichen, um die Abhängigkeit von einem knappen Produkt zu reduzieren.</p>"}];
+var SESSION_NR = '6';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

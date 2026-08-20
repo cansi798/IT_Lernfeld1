@@ -25,6 +25,7 @@ const REQUIRED = (slug) => [
   `Memory_${slug}.html`,
   `Wordle_${slug}.html`,
   `Hangman_${slug}.html`,
+  `Lernbereich_${slug}.html`,
 ];
 
 // Optionale Dateien: fehlen = nur WARNUNG

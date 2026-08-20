@@ -47,6 +47,7 @@ Session-N_<Slug>/
 ├── Wordle_<Slug>.html              # Wordle-Spiel
 ├── Memory_<Slug>.html              # Memory-Kartenspiel
 ├── Karteikarten_<Slug>.html        # Karteikarten-Lernset
+├── Lernbereich_<Slug>.html         # Interaktive Aufgabenbearbeitung mit localStorage-Speicherung und einblendbarer Musterlösung
 ├── Aufgaben_<Slug>.md              # Aufgaben-Quelldaten (Markdown)
 └── Tagesplan_<Slug>.md             # Tagesplanung
 ```
@@ -75,6 +76,13 @@ Session-Pfade im Code.
 ```bash
 # Grundlagen- und Arbeitsbuch-PDFs aus dem Lehrbuch-PDF heraustrennen
 python3 scripts/split_pdf.py
+```
+
+### Lernbereich generieren
+
+```bash
+# Interaktive Aufgabenbearbeitung (Lernbereich_<Slug>.html) aus scripts/data/lernbereich/session-N.json bauen
+node scripts/build-lernbereich.js
 ```
 
 ### Spiele & Karteikarten generieren
