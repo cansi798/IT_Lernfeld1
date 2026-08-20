@@ -22,7 +22,7 @@ c) **Ordnen** Sie die folgenden Vorgänge dem richtigen Strom im einfachen Wirts
 
 ## Aufgabe 2 — Erweiterter Wirtschaftskreislauf (8 Punkte)
 
-a) **Nennen** Sie die vier Wirtschaftssubjekte des erweiterten Wirtschaftskreislaufs und erläutern Sie kurz die spezifische Rolle des Staates. (4 P.)
+a) **Nennen** Sie die fünf Wirtschaftssubjekte des erweiterten Wirtschaftskreislaufs und erläutern Sie kurz die spezifische Rolle des Staates. (4 P.)
 
 b) **Ordnen** Sie die folgenden Geldströme dem richtigen Wirtschaftssubjekt als Quelle und Ziel zu: (4 P.)
 
