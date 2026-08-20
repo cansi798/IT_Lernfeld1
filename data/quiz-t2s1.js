@@ -41,15 +41,15 @@ window.QUIZ_DATA = {
     },
 
     {
-      frage: "Welche drei Kundensegmente bedient JIKU laut Unternehmensvorstellung?",
+      frage: "Welche Kundensegmente bedient JIKU laut Unternehmensvorstellung?",
       optionen: [
         "Nur Privatkunden und Großkonzerne",
+        "Business (Unternehmen) und Public (öffentliche Verwaltungen)",
         "Ausschließlich öffentliche Verwaltungen und Behörden",
-        "Nur B2B-Kunden aus der Industrie",
-        "Business (Mittelstand), Public (Behörden) und Consumer (Privatkunden)"
+        "Business, Public und Consumer (Privatkunden)"
       ],
-      richtig: 3,
-      erklaerung: "JIKU bedient drei Kundensegmente: Business (mittelständische Unternehmen), Public (Behörden und Organisationen) und Consumer (Privatkunden)."
+      richtig: 1,
+      erklaerung: "JIKU bedient zwei Kundensegmente: Business (mittelständische Unternehmen) und Public (Behörden und öffentliche Verwaltungen). Ein Consumer-Segment (Privatkunden) ist im Unternehmenskonzept nicht vorgesehen."
     },
 
     {
@@ -65,7 +65,7 @@ window.QUIZ_DATA = {
     },
 
     {
-      frage: "Am Hamburger Standort von JIKU arbeiten 32 Mitarbeiterinnen und Mitarbeiter. Wie viele davon sind Auszubildende?",
+      frage: "Am Hamburger Standort von JIKU arbeiten 52 Mitarbeiterinnen und Mitarbeiter. Wie viele davon sind Auszubildende?",
       optionen: [
         "4 Auszubildende",
         "6 Auszubildende",
@@ -73,7 +73,7 @@ window.QUIZ_DATA = {
         "10 Auszubildende"
       ],
       richtig: 2,
-      erklaerung: "Am Hamburger Standort von JIKU sind von den 32 Mitarbeiterinnen und Mitarbeitern 8 Auszubildende."
+      erklaerung: "Am Hamburger Standort von JIKU sind von den 52 Mitarbeiterinnen und Mitarbeitern 8 Auszubildende."
     },
 
     // === 8 Fragen: Begriffsabgrenzung Betrieb / Unternehmen / Firma ===

@@ -169,8 +169,8 @@ window.QUIZ_DATA = {
     {
       frage: "Ab welcher täglichen Unterrichtsstundenzahl müssen jugendliche Auszubildende an einem Berufsschultag einmal wöchentlich ganztägig freigestellt werden?",
       optionen: ["Ab 4 Unterrichtsstunden", "Ab 5 Unterrichtsstunden", "Ab 6 Unterrichtsstunden", "Ab 8 Unterrichtsstunden"],
-      richtig: 1,
-      erklaerung: "§ 9 JArbSchG schreibt die ganztägige Freistellung von der betrieblichen Ausbildung vor, wenn der Berufsschulunterricht an einem Tag mehr als fünf Unterrichtsstunden umfasst. Dies gilt einmal pro Woche."
+      richtig: 2,
+      erklaerung: "§ 9 JArbSchG schreibt die ganztägige Freistellung von der betrieblichen Ausbildung vor, wenn der Berufsschulunterricht an einem Tag mehr als fünf Unterrichtsstunden umfasst, also ab der 6. Stunde. Dies gilt einmal pro Woche."
     },
     {
       frage: "Bis zu welcher Uhrzeit dürfen jugendliche Auszubildende in einem IT-Einschichtbetrieb laut JArbSchG beschäftigt werden?",

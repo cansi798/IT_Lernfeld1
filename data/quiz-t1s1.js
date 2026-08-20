@@ -114,9 +114,9 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Welche Voraussetzungen muss ein Ausbilder im Betrieb erfüllen?",
-      optionen: ["Nur fachliche Eignung ist erforderlich", "Mindestens ein Hochschulabschluss", "Mindestens 5 Jahre Berufserfahrung", "Persönliche und fachliche Eignung; die Eignung stellt die IHK fest"],
+      optionen: ["Nur fachliche Eignung ist erforderlich", "Mindestens ein Hochschulabschluss", "Mindestens 5 Jahre Berufserfahrung", "Mindestens 24 Jahre alt sowie persönliche und fachliche Eignung; die Eignung stellt die IHK fest"],
       richtig: 3,
-      erklaerung: "Ein Ausbilder im Betrieb muss persönlich und fachlich geeignet sein (§§ 28–30 BBiG, AEVO). Die Eignung wird von der zuständigen Stelle (IHK) festgestellt. Ein gesetzliches Mindestalter von 24 Jahren ist im BBiG oder der AEVO nicht vorgesehen; maßgeblich sind allein die persönliche und fachliche Eignung."
+      erklaerung: "Ein Ausbilder im Betrieb muss mindestens 24 Jahre alt sein sowie persönlich und fachlich geeignet sein (§§ 28–30 BBiG, AEVO). Die Eignung wird von der zuständigen Stelle (IHK) festgestellt."
     },
     {
       frage: "Welches Dokument erstellt der Ausbildungsbetrieb auf Basis der Ausbildungsordnung als Anlage zum Ausbildungsvertrag?",

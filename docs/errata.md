@@ -40,9 +40,33 @@ Format je Eintrag:
 ## [Lehrbuch/Arbeitsbuch] Kapitel 1.3.1, Modellunternehmen JIKU IT-Solutions
 - **Fundstelle:** Lehrbuch Kapitel 1.3.1 (Angabe zum Standort Hamburg) vs. Arbeitsbuch, Unternehmensbeschreibung JIKU (S. 1)
 - **Fehler:** Widersprüchliche Mitarbeiterzahl für den Standort Hamburg: Lehrbuch nennt 52 Mitarbeiter, Arbeitsbuch nennt 32 Mitarbeiter (davon 8 Auszubildende).
-- **Korrektur:** Die Plattform verwendet durchgängig den Arbeitsbuch-Wert: 32 Mitarbeiter, davon 8 Auszubildende.
-- **Begründung/Beleg:** Das Arbeitsbuch enthält die maßgebliche Unternehmensbeschreibung des Modellunternehmens; alle übrigen Eckdaten (480 Mitarbeiter gesamt, 96 Auszubildende, 16 Standorte) stammen ebenfalls daraus.
+- **Korrektur (aktualisiert 2026-08-20):** Die Plattform verwendet durchgängig den Lehrbuch-Wert: **52 Mitarbeiter**, davon 8 Auszubildende (siehe separaten Errata-Eintrag unten).
+- **Begründung/Beleg:** Nach Inhalts-Audit 2026-08-20: Das Lehrbuch (52) ist maßgeblich; der Arbeitsbuch-Wert (32) ist ein Druckfehler. Die Plattform wurde auf 52 vereinheitlicht.
 
 ---
 
-*Stand 2026-08-19: Prüfung aller acht Sessions abgeschlossen.*
+## [Lehrbuch] Kreislaufkapitel — Klassifikation Lohn-/Einkommensteuer
+- **Fundstelle:** Kreislaufkapitel (Session 6), Steuerklassifikation
+- **Fehler:** Das Lehrbuch klassifiziert Lohn-/Einkommensteuer im Kreislaufkapitel als „indirekt vereinnahmt über Unternehmen" (da Arbeitgeber die Steuer abführt).
+- **Korrektur:** Der Kurs bleibt bei der herrschenden betriebswirtschaftlichen Klassifikation: Lohn-/Einkommensteuer ist eine **direkte Steuer** (Steuerträger = Steuerschuldner ist die natürliche Person). Der Abführungsweg über den Arbeitgeber ist ein verfahrenstechnischer Aspekt, der in Session 6 erläutert wird.
+- **Begründung/Beleg:** Standardklassifikation Finanzwissenschaft: direkte Steuer = Steuerträger ist zugleich Steuerschuldner. Lohnsteuer trifft den Arbeitnehmer als Schuldner unmittelbar — der Arbeitgeber ist nur Entrichtungspflichtiger (§ 38 Abs. 3 EStG).
+
+---
+
+## [Lehrbuch] Ausbildungsvertrag — Paragrafangabe Schriftform
+- **Fundstelle:** Lehrbuch, Abschnitt Ausbildungsvertrag: Zitat „§ 4 Abs. 1 BBiG" für die Schriftform des Ausbildungsvertrags.
+- **Fehler:** § 4 BBiG regelt die Ausbildungsordnung, nicht die Schriftform des Vertrags. Die Schriftform (Vertragsniederschrift) ist in **§ 11 BBiG** geregelt. Die Angabe „§ 4 Abs. 1 BBiG" ist mutmaßlich ein Druckfehler.
+- **Korrektur:** Das Kursmaterial verweist durchgängig auf **§ 11 BBiG** (Vertragsniederschrift) für die Schriftformpflicht des Berufsausbildungsvertrags.
+- **Begründung/Beleg:** BBiG § 4 = Ausbildungsordnung; BBiG § 11 = Vertragsniederschrift (Pflichtinhalte und Schriftform).
+
+---
+
+## [Lehrbuch/Arbeitsbuch] Hamburg-Mitarbeiterzahl — Vereinheitlichung auf 52
+- **Fundstelle:** Lehrbuch Kapitel 1.3.1: 52 Mitarbeiter am Hamburger Standort; Arbeitsbuch Unternehmensbeschreibung: 32 Mitarbeiter.
+- **Fehler:** Widerspruch zwischen Lehrbuch (52) und Arbeitsbuch (32).
+- **Korrektur:** Kursmaterial durchgängig auf **52 Mitarbeiter** (Lehrbuch-Wert) vereinheitlicht; Quiz-Frage und Erklärungstext entsprechend angepasst. Arbeitsbuch-Wert 32 gilt als Druckfehler.
+- **Begründung/Beleg:** Inhalts-Audit 2026-08-20; Lehrbuch ist bei Widersprüchen maßgeblich.
+
+---
+
+*Stand 2026-08-20: Inhalts-Audit S1–S3 abgeschlossen; drei neue Errata-Einträge ergänzt.*
