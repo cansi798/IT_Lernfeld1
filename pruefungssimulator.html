@@ -830,12 +830,14 @@ document.addEventListener('DOMContentLoaded', function() {
     cb.id = 'cb_' + s.id;
     cb.addEventListener('change', updateGebuendeltStart);
     var lbl = document.createElement('label');
-    lbl.htmlFor = 'cb_' + s.id;
     lbl.textContent = 'S' + (i + 1) + ' — ' + s.label;
     item.appendChild(cb);
     item.appendChild(lbl);
     item.addEventListener('click', function(e) {
-      if (e.target !== cb) cb.click();
+      if (e.target !== cb) {
+        cb.checked = !cb.checked;
+        updateGebuendeltStart();
+      }
     });
     clist.appendChild(item);
   });
