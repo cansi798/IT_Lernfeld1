@@ -1,6 +1,6 @@
 # Aufgaben Session 3: Betrieb, Unternehmen & Unternehmensziele
 
-**Kontext:** Sie sind seit einigen Wochen als neue Auszubildende bei der **JIKU IT-Solutions GmbH** tätig, einem IT-Systemhaus mit 52 Mitarbeitenden am Hamburger Standort, davon 8 Auszubildende. Ihr Ausbilder, Frau Meyerhoff, gibt Ihnen heute einen Überblick über den Betrieb und seine Ziele.
+**Kontext:** Sie sind seit einigen Wochen als neue Auszubildende bei der **JIKU IT-Solutions GmbH** tätig, einem IT-Systemhaus mit 52 Mitarbeitenden am Hamburger Standort, davon 8 Auszubildende. Ihre Ausbilderin, Frau Meyerhoff, gibt Ihnen heute einen Überblick über den Betrieb und seine Ziele.
 
 ---
 
@@ -49,7 +49,7 @@ b) Was bedeutet das Akronym SMART in der Zielformulierung? **Formulieren** Sie e
 
 ---
 
-## Aufgabe 5 — Sachziele und Formalziele (8 Punkte)
+## Aufgabe 5 — Sachziele und Formalziele (6 Punkte)
 
 Ordnen Sie die folgenden Unternehmensziele den Kategorien **Sachziel** (S) oder **Formalziel** (F) zu und geben Sie an, ob es sich um ein **strategisches** (St) oder **operatives** (O) Ziel handelt.
 
@@ -89,6 +89,6 @@ Frau Meyerhoff teilt folgende Zahlen für den Hamburger JIKU-Standort mit:
 
 a) **Berechnen** Sie die Wirtschaftlichkeit des Hamburger Standorts für den letzten Monat. (2 P.)
 
-b) **Berechnen** Sie die Rentabilität des Eigenkapitals für das letzte Jahr. (2 P.)
+b) **Berechnen** Sie die Rentabilität des eingesetzten Kapitals für das letzte Jahr. (2 P.)
 
 c) **Berechnen** Sie die Produktivität des Support-Teams für beide Tage und **bestimmen** Sie, an welchem Tag das Team produktiver war. (2 P.)
