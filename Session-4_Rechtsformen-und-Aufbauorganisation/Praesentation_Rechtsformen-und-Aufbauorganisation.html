@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 4 — Rechtsformen &amp; Aufbauorganisation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Diagramm-Container */
+.figure { margin: 1.5rem auto; text-align: center; }
+.figure svg { max-width: 100%; height: auto; }
+.caption { color: var(--bfw-ink-soft); font-size: 0.95rem; margin-top: 0.5rem; }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+.numlist { list-style: none; margin-left: 0; counter-reset: numitem; }
+.numlist li { padding-left: 3rem; position: relative; counter-increment: numitem; margin-bottom: 0.8rem; }
+.numlist li::before {
+  content: counter(numitem);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--bfw-primary); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 4</span>
+    <h1>Rechtsformen &amp; Aufbauorganisation</h1>
+    <p class="subtitle">Von Einzelunternehmen bis AG — Leitungssysteme und Vollmachten im Überblick</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.3.4</span>
+      <span><strong>Dauer</strong>90 Minuten</span>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <h2>Was erwartet Sie heute?</h2>
+    <ol class="numlist">
+      <li>Aufbau- und Ablauforganisation, Stellenarten</li>
+      <li>Leitungssysteme und Organigramm (JIKU IT-Solutions)</li>
+      <li>Kaufmannseigenschaft und Handelsregister</li>
+      <li>Firma und Firmengrundsätze (§§ 17 ff. HGB)</li>
+      <li>Prokura und Handlungsvollmachten</li>
+      <li>Rechtsformen: Einzelunternehmen, GbR, OHG, KG</li>
+      <li>Rechtsformen: GmbH, UG, AG</li>
+      <li>Rechtsformwahl — Kriterien und steuerliche Einordnung</li>
+    </ol>
+  </section>
+
+  <!-- 3. Aufbau- vs. Ablauforganisation -->
+  <section class="slide">
+    <h2>Aufbau- vs. Ablauforganisation</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Aufbauorganisation</div>
+        <p>Gliederung in Einheiten, Übertragung von Aufgaben, Kompetenzen und Verantwortung; Festlegung von Informations- und Anweisungswegen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Ablauforganisation</div>
+        <p>Regelt den <strong>funktionalen, zeitlichen und räumlichen</strong> Arbeitsablauf zum optimalen Einsatz von Mitarbeitern und Betriebsmitteln</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Betriebliche Regelungsformen</span>
+      Organisation (dauerhaft, geplant) → Disposition (geplant im Rahmen) → Improvisation (ungeplant, situativ)
+    </div>
+  </section>
+
+  <!-- 4. Stellenarten -->
+  <section class="slide">
+    <h2>Stellenarten im Unternehmen</h2>
+    <table>
+      <tr>
+        <th>Stellenart</th>
+        <th>Merkmale</th>
+        <th>Beispiel bei JIKU</th>
+      </tr>
+      <tr>
+        <td><strong>Instanz</strong></td>
+        <td>Anordnungs- und Entscheidungsbefugnis gegenüber untergeordneten Stellen</td>
+        <td>Abteilungsleiter IT-Service</td>
+      </tr>
+      <tr>
+        <td><strong>Stabsstelle</strong></td>
+        <td>Berät die Instanz, bereitet Entscheidungen vor — <em>keine Weisungsbefugnis</em>; hat Informationsrecht</td>
+        <td>Qualitätsmanagement, IT-Sicherheit</td>
+      </tr>
+      <tr>
+        <td><strong>Ausführende Stelle</strong></td>
+        <td>Keine Leitungs- oder Entscheidungsbefugnis</td>
+        <td>Help-Desk-Mitarbeiter</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 5. Leitungssysteme Überblick -->
+  <section class="slide">
+    <h2>Die vier Leitungssysteme</h2>
+    <table>
+      <tr>
+        <th>System</th>
+        <th>Stärken</th>
+        <th>Schwächen</th>
+      </tr>
+      <tr>
+        <td><strong>Einliniensystem</strong></td>
+        <td>Klare Zuständigkeiten, einfache Struktur</td>
+        <td>Lange Weisungswege, mangelnde Flexibilität</td>
+      </tr>
+      <tr>
+        <td><strong>Stabliniensystem</strong></td>
+        <td>Linienvorzüge + Beratung durch Stabsstellen</td>
+        <td>Kompetenzkonflikte möglich</td>
+      </tr>
+      <tr>
+        <td><strong>Mehrliniensystem</strong></td>
+        <td>Flexibler Einsatz, Spezialisierung</td>
+        <td>Abgrenzungsprobleme, Überforderung</td>
+      </tr>
+      <tr>
+        <td><strong>Matrixorganisation</strong></td>
+        <td>Zwei Kernkompetenzen, Teamarbeit gefördert</td>
+        <td>Zuständigkeitskonflikte möglich</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 6. JIKU-Leitungssystem -->
+  <section class="slide">
+    <h2>JIKU IT-Solutions: Kombination aus Stablinien- und Matrixorganisation</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      JIKU nutzt <strong>Stabliniensystem + Matrixorganisation</strong>: Die Stabsstellen entlasten die Instanzen fachlich. In den kundennahen IT-Solutions-Bereichen arbeitet JIKU viel im Projektmanagement — deshalb passt dort die Matrixorganisation am besten.
+    </div>
+    <ul>
+      <li><strong>Stabsstellen-Beispiele:</strong> IT-Sicherheit, Qualitätsmanagement, Datenschutzbeauftragter, Assistent der Geschäftsleitung</li>
+      <li><strong>Matrixbereiche:</strong> IT-Solutions-Bereiche mit Produkt- und Funktionsverantwortung</li>
+      <li><strong>Organigramm:</strong> zeigt Hierarchieebenen, Linienstellen und Stabsstellen übersichtlich</li>
+    </ul>
+  </section>
+
+  <!-- 7. Funktionale und Spartenorganisation -->
+  <section class="slide">
+    <h2>Funktionale und divisionale Organisation</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Funktionale Organisation</div>
+        <p>Gliederung der 2. Hierarchiestufe nach <strong>betrieblichen Funktionen</strong> (Beschaffung, Fertigung, Absatz, Verwaltung)</p>
+        <p class="muted">Koordination nach Abteilungen; Funktionskompetenz im Vordergrund</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Spartenorganisation (divisional)</div>
+        <p>Gliederung nach <strong>Produktbereichen / Sparten</strong> mit eigener Verantwortung</p>
+        <p class="muted">Profitcenter (Gewinnverantwortung) oder Costcenter (Kostenverantwortung)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Handelsregister und Kaufmannseigenschaft -->
+  <section class="slide">
+    <h2>Handelsregister &amp; Kaufmannseigenschaft</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Durch Eintragung ins Handelsregister erlangt das Unternehmen die <strong>Kaufmannseigenschaft</strong> und unterliegt neben dem BGB auch dem <strong>HGB</strong> (doppelte Buchführung, Firmenpflicht, Prokura usw.).
+    </div>
+    <table>
+      <tr><th>Merkmal</th><th>Inhalt</th></tr>
+      <tr><td><strong>Abteilung A</strong></td><td>Einzelkaufleute, Personengesellschaften (OHG, KG)</td></tr>
+      <tr><td><strong>Abteilung B</strong></td><td>Kapitalgesellschaften (GmbH, AG)</td></tr>
+      <tr><td><strong>Publikationsfunktion</strong></td><td>Jedermann kann Einsicht nehmen</td></tr>
+      <tr><td><strong>Schutzfunktion</strong></td><td>Schutz von Kunden und Lieferanten</td></tr>
+    </table>
+  </section>
+
+  <!-- 9. Firma und Firmengrundsätze -->
+  <section class="slide">
+    <h2>Firma und Firmengrundsätze (§§ 17 ff. HGB)</h2>
+    <p>Die <strong>Firma</strong> (§ 17 HGB) ist der <em>Name</em>, unter dem ein Kaufmann seine Geschäfte betreibt und die Unterschrift abgibt — nicht das Unternehmen selbst!</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Personenfirma</div>
+        <p>Familienname des Inhabers: <em>Lasse Müller e. Kfm.</em></p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Sachfirma</div>
+        <p>Unternehmensgegenstand: <em>IT-Sander e. K.</em></p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Fantasiefirma</div>
+        <p>Freie Gestaltung: <em>Sysygy e. Kfm., IT-2000 GmbH</em></p>
+      </div>
+    </div>
+    <ul style="margin-top:1rem">
+      <li><strong>Firmenausschließlichkeit</strong> (§ 30 HGB): unterscheidbar von anderen Firmen am Ort</li>
+      <li><strong>Firmenwahrheit</strong> (§ 18 Abs. 2 HGB): kein Irreführungsverbot</li>
+      <li><strong>Firmenbeständigkeit</strong> (§ 22 HGB): Fortführung auch bei Inhaberwechsel</li>
+    </ul>
+  </section>
+
+  <!-- 10. Prokura und Handlungsvollmacht -->
+  <section class="slide">
+    <h2>Prokura vs. Handlungsvollmacht</h2>
+    <table>
+      <tr>
+        <th>Merkmal</th>
+        <th>Prokura (§§ 48–53 HGB)</th>
+        <th>Handlungsvollmacht (§§ 54–58 HGB)</th>
+      </tr>
+      <tr>
+        <td>Umfang</td>
+        <td>Alle gewöhnl. + außergewöhnl. Geschäfte; Ausnahmen: Bilanz, HR-Eintragung, Prokura erteilen</td>
+        <td>Gesamt: alle gewöhnl. Geschäfte; Art: bestimmte Art; Einzel: ein Rechtsgeschäft</td>
+      </tr>
+      <tr>
+        <td>Zeichnung</td>
+        <td><code>ppa. Name</code></td>
+        <td><code>i.V. Name</code> (Gesamt/Art) oder <code>i.A. Name</code> (Einzel)</td>
+      </tr>
+      <tr>
+        <td>Erteilung</td>
+        <td>Nur Kaufmann; Eintragung ins HR (deklaratorisch)</td>
+        <td>Formlos (mündlich/schriftlich); kein HR-Eintrag</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 11. Rechtsformen-Systematik -->
+  <section class="slide">
+    <h2>Überblick: Rechtsformen-Systematik</h2>
+    <ul>
+      <li><strong>Einzelunternehmen:</strong> e. K., e. Kfm., e. Kffr. — ein Inhaber, volle Haftung</li>
+      <li><strong>Personengesellschaften:</strong> GbR, OHG, KG, PartG — mindestens zwei Gründer, persönliche Haftung</li>
+      <li><strong>Kapitalgesellschaften:</strong> GmbH, UG, AG — juristische Person, Haftung auf Gesellschaftsvermögen beschränkt</li>
+      <li><strong>Sonstige:</strong> eG (Genossenschaft), VVaG, GmbH &amp; Co. KG (Mischform)</li>
+      <li><strong>Hauptkriterium:</strong> Haftung, Mindestkapital, Leitung, Steuern, Gründungsaufwand</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Personengesellschaften = persönliche Haftung + Einkommensteuer. Kapitalgesellschaften = beschränkte Haftung + Körperschaftsteuer.
+    </div>
+  </section>
+
+  <!-- 12. Einzelunternehmen, GbR, OHG -->
+  <section class="slide">
+    <h2>Einzelunternehmen · GbR · OHG</h2>
+    <table>
+      <tr><th></th><th>Einzelunternehmen</th><th>GbR</th><th>OHG</th></tr>
+      <tr><td><strong>Gründer</strong></td><td>1 Inhaber</td><td>mind. 2</td><td>mind. 2</td></tr>
+      <tr><td><strong>Mindestkapital</strong></td><td>keine</td><td>keine</td><td>keine</td></tr>
+      <tr><td><strong>Haftung</strong></td><td>persönl., unbeschr.</td><td>persönl., unbeschr., solidarisch</td><td>persönl., unbeschr., solidarisch</td></tr>
+      <tr><td><strong>Leitung</strong></td><td>Inhaber allein</td><td>alle Gesellschafter</td><td>alle Gesellschafter</td></tr>
+      <tr><td><strong>Besonderheit</strong></td><td>Zusatz: e.K., e.Kfm., e.Kffr.</td><td>keine Firma, keine Prokura möglich</td><td>Betrieb eines Handelsgewerbes; Zusatz „OHG"</td></tr>
+    </table>
+  </section>
+
+  <!-- 13. KG -->
+  <section class="slide">
+    <h2>KG — Kommanditgesellschaft</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Komplementär (Vollhafter)</div>
+        <p>Haftet <strong>persönlich, unbeschränkt und solidarisch</strong> wie bei der OHG</p>
+        <p>Führt die Geschäfte; bei ungewöhnlichen Rechtsgeschäften Zustimmung des Kommanditisten nötig</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Kommanditist (Teilhafter)</div>
+        <p>Haftet nur bis zur Höhe seiner <strong>Einlage</strong></p>
+        <p>Nur Kontrollrecht, keine Geschäftsführung</p>
+      </div>
+    </div>
+    <ul style="margin-top:1rem">
+      <li><strong>Mindestkapital:</strong> keine gesetzliche Untergrenze</li>
+      <li><strong>Sonderform:</strong> GmbH &amp; Co. KG — Komplementär ist eine GmbH, kombiniert Haftungsbeschränkung mit steuerlichen Vorteilen der Personengesellschaft</li>
+      <li><strong>Rechtsgrundlage:</strong> §§ 161 ff. HGB</li>
+    </ul>
+  </section>
+
+  <!-- 14. GmbH und UG -->
+  <section class="slide">
+    <h2>GmbH &amp; UG (haftungsbeschränkt)</h2>
+    <ul>
+      <li><strong>GmbH — Mindestkapital:</strong> 25.000 € Stammkapital (§ 5 GmbHG); bei Gründung mindestens 12.500 € sofort einzuzahlen</li>
+      <li><strong>GmbH — Haftung:</strong> nur die Gesellschaft haftet; Gesellschafter haften nicht persönlich</li>
+      <li><strong>GmbH — Organe:</strong> Geschäftsführer (Leitung), Gesellschafterversammlung; Aufsichtsrat erst ab 500 Arbeitnehmern mitbestimmungspflichtig</li>
+      <li><strong>GmbH — Gründer:</strong> mindestens ein Gesellschafter</li>
+      <li><strong>UG (haftungsbeschränkt):</strong> Stammkapital ab 1 €; 25 % des Jahresüberschusses müssen thesauriert werden, bis 25.000 € Stammkapital erreicht sind</li>
+      <li><strong>UG — Gründung:</strong> günstig, beliebt bei Start-ups; bei Erreichen von 25.000 € Aufstieg zur GmbH möglich</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      JIKU IT-Solutions ist eine <strong>GmbH</strong> — die häufigste Rechtsform bei IT-Systemhäusern.
+    </div>
+  </section>
+
+  <!-- 15. AG -->
+  <section class="slide">
+    <h2>AG — Aktiengesellschaft</h2>
+    <ul>
+      <li><strong>Mindestkapital:</strong> 50.000 € Grundkapital (§ 7 AktG)</li>
+      <li><strong>Haftung:</strong> nur die Gesellschaft haftet; Aktionäre haften nicht persönlich</li>
+      <li><strong>Organe:</strong>
+        <ul>
+          <li>Hauptversammlung der Aktionäre (Beschlüsse, Gewinnverteilung/Dividende)</li>
+          <li>Aufsichtsrat (Kontrolle des Vorstands)</li>
+          <li>Vorstand (Geschäftsführung und Vertretung nach außen)</li>
+        </ul>
+      </li>
+      <li><strong>Stärken:</strong> einfache Kapitalbeschaffung über Börse, Mitarbeiterbeteiligung durch Aktien</li>
+      <li><strong>Schwächen:</strong> aufwendige Rechtsform (Organe, Mitbestimmung, Offenlegung, Wirtschaftsprüfung)</li>
+      <li><strong>Rechtsgrundlage:</strong> Aktiengesetz (AktG)</li>
+    </ul>
+  </section>
+
+  <!-- 16. Rechtsformwahl-Kriterien und Steuern -->
+  <section class="slide">
+    <h2>Rechtsformwahl — Kriterien &amp; Steuer</h2>
+    <ul>
+      <li><strong>1. Haftung:</strong> Wie viel Privatvermögen soll riskiert werden? → Kapitalgesellschaft schützt</li>
+      <li><strong>2. Kapital:</strong> Startkapital vorhanden? UG: ab 1 €; GmbH: 25.000 €; AG: 50.000 €</li>
+      <li><strong>3. Leitungsbefugnis:</strong> Wer entscheidet allein oder gemeinsam?</li>
+      <li><strong>4. Gründungsaufwand:</strong> Notar, HR-Eintragung, Kosten</li>
+      <li><strong>5. Flexibilität:</strong> Gesellschafterwechsel, Beteiligung Dritter</li>
+      <li><strong>6. Steuern:</strong> Personengesellschaft → Einkommensteuer (§§ 15, 18 EStG); Kapitalgesellschaft → Körperschaftsteuer (§ 1 KStG)</li>
+      <li><strong>7. Publizität:</strong> Offenlegungspflicht des Jahresabschlusses bei Kapitalgesellschaften</li>
+    </ul>
+  </section>
+
+  <!-- 17. Zusammenfassung -->
+  <section class="slide">
+    <h2>Zusammenfassung: Rechtsformen &amp; Organisation</h2>
+    <ul>
+      <li><strong>Rechtsformen:</strong> Einzelunternehmen (volle Haftung) → Personengesellschaften (pers. Haftung) → Kapitalgesellschaften (beschränkte Haftung)</li>
+      <li><strong>Mindestkapital:</strong> UG ab 1 €; GmbH 25.000 €; AG 50.000 €</li>
+      <li><strong>Steuer:</strong> Personengesellschaft → Einkommensteuer; Kapitalgesellschaft → Körperschaftsteuer</li>
+      <li><strong>Firma (§ 17 HGB):</strong> Handelsname des Kaufmanns — nicht das Unternehmen selbst</li>
+      <li><strong>Prokura:</strong> weitreichendste Vollmacht, ins Handelsregister einzutragen; Zeichnung ppa.</li>
+      <li><strong>Aufbauorganisation:</strong> Stelle → Instanz → Abteilung; Stabsstellen beraten ohne Weisung</li>
+      <li><strong>Leitungssysteme:</strong> Einlinien (klar, starr) → Stablinien (+ Beratung) → Mehrlinien (flexibel) → Matrix (doppelte Leitung)</li>
+      <li><strong>JIKU:</strong> Kombination Stablinien + Matrix; GmbH als Rechtsform</li>
+    </ul>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>

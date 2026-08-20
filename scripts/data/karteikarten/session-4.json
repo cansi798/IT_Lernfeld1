@@ -1,0 +1,143 @@
+{
+  "session": 4,
+  "thema": "Rechtsformen & Aufbauorganisation",
+  "slug": "Rechtsformen-und-Aufbauorganisation",
+  "day_id": "s4",
+  "cards": [
+    {
+      "topic": "Rechtsformwahl",
+      "front": "Welche neun zentralen Kriterien bestimmen die Wahl der Rechtsform?",
+      "back": "1. Haftung, 2. Leitungsbefugnis/Vertretung, 3. Gewinn-/Verlustbeteiligung, 4. Kapitalbedarf/Finanzierungsmöglichkeiten, 5. Flexibilität bei Gesellschafterwechsel, 6. Steuerbelastung, 7. Offenlegungspflichten, 8. Aufwendungen der Rechtsform (Gründungskosten), 9. Verkauf/Nachfolgeregelung."
+    },
+    {
+      "topic": "Einzelunternehmen",
+      "front": "Was kennzeichnet ein Einzelunternehmen in Bezug auf Haftung, Leitung und Mindestkapital?",
+      "back": "Ein Inhaber führt das Unternehmen allein und haftet persönlich und unbeschränkt mit seinem gesamten Privat- und Betriebsvermögen. Es gibt kein Mindestkapital. Bei Eintragung ins Handelsregister sind die Zusätze e.K., e.Kffr. oder e.Kfm. vorgeschrieben."
+    },
+    {
+      "topic": "GbR",
+      "front": "Was ist die GbR, und wo liegt ihr wesentlicher Unterschied zur OHG?",
+      "back": "Die Gesellschaft bürgerlichen Rechts (GbR, § 705 ff. BGB) ist die einfachste Mehrpersonengesellschaft; sie führt keine eigene Firma und kann keine Prokura erteilen. Eine GbR mit Gewerbebetrieb muss sich ins Handelsregister eintragen und wird damit zur OHG."
+    },
+    {
+      "topic": "OHG",
+      "front": "Welche Merkmale hat die Offene Handelsgesellschaft (OHG)?",
+      "back": "Die OHG (§§ 105 ff. HGB) dient dem Betrieb eines Handelsgewerbes. Mindestens zwei Gesellschafter, die persönlich, unbeschränkt und solidarisch haften. Jeder Gesellschafter ist zur Geschäftsführung berechtigt. Name frei wählbar mit Zusatz 'OHG' oder '& Co.'. Gründungskosten ca. 500 €."
+    },
+    {
+      "topic": "KG",
+      "front": "Wie unterscheiden sich Komplementär und Kommanditist in der KG?",
+      "back": "Der Komplementär (Vollhafter) haftet persönlich, unbeschränkt und solidarisch und führt die Geschäfte. Der Kommanditist (Teilhafter) haftet nur bis zur Höhe seiner Einlage und hat lediglich ein Kontrollrecht; bei ungewöhnlichen Rechtsgeschäften ist seine Zustimmung notwendig."
+    },
+    {
+      "topic": "GmbH",
+      "front": "Welches Mindest-Stammkapital schreibt das GmbH-Gesetz vor, und wer haftet?",
+      "back": "Nach § 5 GmbHG beträgt das Mindest-Stammkapital 25.000 €; bei Gründung sind mindestens 12.500 € sofort einzuzahlen. Nur die Gesellschaft haftet für Verbindlichkeiten — Gesellschafter haften nicht persönlich. Organ ist der Geschäftsführer (notariell beurkundet)."
+    },
+    {
+      "topic": "UG",
+      "front": "Was ist die UG (haftungsbeschränkt), und welche Besonderheit gilt für den Gewinn?",
+      "back": "Die Unternehmergesellschaft (UG, 'kleine GmbH') kann ab 1 € Stammkapital gegründet werden. Bis das Stammkapital auf 25.000 € angewachsen ist, müssen 25 % des Jahresüberschusses thesauriert (zurückgelegt) werden. Danach ist der Wechsel zur GmbH möglich. Beliebt bei Start-ups."
+    },
+    {
+      "topic": "AG",
+      "front": "Welches Mindestgrundkapital hat die AG, und welche drei Organe sind vorgeschrieben?",
+      "back": "Die Aktiengesellschaft (AG) benötigt nach § 7 AktG mindestens 50.000 € Grundkapital. Ihre drei Organe sind: Hauptversammlung der Aktionäre (Beschlüsse, Gewinnverteilung/Dividende), Aufsichtsrat (Kontrolle des Vorstands) und Vorstand (Geschäftsführung und Vertretung)."
+    },
+    {
+      "topic": "Personengesellschaft vs. Kapitalgesellschaft",
+      "front": "Was ist der steuerliche Unterschied zwischen Personen- und Kapitalgesellschaften?",
+      "back": "Bei Personengesellschaften (Einzelunternehmen, GbR, OHG, KG) ist jeder Gesellschafter selbst Steuersubjekt und zahlt Einkommensteuer auf seinen Gewinnanteil (§§ 15, 18 EStG). Kapitalgesellschaften (GmbH, AG) sind als juristische Person selbst Steuersubjekt und zahlen Körperschaftsteuer (§ 1 KStG)."
+    },
+    {
+      "topic": "Handelsregister",
+      "front": "Welchen Zweck hat das Handelsregister, und welche Abteilungen gibt es?",
+      "back": "Das Handelsregister beim Amtsgericht ist eine der wichtigsten Informationsquellen der Wirtschaft (Publikations- und Schutzfunktion). Abteilung A: für Einzelkaufleute und Personengesellschaften (OHG, KG). Abteilung B: für Kapitalgesellschaften (GmbH, AG). Jedermann kann Einsicht nehmen."
+    },
+    {
+      "topic": "Kaufmannseigenschaft",
+      "front": "Wie erlangt ein Unternehmen die Kaufmannseigenschaft?",
+      "back": "Ein Unternehmen erlangt die Kaufmannseigenschaft durch Eintragung ins Handelsregister oder durch das Betreiben eines Handelsgewerbes in kaufmännischer Weise (§ 1 HGB). Als Kaufmann unterliegt das Unternehmen neben dem BGB auch dem HGB und muss u.a. eine doppelte Buchführung einrichten."
+    },
+    {
+      "topic": "Firma",
+      "front": "Was versteht das HGB unter der 'Firma', und welche Firmenarten gibt es?",
+      "back": "Die Firma ist nach § 17 HGB der Name, unter dem ein Kaufmann seine Geschäfte betreibt und seine Unterschrift abgibt. Firmenarten nach § 19 HGB: Personenfirma (Familienname), Sachfirma (Unternehmensgegenstand) und Fantasiefirma (beliebige Gestaltung). Nur eingetragene Kaufleute dürfen eine Firma führen."
+    },
+    {
+      "topic": "Firmengrundsätze",
+      "front": "Welche drei Grundsätze regeln die Firmenführung nach dem HGB?",
+      "back": "1. Firmenausschließlichkeit (§ 30 HGB): Die Firma muss sich von anderen Firmen am gleichen Ort unterscheiden. 2. Firmenwahrheit (§ 18 Abs. 2 HGB): Irreführungsverbot — keine täuschenden Angaben über Verhältnisse. 3. Firmenbeständigkeit (§ 22 HGB): Die Firma kann auch bei Inhaberwechsel weitergeführt werden."
+    },
+    {
+      "topic": "Prokura",
+      "front": "Was ist die Prokura, und was darf ein Prokurist nicht?",
+      "back": "Die Prokura (§§ 48–53 HGB) umfasst alle gewöhnlichen und außergewöhnlichen Geschäfte und Rechtshandlungen. Unterschrift: 'ppa.' oder 'p.p.a.'. Nicht erlaubt: Bilanz und Steuererklärung unterschreiben, Handelsregistereintragungen vornehmen, Eid für das Unternehmen leisten, Gesellschafter aufnehmen, Prokura erteilen oder entziehen."
+    },
+    {
+      "topic": "Prokura",
+      "front": "Wie wird eine Prokura erteilt und eingetragen?",
+      "back": "Prokura kann nur durch den Inhaber oder Geschäftsführer (Kaufmann) erteilt werden, mündlich oder schriftlich. Die Eintragung ins Handelsregister ist vorgeschrieben — sie hat jedoch nur deklaratorische Wirkung (die Prokura wirkt schon mit der Erteilung). Jederzeit widerruflich, auch bei vertraglicher Vereinbarung."
+    },
+    {
+      "topic": "Handlungsvollmacht",
+      "front": "Welche drei Arten der Handlungsvollmacht gibt es?",
+      "back": "1. Gesamtvollmacht (allgemeine Handlungsvollmacht): alle gewöhnlichen Geschäfte; Zusatz 'i.V.' 2. Artvollmacht: bestimmte Art wiederkehrender Geschäfte (z.B. Einkäufer, Kassierer). 3. Einzelvollmacht: ein einzelnes Rechtsgeschäft (z.B. Geld zur Bank bringen); Zusatz 'i.A.'. Erteilung formlos — kein HR-Eintrag möglich."
+    },
+    {
+      "topic": "Aufbau- vs. Ablauforganisation",
+      "front": "Was unterscheidet Aufbau- von Ablauforganisation?",
+      "back": "Die Aufbauorganisation gliedert den Betrieb in funktionsfähige Einheiten, überträgt Aufgaben, Kompetenzen und Verantwortung und legt Informations-/Anweisungswege fest. Die Ablauforganisation regelt den funktionalen, zeitlichen und räumlichen Arbeitsablauf zum optimalen Einsatz von Mitarbeitern und Betriebsmitteln."
+    },
+    {
+      "topic": "Stellenarten",
+      "front": "Was sind Instanz, Stabsstelle und ausführende Stelle?",
+      "back": "Instanz: Stelle mit Anordnungs- und Entscheidungsbefugnis gegenüber rangniedrigeren Stellen. Stabsstelle: Hilfsstelle einer Instanz ohne Weisungsbefugnis — berät und bereitet Entscheidungen vor, hat aber ein Informationsrecht aus allen Linienstellen. Ausführende Stelle: ohne Leitungs- und Entscheidungsbefugnis."
+    },
+    {
+      "topic": "Organigramm",
+      "front": "Was ist ein Organigramm, und welche Informationen enthält es?",
+      "back": "Ein Organigramm ist ein Schaubild des Leitungssystems eines Unternehmens. Es zeigt die Aufbauorganisation: Hierarchieebenen, Stellen und Instanzen, Über-/Unterordnungsbeziehungen, Stabsstellen sowie Abteilungsgliederungen. Organigramme unterscheiden sich nach Leitungssystem (Einlinien-, Stablinien-, Mehrlinien-, Matrixorganisation)."
+    },
+    {
+      "topic": "Einliniensystem",
+      "front": "Was kennzeichnet das Einliniensystem, und welche Vor-/Nachteile hat es?",
+      "back": "Im Einliniensystem hat jede untergeordnete Stelle genau eine übergeordnete Instanz (klare Weisungslinie). Vorteile: klare Zuständigkeiten, überschaubare Beziehungsstruktur. Nachteile: lange Informations- und Weisungswege, Überlastung höherer Instanzen möglich, zahlreiche Schnittstellen, mangelnde Flexibilität."
+    },
+    {
+      "topic": "Stabliniensystem",
+      "front": "Was ist das Stabliniensystem, und welche Funktion haben Stabsstellen?",
+      "back": "Das Stabliniensystem ergänzt das Einliniensystem um Stabsstellen ohne Weisungsbefugnis. Stabsstellen entlasten und beraten Instanzen fachkundig (z.B. Assistent der Geschäftsleitung, Qualitätsmanager, Datenschutzbeauftragter). Vorteil: bessere Beratung. Nachteil: mögliche Kompetenzkonflikte der Stabsstellen mit Linieninstanzen."
+    },
+    {
+      "topic": "Mehrlinien- und Matrixorganisation",
+      "front": "Wie unterscheiden sich Mehrlinien- und Matrixorganisation?",
+      "back": "Im Mehrliniensystem kann eine untergeordnete Stelle von mehreren Instanzen Weisungen erhalten (Funktionsmeistersystem) — flexibel, aber Abgrenzungsprobleme möglich. Die Matrixorganisation als Weiterentwicklung führt zwei gleichberechtigte Instanzen (z.B. Produkt- und Funktionsverantwortliche) ein; fördert Teamarbeit, birgt aber Zuständigkeitskonflikte."
+    },
+    {
+      "topic": "Funktionale und Spartenorganisation",
+      "front": "Was unterscheidet funktionale Organisation von der Spartenorganisation?",
+      "back": "Funktionale Organisation: Die zweite Hierarchiestufe gliedert sich nach betrieblichen Funktionen (z.B. Beschaffung, Fertigung, Absatz, Verwaltung). Spartenorganisation (divisionale Organisation): Gliederung nach Sparten/Divisionen (z.B. Produktbereichen) mit eigener Ergebnisverantwortung — Profitcenter oder Costcenter möglich."
+    },
+    {
+      "topic": "JIKU-Aufbauorganisation",
+      "front": "Welches Leitungssystem hat JIKU IT-Solutions gewählt und warum?",
+      "back": "JIKU hat eine Kombination aus Stabliniensystem und Matrixorganisation eingerichtet. In den kundennahen IT-Solutions-Bereichen wird viel im Projektmanagement gearbeitet, sodass dort eine Matrixorganisation passt. Das Organigramm zeigt mehrere Stabsstellen (z.B. Qualitätsmanagement, IT-Sicherheit) neben den Linienstellen."
+    },
+    {
+      "topic": "Internationale Führungsbezeichnungen",
+      "front": "Wofür stehen CEO, CFO, CTO, CIO und CDO?",
+      "back": "CEO: Chief Executive Officer (Geschäftsführer/Vorstandsvorsitzender). CFO: Chief Financial Officer (Finanzvorstand/-leiter). CTO: Chief Technology Officer (Technikvorstand/-leiter). CIO: Chief Information Officer (IT-Vorstand/-leiter). CDO: Chief Digital Officer (verantwortlich für digitale Transformation)."
+    },
+    {
+      "topic": "GmbH & Co. KG",
+      "front": "Was ist eine GmbH & Co. KG, und welchen Vorteil bietet sie?",
+      "back": "Bei der GmbH & Co. KG ist der Komplementär (Vollhafter) eine GmbH — nicht eine natürliche Person. Dadurch wird die persönliche Haftung aller Beteiligten beschränkt, obwohl die Gesellschaft steuerlich als Personengesellschaft behandelt wird. Diese Kombination vereint Haftungsbeschränkung mit steuerlichen Vorteilen."
+    },
+    {
+      "topic": "Profitcenter / Costcenter",
+      "front": "Was sind Profitcenter und Costcenter in der Unternehmensorganisation?",
+      "back": "Profitcenter: Organisationseinheiten mit eigenen Zielen und Gewinn-/Profitverantwortung — sie rechnen intern wie eigenständige Unternehmen ab. Costcenter: Einheiten mit eigenen Kostenzielen, ohne eigene Gewinnverantwortung. Beide Konzepte stärken Selbstverantwortung und Ergebnisorientierung einzelner Abteilungen."
+    }
+  ]
+}
