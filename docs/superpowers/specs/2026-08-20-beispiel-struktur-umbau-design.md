@@ -80,6 +80,10 @@ stehen als JS-Konstante `SESSIONS` in der Seite — analog zum Beispiel.
 Beispiel). Er löscht die Freischaltung (`localStorage.removeItem(...)`) und zeigt
 wieder das Zugangscode-Gate. Der Button erscheint nur im freigeschalteten Zustand.
 
+**Keine GitHub-Verlinkung:** Anders als das Beispiel enthält die Kursseite (und alle
+anderen Seiten) KEINE Fußnote/Link auf ein GitHub-Repository (Nutzer-Anforderung
+vom 2026-08-20).
+
 ## Prüfungssimulator (pruefungssimulator.html)
 
 Eigenständige Seite, lädt alle 8 `data/quiz-t*.js` (320 Fragen). Drei Modi:
