@@ -28,11 +28,9 @@ const REQUIRED = (slug) => [
   `Lernbereich_${slug}.html`,
 ];
 
-// Optionale Dateien: fehlen = nur WARNUNG
-const OPTIONAL = (slug) => [
-  `Grundlagen_${slug}.pdf`,
-  `Arbeitsbuch_${slug}.pdf`,
-];
+// Optionale Dateien: fehlen = nur WARNUNG (derzeit keine — Verlags-Auszüge
+// sind reines lokales Arbeitsmaterial ohne Kachel auf der Kursseite)
+const OPTIONAL = (slug) => [];
 
 console.log('=== Link-Audit ===\n');
 

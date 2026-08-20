@@ -389,7 +389,7 @@ footer {
 
     <div class="intro">
       <h2>Willkommen zu Lernfeld 1</h2>
-      <p>Hier finden Sie alle Materialien zu <strong>Lernfeld 1 &mdash; Die eigene Rolle im Betrieb mitgestalten</strong>: je Session eine <strong>Pr&#228;sentation</strong>, ein <strong>Handout</strong> als PDF, ein interaktives <strong>Quiz</strong>, <strong>Karteikarten</strong>, einen interaktiven <strong>Lernbereich</strong>, die Lernspiele <strong>Wordle, Hangman &amp; Memory</strong> sowie <strong>Aufgabenheft</strong>, <strong>Grundlagen</strong> und <strong>Arbeitsbuch</strong> als PDF.</p>
+      <p>Hier finden Sie alle Materialien zu <strong>Lernfeld 1 &mdash; Die eigene Rolle im Betrieb mitgestalten</strong>: je Session eine <strong>Pr&#228;sentation</strong>, ein <strong>Handout</strong> als PDF, ein interaktives <strong>Quiz</strong>, <strong>Karteikarten</strong>, einen interaktiven <strong>Lernbereich</strong>, die Lernspiele <strong>Wordle, Hangman &amp; Memory</strong> sowie das <strong>Aufgabenheft</strong> als PDF.</p>
     </div>
 
     <h2 class="section-title">Sessions</h2>
@@ -476,9 +476,6 @@ function renderSessions() {
     k.push(kachelHTML(base + '/Memory_' + s.slug + '.html', 'game', '&#129504;', 'Memory', '&#8594;'));
     k.push(kachelHTML(base + '/Aufgabenheft_' + s.slug + '.pdf', 'pdf', 'PDF', 'Aufgabenheft mit Lösungen', '&#8595;'));
     k.push(kachelHTML(base + '/Lernbereich_' + s.slug + '.html', 'html', '&#9997;', 'Lernbereich', '&#8594;'));
-    // Grundlagen + Arbeitsbuch: initially disabled; activated by HEAD check
-    k.push('<div class="kachel disabled pdf" id="grundlagen-' + s.nr + '" data-href="' + base + '/Grundlagen_' + s.slug + '.pdf"><span class="ki">PDF</span><span class="kachel-label">Grundlagen (lokal)</span><span class="soon-badge">folgt</span></div>');
-    k.push('<div class="kachel disabled pdf" id="arbeitsbuch-' + s.nr + '" data-href="' + base + '/Arbeitsbuch_' + s.slug + '.pdf"><span class="ki">PDF</span><span class="kachel-label">Arbeitsbuch (lokal)</span><span class="soon-badge">folgt</span></div>');
     // Video + Podcast: initially disabled; activated by HEAD check
     k.push('<div class="kachel disabled video" id="video-' + s.nr + '" data-href="' + base + '/Session-' + s.nr + '_Video.mp4"><span class="ki">&#127916;</span><span class="kachel-label">Video-Aufzeichnung</span><span class="soon-badge">folgt</span></div>');
     k.push('<div class="kachel disabled audio" id="podcast-' + s.nr + '" data-href="' + base + '/Session-' + s.nr + '_Podcast.m4a"><span class="ki">&#127911;</span><span class="kachel-label">Podcast (Audio)</span><span class="soon-badge">folgt</span></div>');
@@ -490,27 +487,13 @@ function renderSessions() {
       + '</div>';
   }).join('');
 
-  // HEAD checks for Grundlagen, Arbeitsbuch, Video + Podcast
+  // HEAD checks for Video + Podcast
   SESSIONS.forEach(function(s) {
     var base = 'Session-' + s.nr + '_' + s.slug;
-    var grundlagenEl = document.getElementById('grundlagen-' + s.nr);
-    var arbeitsbuchEl = document.getElementById('arbeitsbuch-' + s.nr);
     var videoEl = document.getElementById('video-' + s.nr);
     var podcastEl = document.getElementById('podcast-' + s.nr);
-    var grundlagenHref = base + '/Grundlagen_' + s.slug + '.pdf';
-    var arbeitsbuchHref = base + '/Arbeitsbuch_' + s.slug + '.pdf';
     var videoHref = base + '/Session-' + s.nr + '_Video.mp4';
     var podcastHref = base + '/Session-' + s.nr + '_Podcast.m4a';
-
-    fetch(grundlagenHref, { method: 'HEAD' }).then(function(res) {
-      if (!res.ok) return;
-      grundlagenEl.outerHTML = kachelHTML(grundlagenHref, 'pdf', 'PDF', 'Grundlagen (PDF)', '&#8595;');
-    }).catch(function() {});
-
-    fetch(arbeitsbuchHref, { method: 'HEAD' }).then(function(res) {
-      if (!res.ok) return;
-      arbeitsbuchEl.outerHTML = kachelHTML(arbeitsbuchHref, 'pdf', 'PDF', 'Arbeitsbuch (PDF)', '&#8595;');
-    }).catch(function() {});
 
     fetch(videoHref, { method: 'HEAD' }).then(function(res) {
       if (!res.ok) return;

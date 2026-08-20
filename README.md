@@ -8,10 +8,9 @@ Zugangscode ist ein einfacher Zugriffsschutz (im Quelltext von `index.html`
 einsehbar) — kein Sicherheitsmerkmal.
 
 > **Hinweis Verlagsmaterial:** Die Grundlagen-PDFs und Arbeitsbuch-PDFs
-> (Auszüge aus dem Lehrbuch) liegen aus urheberrechtlichen Gründen
-> **ausschließlich lokal** und sind nicht im Repository eingecheckt
-> (`.gitignore`). Beim Aufruf über GitHub Pages erscheinen die entsprechenden
-> Kacheln ausgegraut/gesperrt.
+> (Auszüge aus dem Lehrbuch) sind reines lokales Arbeitsmaterial, aus
+> urheberrechtlichen Gründen nicht im Repository (`.gitignore`) und werden
+> auf der Kursseite nicht verlinkt.
 
 ---
 
@@ -40,8 +39,8 @@ Session-N_<Slug>/
 ├── Handout_<Slug>.tex              # LaTeX-Quelle
 ├── Aufgabenheft_<Slug>.pdf         # Aufgabenheft
 ├── Aufgabenheft_<Slug>.tex         # LaTeX-Quelle
-├── Grundlagen_<Slug>.pdf           # Grundlagen-Auszug (nur lokal)
-├── Arbeitsbuch_<Slug>.pdf          # Arbeitsbuch-Auszug (nur lokal)
+├── Grundlagen_<Slug>.pdf           # Lehrbuch-Auszug (nur lokal, ohne Kachel)
+├── Arbeitsbuch_<Slug>.pdf          # Arbeitsbuch-Auszug (nur lokal, ohne Kachel)
 ├── Quiz_<Slug>.html                # Interaktives Quiz
 ├── Hangman_<Slug>.html             # Hangman-Spiel
 ├── Wordle_<Slug>.html              # Wordle-Spiel
