@@ -2,73 +2,528 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Lernfeld 1 Fachinformatiker — Kursübersicht</title>
+<title>BFW Lernplattform — Lernfeld 1: Die eigene Rolle im Betrieb mitgestalten</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="assets/style.css">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E;
+  --bfw-accent:#F59E0B; --bfw-warn:#F97316;
+  --bfw-success:#10B981; --bfw-danger:#EF4444;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569;
+  --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-bg-amber:#FEF3C7;
+  --bfw-bg-rose:#FFE4E6; --bfw-border:#E2E8F0;
+  --bfw-bg-green:#D1FAE5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 50%, var(--bfw-bg-amber) 100%);
+  min-height: 100vh;
+  color: var(--bfw-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Login-Screen */
+.login-screen {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(15,23,42,0.08), 0 4px 16px rgba(15,23,42,0.04);
+  border: 1px solid var(--bfw-border);
+  text-align: center;
+}
+.login-icon {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--bfw-primary) 0%, var(--bfw-primary-dark) 100%);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 24px rgba(14,165,164,0.3);
+}
+.login-icon svg { width: 40px; height: 40px; color: white; }
+.login-card h1 {
+  font-size: 1.7rem;
+  color: var(--bfw-primary-dark);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+.login-card .subtitle {
+  color: var(--bfw-ink-soft);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.login-form {
+  display: flex; flex-direction: column;
+  gap: 0.8rem;
+}
+.login-form input {
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid var(--bfw-border);
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.login-form input:focus {
+  outline: none;
+  border-color: var(--bfw-primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+}
+.login-form button {
+  padding: 0.9rem 1.5rem;
+  background: var(--bfw-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.login-form button:hover {
+  background: var(--bfw-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(14,165,164,0.25);
+}
+.login-error {
+  color: var(--bfw-danger);
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+  font-weight: 600;
+}
+.login-hint {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bfw-border);
+  font-size: 0.85rem;
+  color: var(--bfw-ink-soft);
+}
+
+/* Dashboard */
+.dashboard { display: none; padding: 2rem 1rem 4rem; }
+.dashboard.active { display: block; }
+.container { max-width: 1180px; margin: 0 auto; }
+
+.dashboard-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1.8rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(15,23,42,0.04);
+  border: 1px solid var(--bfw-border);
+}
+.dashboard-header .brand {
+  display: flex; align-items: center; gap: 1rem;
+}
+.dashboard-header .brand-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--bfw-primary) 0%, var(--bfw-primary-dark) 100%);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.dashboard-header .brand-icon svg { width: 26px; height: 26px; color: white; }
+.dashboard-header h1 {
+  font-size: 1.4rem;
+  color: var(--bfw-primary-dark);
+  margin-bottom: 0.1rem;
+}
+.dashboard-header .meta { color: var(--bfw-ink-soft); font-size: 0.9rem; }
+.header-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.btn-logout {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--bfw-ink-soft);
+  border: 1.5px solid var(--bfw-border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-logout:hover { color: var(--bfw-danger); border-color: var(--bfw-danger); }
+
+/* Pruefungssimulator highlight */
+.pruef-banner {
+  background: linear-gradient(135deg, var(--bfw-primary-dark) 0%, var(--bfw-primary) 100%);
+  border-radius: 16px;
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  box-shadow: 0 8px 24px rgba(14,165,164,0.2);
+  text-decoration: none;
+  transition: all 0.2s;
+  color: white;
+}
+.pruef-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(14,165,164,0.3);
+  color: white;
+}
+.pruef-banner .pruef-icon {
+  font-size: 2.4rem;
+  flex-shrink: 0;
+}
+.pruef-banner .pruef-text h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+  color: white;
+}
+.pruef-banner .pruef-text p {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.82);
+}
+.pruef-banner .pruef-arrow {
+  margin-left: auto;
+  font-size: 1.5rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.intro {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--bfw-border);
+  box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+.intro h2 {
+  color: var(--bfw-primary-dark);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.intro p { color: var(--bfw-ink-soft); line-height: 1.55; font-size: 0.98rem; }
+
+.section-title {
+  font-size: 1.4rem;
+  color: var(--bfw-primary-dark);
+  margin: 2rem 0 1rem;
+  font-weight: 700;
+}
+
+.sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.4rem;
+}
+.session-card {
+  background: white;
+  border: 1px solid var(--bfw-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+  border-color: var(--bfw-primary);
+}
+.session-card .card-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--bfw-primary) 0%, var(--bfw-accent) 100%);
+}
+.session-num {
+  display: inline-block;
+  background: var(--bfw-bg-teal);
+  color: var(--bfw-primary-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.session-card h3 {
+  color: var(--bfw-ink);
+  font-size: 1.08rem;
+  margin-bottom: 0.9rem;
+  line-height: 1.3;
+}
+.kacheln {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.kachel {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--bfw-bg-soft);
+  border: 1px solid var(--bfw-border);
+  border-radius: 8px;
+  color: var(--bfw-ink);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.kachel:hover {
+  background: var(--bfw-bg-teal);
+  border-color: var(--bfw-primary);
+  color: var(--bfw-primary-dark);
+  transform: translateX(2px);
+}
+.kachel .ki {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.kachel.html .ki { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); }
+.kachel.pdf .ki  { background: var(--bfw-bg-rose); color: var(--bfw-warn); }
+.kachel.game .ki { background: var(--bfw-bg-amber); color: var(--bfw-warn); }
+.kachel.cards .ki { background: var(--bfw-bg-green); color: #047857; }
+.kachel.video .ki { background: #EDE9FE; color: #6D28D9; }
+.kachel.audio .ki { background: #DCFCE7; color: #15803D; }
+.kachel-label { flex: 1; font-weight: 500; }
+.kachel-arrow { color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Deaktivierte "folgt"-Kacheln */
+.kachel.disabled {
+  background: #F1F5F9;
+  border: 1px dashed var(--bfw-border);
+  color: var(--bfw-ink-soft);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.kachel.disabled .ki { background: #E2E8F0; color: #94A3B8; }
+.soon-badge {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  color: #94A3B8;
+}
+
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  color: var(--bfw-ink-soft);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .sessions-grid { grid-template-columns: 1fr; }
+  .pruef-banner { flex-direction: column; text-align: center; }
+  .pruef-banner .pruef-arrow { margin-left: 0; }
+}
+</style>
 </head>
 <body>
 
-<main>
-  <div class="seitenkopf">
-    <h1>Lernfeld 1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</h1>
-    <p class="untertitel">4 Kurstage · 8 Sessions · Präsentationen, Handouts, Aufgaben &amp; Quizze</p>
-  </div>
-
-  <div class="gate" id="gate">
-    <p>Bitte geben Sie Ihren Kurs-Zugangscode ein.</p>
-    <form class="gate-form" id="gateForm" autocomplete="off">
-      <input type="password" id="gateInput" placeholder="Zugangscode" autocomplete="off" required autofocus>
-      <button type="submit">Zum Kurs →</button>
-      <div class="gate-error" id="gateError"></div>
+<!-- LOGIN-SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    <h1>BFW Lernplattform</h1>
+    <p class="subtitle">Lernfeld 1 — Die eigene Rolle im Betrieb mitgestalten<br>8 Sessions</p>
+    <form class="login-form" onsubmit="return tryLogin(event)">
+      <input type="password" id="codeInput" placeholder="Zugangscode" autocomplete="off" required autofocus>
+      <button type="submit">Zum Kurs &#8594;</button>
+      <div class="login-error" id="loginError"></div>
     </form>
+    <div class="login-hint">
+      Keinen Code? Bitte beim Dozenten anfragen.
+    </div>
   </div>
+</div>
 
-  <div class="tag-grid" id="tagGrid" style="display:none;">
+<!-- DASHBOARD -->
+<div id="dashboard" class="dashboard">
+  <div class="container">
 
-    <div class="tag-card">
-      <span class="tag-nummer">Tag 1</span>
-      <h2>Ausbildung &amp; eigene Rolle</h2>
-      <a class="session-link" href="tag1-session1.html">Session 1: IT-Berufe &amp; duales System
-        <small>Kapitel 1.1 — Berufsbilder, Beteiligte, Lernorte</small></a>
-      <a class="session-link" href="tag1-session2.html">Session 2: Rechte &amp; Pflichten in der Ausbildung
-        <small>Kapitel 1.2 — BBiG, JArbSchG, Mitbestimmung, Berufsplanung</small></a>
+    <div class="dashboard-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>BFW Lernplattform</h1>
+          <div class="meta">Lernfeld 1 &mdash; Die eigene Rolle im Betrieb mitgestalten &middot; 8 Sessions</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-logout" id="btnAbmelden" onclick="abmelden()">Abmelden</button>
+      </div>
     </div>
 
-    <div class="tag-card">
-      <span class="tag-nummer">Tag 2</span>
-      <h2>Betrieb, Ziele &amp; Organisation</h2>
-      <a class="session-link" href="tag2-session1.html">Session 1: Betrieb &amp; Unternehmen
-        <small>Kapitel 1.3.1–1.3.3 — Modellunternehmen, Umfeld, Unternehmensziele</small></a>
-      <a class="session-link" href="tag2-session2.html">Session 2: Rechtsformen &amp; Aufbauorganisation
-        <small>Kapitel 1.3.4 — GmbH, AG &amp; Co., Organigramme</small></a>
+    <!-- Pruefungssimulator Highlight -->
+    <a href="pruefungssimulator.html" class="pruef-banner">
+      <span class="pruef-icon">&#127891;</span>
+      <div class="pruef-text">
+        <h2>Pr&#252;fungssimulator &mdash; 320 Fragen &#252;ben &amp; Pr&#252;fung simulieren</h2>
+        <p>Alle Sessions auf einen Blick &mdash; Quizfragen aus allen 8 Einheiten</p>
+      </div>
+      <span class="pruef-arrow">&#8594;</span>
+    </a>
+
+    <div class="intro">
+      <h2>Willkommen zu Lernfeld 1</h2>
+      <p>Hier finden Sie alle Materialien zu <strong>Lernfeld 1 &mdash; Die eigene Rolle im Betrieb mitgestalten</strong>: je Session eine <strong>Pr&#228;sentation</strong>, ein <strong>Handout</strong> als PDF, ein interaktives <strong>Quiz</strong>, <strong>Karteikarten</strong>, die Lernspiele <strong>Wordle, Hangman &amp; Memory</strong> sowie <strong>Aufgabenheft</strong>, <strong>Grundlagen</strong> und <strong>Arbeitsbuch</strong> als PDF.</p>
     </div>
 
-    <div class="tag-card">
-      <span class="tag-nummer">Tag 3</span>
-      <h2>Prozesse, Faktoren &amp; Markt</h2>
-      <a class="session-link" href="tag3-session1.html">Session 1: Geschäftsprozesse &amp; Produktionsfaktoren
-        <small>Kapitel 1.3.5–1.3.6 — Wertschöpfung, Güterarten</small></a>
-      <a class="session-link" href="tag3-session2.html">Session 2: Wirtschaftskreislauf &amp; Markt
-        <small>Kapitel 1.4 — Kreisläufe, Marktsituationen</small></a>
+    <h2 class="section-title">Sessions</h2>
+    <div class="sessions-grid" id="sessionsGrid">
+      <!-- wird per JS bef&#252;llt -->
     </div>
 
-    <div class="tag-card">
-      <span class="tag-nummer">Tag 4</span>
-      <h2>Den Ausbildungsbetrieb präsentieren</h2>
-      <a class="session-link" href="tag4-session1.html">Session 1: Präsentation vorbereiten &amp; planen
-        <small>Kapitel 1.5.1–1.5.2 — Teamarbeit, Medien, Aufbau</small></a>
-      <a class="session-link" href="tag4-session2.html">Session 2: Präsentieren &amp; reflektieren
-        <small>Kapitel 1.5.3 — Feedback, Reflexion + Gesamtwiederholung</small></a>
-    </div>
+    <footer>
+      &copy; Can Siebert &middot; 2026 &middot; Material nur f&#252;r unterrichtliche Zwecke im Rahmen des Kurses
+    </footer>
 
   </div>
-</main>
+</div>
 
-<footer>
-  Lernfeld 1 Fachinformatiker · © Can Siebert 2026 · Material nur für unterrichtliche Zwecke im Rahmen des Kurses<br>
-  <a href="https://github.com/cansi798/IT_Lernfeld1">github.com/cansi798/IT_Lernfeld1</a>
-</footer>
+<script>
+const ZUGANGSCODE = 'lernfeld1';
+const STORAGE_KEY = 'it_lf1_unlocked';
 
-<script src="assets/app.js"></script>
+const SESSIONS = [
+  { nr: 1, slug: 'IT-Berufe-und-duales-System',
+    titel: 'IT-Berufe & duales System' },
+  { nr: 2, slug: 'Rechte-Pflichten-und-Arbeitsrecht',
+    titel: 'Rechte, Pflichten & Arbeitsrecht' },
+  { nr: 3, slug: 'Betrieb-Unternehmen-und-Ziele',
+    titel: 'Betrieb, Unternehmen & Unternehmensziele' },
+  { nr: 4, slug: 'Rechtsformen-und-Aufbauorganisation',
+    titel: 'Rechtsformen & Aufbauorganisation' },
+  { nr: 5, slug: 'Geschaeftsprozesse-Produktionsfaktoren-Gueterarten',
+    titel: 'Geschäftsprozesse, Produktionsfaktoren & Güterarten' },
+  { nr: 6, slug: 'Wirtschaftskreislauf-und-Marktsituationen',
+    titel: 'Wirtschaftskreislauf & Marktsituationen' },
+  { nr: 7, slug: 'Praesentation-vorbereiten-und-planen',
+    titel: 'Präsentation vorbereiten & planen' },
+  { nr: 8, slug: 'Praesentieren-Feedback-und-Wiederholung',
+    titel: 'Präsentieren, Feedback & Gesamtwiederholung' }
+];
+
+function tryLogin(e) {
+  e.preventDefault();
+  const val = document.getElementById('codeInput').value.trim().toLowerCase();
+  if (val === ZUGANGSCODE) {
+    localStorage.setItem(STORAGE_KEY, '1');
+    showDashboard();
+  } else {
+    document.getElementById('loginError').textContent = 'Falscher Zugangscode. Bitte erneut versuchen.';
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+  return false;
+}
+
+function abmelden() {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+function kachelHTML(href, iconClass, icon, label, arrow) {
+  return '<a class="kachel ' + iconClass + '" href="' + href + '" target="_blank" rel="noopener">'
+    + '<span class="ki">' + icon + '</span>'
+    + '<span class="kachel-label">' + label + '</span>'
+    + '<span class="kachel-arrow">' + arrow + '</span>'
+    + '</a>';
+}
+
+function kachelDisabled(iconClass, icon, label) {
+  return '<div class="kachel disabled ' + iconClass + '">'
+    + '<span class="ki">' + icon + '</span>'
+    + '<span class="kachel-label">' + label + '</span>'
+    + '<span class="soon-badge">folgt</span>'
+    + '</div>';
+}
+
+function renderSessions() {
+  const grid = document.getElementById('sessionsGrid');
+  grid.innerHTML = SESSIONS.map(function(s) {
+    const base = 'Session-' + s.nr + '_' + s.slug;
+    const k = [];
+    k.push(kachelHTML(base + '/Praesentation_' + s.slug + '.html', 'html', '&#9654;', 'Präsentation (HTML)', '&#8594;'));
+    k.push(kachelHTML(base + '/Handout_' + s.slug + '.pdf', 'pdf', 'PDF', 'Handout (PDF)', '&#8595;'));
+    k.push(kachelHTML(base + '/Quiz_' + s.slug + '.html', 'html', '?', 'Quiz', '&#8594;'));
+    k.push(kachelHTML(base + '/Karteikarten_' + s.slug + '.html', 'cards', '&#128209;', 'Karteikarten', '&#8594;'));
+    k.push(kachelHTML(base + '/Wordle_' + s.slug + '.html', 'game', '&#129001;', 'Wordle', '&#8594;'));
+    k.push(kachelHTML(base + '/Hangman_' + s.slug + '.html', 'game', '&#127919;', 'Hangman', '&#8594;'));
+    k.push(kachelHTML(base + '/Memory_' + s.slug + '.html', 'game', '&#129504;', 'Memory', '&#8594;'));
+    k.push(kachelHTML(base + '/Aufgabenheft_' + s.slug + '.pdf', 'pdf', 'PDF', 'Aufgabenheft mit Lösungen', '&#8595;'));
+    k.push(kachelHTML(base + '/Grundlagen_' + s.slug + '.pdf', 'pdf', 'PDF', 'Grundlagen (PDF)', '&#8595;'));
+    k.push(kachelHTML(base + '/Arbeitsbuch_' + s.slug + '.pdf', 'pdf', 'PDF', 'Arbeitsbuch (PDF)', '&#8595;'));
+    // Video + Podcast: initially disabled; activated by HEAD check
+    k.push('<div class="kachel disabled video" id="video-' + s.nr + '" data-href="' + base + '/Session-' + s.nr + '_Video.mp4"><span class="ki">&#127916;</span><span class="kachel-label">Video-Aufzeichnung</span><span class="soon-badge">folgt</span></div>');
+    k.push('<div class="kachel disabled audio" id="podcast-' + s.nr + '" data-href="' + base + '/Session-' + s.nr + '_Podcast.m4a"><span class="ki">&#127911;</span><span class="kachel-label">Podcast (Audio)</span><span class="soon-badge">folgt</span></div>');
+    return '<div class="session-card">'
+      + '<div class="card-stripe"></div>'
+      + '<div class="session-num">Session ' + s.nr + '</div>'
+      + '<h3>' + s.titel + '</h3>'
+      + '<div class="kacheln">' + k.join('') + '</div>'
+      + '</div>';
+  }).join('');
+
+  // HEAD checks for Video + Podcast
+  SESSIONS.forEach(function(s) {
+    var base = 'Session-' + s.nr + '_' + s.slug;
+    var videoEl = document.getElementById('video-' + s.nr);
+    var podcastEl = document.getElementById('podcast-' + s.nr);
+    var videoHref = base + '/Session-' + s.nr + '_Video.mp4';
+    var podcastHref = base + '/Session-' + s.nr + '_Podcast.m4a';
+
+    fetch(videoHref, { method: 'HEAD' }).then(function(res) {
+      if (!res.ok) return;
+      videoEl.outerHTML = kachelHTML(videoHref, 'video', '&#127916;', 'Video-Aufzeichnung', '&#9654;');
+    }).catch(function() {});
+
+    fetch(podcastHref, { method: 'HEAD' }).then(function(res) {
+      if (!res.ok) return;
+      podcastEl.outerHTML = kachelHTML(podcastHref, 'audio', '&#127911;', 'Podcast (Audio)', '&#9654;');
+    }).catch(function() {});
+  });
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').classList.add('active');
+  document.getElementById('btnAbmelden').style.display = '';
+  renderSessions();
+}
+
+// On load: check localStorage
+(function() {
+  // Abmelden-Button initially hidden (only shown after login)
+  document.getElementById('btnAbmelden').style.display = 'none';
+  if (localStorage.getItem(STORAGE_KEY) === '1') {
+    showDashboard();
+  }
+})();
+</script>
+
 </body>
 </html>
