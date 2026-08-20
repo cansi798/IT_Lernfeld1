@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 2 — Rechte, Pflichten & Arbeitsrecht</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 2 — Rechte, Pflichten & Arbeitsrecht</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"Pflichten im Ausbildungsverhältnis","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> Sie sind seit einigen Wochen als neue Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong> tätig, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden. Ihr Ausbilder, Herr Schulz, informiert Sie heute über Ihre Rechte und Pflichten in der Ausbildung.</p><ol type='a'><li><strong>Nennen</strong> Sie vier Pflichten, die Auszubildende nach § 13 BBiG haben. <em>(4 P.)</em></li><li><strong>Erläutern</strong> Sie, was unter der Geheimhaltungspflicht zu verstehen ist und warum sie für Auszubildende in einem IT-Unternehmen besonders wichtig ist. <em>(3 P.)</em></li><li><strong>Beschreiben</strong> Sie, was der Ausbildende nach § 14 BBiG in Bezug auf die Ausbildungsmittel verpflichtet ist zu tun. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Vier Pflichten nach § 13 BBiG (beliebige vier aus): Lernpflicht, Teilnahmepflicht (Berufsschule und Ausbildungsmaßnahmen), Weisungsgebundenheit, Einhaltung der betrieblichen Ordnung, Führung des Ausbildungsnachweises, pflegliche Behandlung der Ausbildungsmittel, Benachrichtigungspflicht bei Abwesenheit, Geheimhaltungspflicht.</p><p><strong>(b)</strong> Die Geheimhaltungspflicht nach § 13 BBiG verpflichtet Auszubildende, über Betriebs- und Geschäftsgeheimnisse Stillschweigen zu bewahren. Für ein IT-Unternehmen wie JIKU IT-Solutions ist dies besonders bedeutsam, da Auszubildende häufig Zugang zu sensiblen Kundendaten, Systemkonfigurationen und internen Projekten erhalten. Ein Verstoß könnte erheblichen wirtschaftlichen Schaden oder Vertrauensverlust verursachen.</p><p><strong>(c)</strong> Nach § 14 BBiG sind Ausbildende verpflichtet, Auszubildenden kostenlos alle Ausbildungsmittel zur Verfügung zu stellen, die für die Berufsausbildung und das Ablegen von Prüfungen erforderlich sind (z. B. Hardware, Software, Fachbücher). Außerdem müssen sie die ordnungsgemäße Führung des Ausbildungsnachweises überwachen.</p>"},{"nr":2,"titel":"Ausbildungsvertrag und Vergütung","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie vier der zehn Pflichtinhalte, die § 11 BBiG für den Berufsausbildungsvertrag vorschreibt. <em>(4 P.)</em></li><li>Was gilt nach dem BBiG für Vereinbarungen im Ausbildungsvertrag, die dem Sinn und Zweck der Berufsausbildung widersprechen? <strong>Begründen</strong> Sie Ihre Antwort. <em>(2 P.)</em></li><li>Wie lange wird die Ausbildungsvergütung bei unverschuldeter Erkrankung weitergezahlt und was passiert danach? <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Vier beliebige der zehn Pflichtinhalte nach § 11 BBiG (je 1 Punkt), z. B.: Art, Dauer und Ziel der Ausbildung; Probezeit; Höhe und Zahlung der Vergütung; Dauer des Urlaubs; Form des Ausbildungsnachweises; Beginn und Dauer der Ausbildung.</p><p><strong>(b)</strong> Vereinbarungen, die den Vorschriften des BBiG widersprechen oder dem Sinn und Zweck der Berufsausbildung zuwiderlaufen, sind <em>nichtig</em> — d. h. von Anfang an unwirksam. Das gilt unabhängig davon, ob beide Seiten zugestimmt haben. Das BBiG schützt Auszubildende damit auch vor nachteiligen Vertragsklauseln.</p><p><strong>(c)</strong> Die Ausbildungsvergütung wird bei unverschuldeter Erkrankung nach dem Entgeltfortzahlungsgesetz (EntgFG) für bis zu <strong>sechs Wochen</strong> weitergezahlt. Danach zahlt die gesetzliche Krankenkasse <strong>Krankengeld</strong>.</p>"},{"nr":3,"titel":"Probezeit und Kündigung","punkte":10,"aufgabentext":"<p>Herr Schulz erklärt Ihnen, dass Ihre Ausbildungskollegin Mia (17 Jahre) nach zwei Monaten Ausbildung überlegt, ob sie kündigen könnte.</p><ol type='a'><li>Wie lang darf die Probezeit im Berufsausbildungsverhältnis nach § 20 BBiG mindestens und höchstens dauern? <em>(2 P.)</em></li><li>Mia befindet sich noch in der Probezeit. <strong>Erläutern</strong> Sie, welche Möglichkeiten zur Kündigung Mia und JIKU IT-Solutions in dieser Phase haben. <em>(3 P.)</em></li><li>Angenommen, die Probezeit ist vorbei und Mia möchte nun die Ausbildung aufgeben und in einen anderen Beruf wechseln. <strong>Beschreiben</strong> Sie, wie sie kündigen darf und was sie dabei beachten muss. <em>(3 P.)</em></li><li><strong>Begründen</strong> Sie, ob JIKU IT-Solutions nach der Probezeit das Ausbildungsverhältnis ordentlich kündigen kann. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Die Probezeit beträgt nach § 20 BBiG <strong>mindestens einen Monat</strong> und <strong>höchstens vier Monate</strong>. Eine Probezeit von fünf oder sechs Monaten wäre unzulässig.</p><p><strong>(b)</strong> Während der Probezeit kann <em>jede Seite</em> ohne Einhaltung einer Frist und ohne Angabe von Gründen kündigen (§ 22 Abs. 1 BBiG). Mia könnte also fristlos kündigen, ebenso wie JIKU IT-Solutions.</p><p><strong>(c)</strong> Nach der Probezeit kann Mia das Ausbildungsverhältnis kündigen, wenn sie die Berufsausbildung aufgeben oder einen anderen Beruf anstreben möchte. Die Kündigung muss <strong>schriftlich</strong>, mit <strong>Angabe des Grundes</strong> und mit einer <strong>Frist von vier Wochen</strong> erfolgen (§ 22 Abs. 2 Nr. 2 BBiG).</p><p><strong>(d)</strong> Nein. § 22 BBiG erlaubt Ausbildenden nach der Probezeit <em>keine</em> ordentliche Kündigung. Nur eine außerordentliche fristlose Kündigung aus <strong>wichtigem Grund</strong> ist möglich — und muss innerhalb von zwei Wochen nach Kenntnis des Grundes ausgesprochen werden.</p>"},{"nr":4,"titel":"Jugendarbeitsschutz","punkte":8,"aufgabentext":"<p>Mia ist 17 Jahre alt. Kreuzen Sie an, ob folgende Aussagen zum JArbSchG <strong>richtig (R)</strong> oder <strong>falsch (F)</strong> sind, und korrigieren Sie falsche Aussagen in einem Satz.</p><table><tr><th>Aussage</th><th>R</th><th>F</th><th>Korrektur (wenn falsch)</th></tr><tr><td>a) Mia darf pro Tag höchstens 8 Stunden arbeiten.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>b) Mia hat Anspruch auf 30 Urlaubstage pro Jahr.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>c) Bei einem Berufsschultag mit 6 Unterrichtsstunden ist Mia ganztägig freizustellen.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>d) Mehrarbeitsstunden bei Mia müssen am selben Tag ausgeglichen werden.</td><td>[ ]</td><td>[ ]</td><td></td></tr></table><p><em>(2 Punkte je Zeile: 1 P. Kreuz korrekt, 1 P. Korrektur soweit nötig)</em></p>","loesung":"<p>(a) <strong>Richtig</strong> — § 8 JArbSchG begrenzt die tägliche Arbeitszeit auf höchstens 8 Stunden (in Ausnahmen 8,5 Stunden).</p><p>(b) <strong>Falsch</strong> — Mia ist 17 Jahre alt (noch nicht 18 Jahre), daher hat sie Anspruch auf <strong>25 Urlaubstage</strong> (§ 19 JArbSchG: noch nicht 18 Jahre → 25 Tage; noch nicht 17 Jahre → 27 Tage; noch nicht 16 Jahre → 30 Tage).</p><p>(c) <strong>Richtig</strong> — § 9 JArbSchG schreibt die ganztägige Freistellung vor, wenn der Berufsschulunterricht mehr als fünf Unterrichtsstunden umfasst (einmal pro Woche).</p><p>(d) <strong>Falsch</strong> — Mehrarbeit muss innerhalb der folgenden <strong>drei Wochen</strong> (nicht am selben Tag) durch Freizeit ausgeglichen werden.</p>"},{"nr":5,"titel":"Betriebsrat und JAV","punkte":8,"aufgabentext":"<p>JIKU IT-Solutions hat 35 Mitarbeitende, davon vier Auszubildende (alle zwischen 19 und 23 Jahren).</p><ol type='a'><li><strong>Erklären</strong> Sie, ob bei JIKU IT-Solutions ein Betriebsrat gewählt werden kann, und begründen Sie Ihre Antwort. <em>(3 P.)</em></li><li><strong>Erläutern</strong> Sie, was die JAV ist und unter welchen Voraussetzungen sie bei JIKU IT-Solutions eingerichtet werden kann. <em>(3 P.)</em></li><li>Nennen Sie <strong>zwei Aufgaben</strong> der JAV im Betrieb. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Ja, bei JIKU IT-Solutions kann ein Betriebsrat gewählt werden. Das Betriebsverfassungsgesetz (BetrVG) ermöglicht die Wahl in Betrieben mit mindestens <strong>fünf wahlberechtigten Beschäftigten</strong> (ab 18 Jahre). JIKU IT-Solutions hat 35 Mitarbeitende, erfüllt damit die Voraussetzung deutlich. Die Amtszeit des gewählten Betriebsrats beträgt vier Jahre.</p><p><strong>(b)</strong> Die JAV (Jugend- und Auszubildendenvertretung) ist die gewählte Interessenvertretung aller Jugendlichen und Auszubildenden im Betrieb. Voraussetzung für ihre Einrichtung sind mindestens <strong>fünf wahlberechtigte Jugendliche oder Auszubildende</strong>. Da JIKU IT-Solutions vier Auszubildende zwischen 19 und 23 Jahren hat, wäre eine JAV erst bei einem weiteren wahlberechtigten Auszubildenden oder Jugendlichen möglich.</p><p><strong>(c)</strong> Zwei Aufgaben der JAV:</p><ul><li>Überwachung der Einhaltung von BBiG, JArbSchG und Betriebsvereinbarungen</li><li>Weiterleitung von Verbesserungsvorschlägen und Beschwerden der Auszubildenden über den Betriebsrat an den Arbeitgeber</li></ul>"},{"nr":6,"titel":"Fallaufgabe: JIKU IT-Solutions","punkte":8,"aufgabentext":"<p>Herr Schulz bittet Sie, eine betriebliche Situation zu beurteilen: Ein Auszubildender bei JIKU IT-Solutions wurde dauerhaft in der Poststelle eingesetzt, weil dort Personalmangel herrschte. Die Tätigkeit hat keinen Bezug zur IT-Ausbildung.</p><ol type='a'><li><strong>Beurteilen</strong> Sie, ob dieses Vorgehen mit dem BBiG vereinbar ist, und nennen Sie den relevanten Paragrafen. <em>(4 P.)</em></li><li>Der Auszubildende möchte wissen, an wen er sich wenden kann, um die Situation zu ändern. <strong>Nennen</strong> Sie zwei mögliche Ansprechpartner und <strong>erläutern</strong> Sie deren Aufgabe. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Das Vorgehen ist <em>nicht</em> mit dem BBiG vereinbar. § 14 BBiG schreibt vor, dass Ausbildende Auszubildenden ausschließlich Aufgaben übertragen dürfen, die dem <strong>Ausbildungszweck dienen</strong> und ihren körperlichen Kräften angemessen sind. Der dauerhafte Einsatz in der betriebsfremden Poststelle ohne IT-Bezug verstößt gegen § 14 BBiG, da er dem Ausbildungsziel des Fachinformatikers nicht dient und das Erreichen des Ausbildungsziels gefährdet.</p><p><strong>(b)</strong> Zwei mögliche Ansprechpartner:</p><ul><li><em>Betriebsrat</em>: Der Betriebsrat hat ein Mitbestimmungsrecht bei Fragen der Berufsausbildung und kann beim Arbeitgeber auf Abhilfe drängen.</li><li><em>IHK (zuständige Kammer)</em>: Als zuständige Stelle nach BBiG berät die IHK Auszubildende bei Problemen mit dem Ausbildenden und kann vermitteln oder ein Schlichtungsverfahren einleiten.</li></ul>"}];
+var SESSION_NR = '2';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

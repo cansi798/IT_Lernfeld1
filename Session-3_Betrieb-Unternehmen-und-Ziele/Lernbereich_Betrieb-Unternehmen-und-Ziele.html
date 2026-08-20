@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 3 — Betrieb, Unternehmen & Unternehmensziele</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 3 — Betrieb, Unternehmen & Unternehmensziele</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"JIKU IT-Solutions kennenlernen","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> Sie sind seit einigen Wochen als neue Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong> tätig, einem IT-Systemhaus mit 52 Mitarbeitenden am Hamburger Standort, davon 8 Auszubildende. Ihre Ausbilderin, Frau Meyerhoff, gibt Ihnen heute einen Überblick über den Betrieb und seine Ziele.</p><ol type='a'><li><strong>Nennen</strong> Sie vier Eckdaten des JIKU-Systemhausverbundes: Anzahl der Systemhäuser, Standorte, Gesamtmitarbeiterzahl und Gesamtzahl der Auszubildenden. <em>(4 P.)</em></li><li><strong>Erläutern</strong> Sie, was ein IT-Systemhaus von einem reinen IT-Hersteller unterscheidet, und nennen Sie zwei Leistungsbereiche aus dem Portfolio von JIKU IT-Solutions. <em>(4 P.)</em></li><li><strong>Beschreiben</strong> Sie, was bei JIKU unter Corporate Social Responsibility (CSR) zu verstehen ist. Nennen Sie zwei konkrete Maßnahmen. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Vier Eckdaten des JIKU-Verbundes: <strong>10 Systemhäuser</strong>, <strong>16 Standorte</strong> in Deutschland, <strong>480 Mitarbeiterinnen und Mitarbeiter</strong> insgesamt, <strong>96 Auszubildende</strong> im Verbund. <em>Häufiger Fehler: Mitarbeiterzahl am Hamburger Standort (52) wird mit Gesamtzahl (480) verwechselt.</em></p><p><strong>(b)</strong> Ein IT-Systemhaus agiert als <strong>Mittler zwischen IT-Herstellern und Endkunden</strong>: Es berät, beschafft Produkte und richtet diese ein. Ein IT-Hersteller <em>produziert</em> dagegen Standardprodukte. Zwei Leistungsbereiche (Auswahl): IT-Service, Cloud-Hosting, Server &amp; Storage, IT-Infrastrukturen, IT-Beratung.</p><p><strong>(c)</strong> CSR bezeichnet bei JIKU die <strong>gelebte Wertschätzung für verantwortungsvolles und nachhaltiges Handeln</strong>. Zwei Maßnahmen (Auswahl): flexible Arbeitszeiten / Home-Office, Betriebssport, Girls Day, Hackathon-Sponsoring, Stipendien, Fahrradleasing.</p>"},{"nr":2,"titel":"Begriffsabgrenzung","punkte":8,"aufgabentext":"<p>Kreuzen Sie an, ob folgende Aussagen <strong>richtig (R)</strong> oder <strong>falsch (F)</strong> sind. Korrigieren Sie falsche Aussagen in einem Satz.</p><table><tr><th>Aussage</th><th>R</th><th>F</th><th>Korrektur (wenn falsch)</th></tr><tr><td>a) Ein Betrieb ist die rechtlich-wirtschaftliche Einheit, die Steuern zahlt.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>b) Ein Unternehmen kann mehrere Betriebe haben.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>c) Die Firma ist nach § 17 HGB der Name, unter dem ein Kaufmann seine Geschäfte betreibt.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>d) JIKU IT-Solutions GmbH ist ein gemeinwirtschaftliches Unternehmen.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>e) IT-Systemhäuser gehören dem tertiären Wirtschaftssektor an.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>f) Erwerbswirtschaftliche Unternehmen dürfen keinen Gewinn anstreben.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>g) Ein Konzern besteht aus mehreren rechtlich selbstständigen Unternehmen unter einer gemeinsamen Leitung.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>h) Kartelle sind generell erlaubt, wenn alle beteiligten Unternehmen zustimmen.</td><td>[ ]</td><td>[ ]</td><td></td></tr></table>","loesung":"<ul><li>a) <strong>Falsch</strong> — Der Betrieb ist die <em>organisatorisch-technische</em> Einheit; das Unternehmen ist die rechtlich-wirtschaftliche.</li><li>b) <strong>Richtig</strong></li><li>c) <strong>Richtig</strong></li><li>d) <strong>Falsch</strong> — JIKU ist ein <em>erwerbswirtschaftliches</em> Unternehmen, das Gewinn anstrebt.</li><li>e) <strong>Richtig</strong></li><li>f) <strong>Falsch</strong> — Erwerbswirtschaftliche Unternehmen <em>streben ausdrücklich nach Gewinn</em>.</li><li>g) <strong>Richtig</strong></li><li>h) <strong>Falsch</strong> — Preis- und Gebietskartelle sind nach dem Gesetz gegen Wettbewerbsbeschränkungen (GWB) <em>verboten</em>, unabhängig von der Zustimmung der Beteiligten.</li></ul>"},{"nr":3,"titel":"Wirtschaftliche Verflechtungen","punkte":8,"aufgabentext":"<p>Frau Meyerhoff erklärt, dass JIKU IT-Solutions überlegt, einen kleineren Mitbewerber zu übernehmen und mit einem Rechenzentrum-Anbieter ein befristetes Gemeinschaftsprojekt zur Cloud-Standardisierung durchzuführen.</p><ol type='a'><li><strong>Ordnen</strong> Sie beide Vorhaben den passenden Formen wirtschaftlicher Verflechtungen (Fusion, Konzern, Kartell, Konsortium, Franchise) zu und <strong>begründen</strong> Sie Ihre Zuordnung. <em>(4 P.)</em></li><li><strong>Erläutern</strong> Sie den Unterschied zwischen einer horizontalen und einer vertikalen Unternehmensverflechtung. Geben Sie je ein Beispiel aus der IT-Branche. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Übernahme des Mitbewerbers: <strong>Fusion</strong> (Zusammenschluss zu einer rechtlichen Einheit) oder Begründung als Konzern möglich, wenn rechtliche Selbstständigkeit erhalten bleibt. Befristetes Cloud-Standardisierungsprojekt: <strong>Konsortium</strong> (vorübergehender Zusammenschluss für ein gemeinsames Vorhaben). <em>Kartell oder Franchise wären hier falsch.</em></p><p><strong>(b)</strong> <strong>Horizontal</strong>: Unternehmen der gleichen Leistungsstufe (z. B. zwei Rechenzentren fusionieren). <strong>Vertikal</strong>: Unternehmen verschiedener Leistungsstufen (z. B. ein Chip-Hersteller übernimmt einen Server-Systemintegrator).</p>"},{"nr":4,"titel":"Leitbild und Unternehmensziele","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Nennen</strong> Sie die drei Hauptbestandteile eines Unternehmensleitbildes und <strong>erläutern</strong> Sie deren Unterschied an einem selbst gewählten Beispiel. <em>(6 P.)</em></li><li>Was bedeutet das Akronym SMART in der Zielformulierung? <strong>Formulieren</strong> Sie anschließend ein SMART-Ziel für JIKU IT-Solutions. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong></p><ul><li><strong>Vision</strong>: Wohin soll sich das Unternehmen entwickeln? (Zukunftsbild, z. B. Marktführer in …)</li><li><strong>Mission</strong>: Was macht das Unternehmen und warum? (Zweck und Kernkompetenzen)</li><li><strong>Werte</strong>: Welche Grundsätze und Verhaltensweisen leiten das Handeln?</li></ul><p>Beispiel JIKU: Vision = bestes IT-Systemhaus der Region, Mission = wirtschaftlich, kompetent, sozial nachhaltig und umweltfreundlich handeln, Werte = Kundenorientierung, Exzellenz, Nachhaltigkeit.</p><p><strong>(b)</strong> SMART: <strong>S</strong>pezifisch, <strong>M</strong>essbar, <strong>A</strong>usführbar/Akzeptiert, <strong>R</strong>ealistisch, <strong>T</strong>erminierbar. Beispiel: JIKU Hamburg erhöht die Anzahl betreuter IT-Systeme bis zum 31. Dezember des laufenden Jahres von 400 auf 480 (20 % Steigerung), gemessen an abgeschlossenen Service-Level-Agreements.</p>"},{"nr":5,"titel":"Sachziele und Formalziele","punkte":6,"aufgabentext":"<p>Ordnen Sie die folgenden Unternehmensziele den Kategorien <strong>Sachziel</strong> (S) oder <strong>Formalziel</strong> (F) zu und geben Sie an, ob es sich um ein <strong>strategisches</strong> (St) oder <strong>operatives</strong> (O) Ziel handelt.</p><table><tr><th>Ziel</th><th>S oder F</th><th>St oder O</th></tr><tr><td>a) JIKU möchte in diesem Quartal 50 neue Help-Desk-Verträge abschließen.</td><td></td><td></td></tr><tr><td>b) JIKU strebt langfristig eine Eigenkapitalrentabilität von 15 % an.</td><td></td><td></td></tr><tr><td>c) Die Anzahl der Systemausfälle bei betreuten Kunden soll um 20 % gesenkt werden.</td><td></td><td></td></tr><tr><td>d) JIKU will in den nächsten 5 Jahren Marktführer im Hamburger IT-Systemhaus-Segment werden.</td><td></td><td></td></tr><tr><td>e) Die Reaktionszeit des Help-Desks soll von 4 auf 2 Stunden halbiert werden.</td><td></td><td></td></tr><tr><td>f) Der monatliche Umsatz soll im nächsten Quartal um 8 % gesteigert werden.</td><td></td><td></td></tr></table>","loesung":"<ul><li>a) <strong>S / O</strong> (konkrete Leistung kurzfristig)</li><li>b) <strong>F / St</strong> (wirtschaftlicher Erfolg langfristig)</li><li>c) <strong>S / O</strong> (Qualitätsziel kurzfristig)</li><li>d) <strong>F / St</strong> (Marktposition langfristig)</li><li>e) <strong>S / O</strong> (Leistungsqualität kurzfristig)</li><li>f) <strong>F / O</strong> (Umsatz kurzfristig)</li></ul><p><em>Hinweis: Die Einordnung S/F und St/O ist manchmal kontextabhängig; gut begründete Abweichungen können anerkannt werden.</em></p>"},{"nr":6,"titel":"Zielbeziehungen","punkte":8,"aufgabentext":"<p>Bestimmen Sie für folgende Zielpaare die Zielbeziehung (<strong>komplementär</strong>, <strong>konkurrierend</strong> oder <strong>indifferent</strong>) und <strong>begründen</strong> Sie Ihre Antwort in einem Satz. <em>(je 2 P.)</em></p><ol type='a'><li>JIKU möchte die Anzahl der Auszubildenden erhöhen <em>und</em> gleichzeitig die Ausbildungskosten senken.</li><li>JIKU plant höhere Investitionen in IT-Sicherheit <em>und</em> möchte gleichzeitig die Kundenzufriedenheit steigern.</li><li>JIKU möchte mehr Innovationsprojekte starten <em>und</em> gleichzeitig den Personalaufwand reduzieren.</li><li>JIKU möchte die Mitarbeiterzufriedenheit verbessern <em>und</em> gleichzeitig die Produktivität steigern.</li></ol>","loesung":"<p>(a) <strong>Konkurrierend</strong> — Mehr Auszubildende bedeutet höhere Ausbildungskosten; die Ziele behindern sich.</p><p>(b) <strong>Komplementär</strong> — Bessere IT-Sicherheit reduziert Systemausfälle und Datenverluste, was die Kundenzufriedenheit steigert.</p><p>(c) <strong>Konkurrierend</strong> — Innovationsprojekte erfordern Fachkräfte; Personalabbau entzieht diesen Projekten die nötige Kapazität.</p><p>(d) <strong>Komplementär</strong> — Zufriedene Mitarbeiter sind motivierter und arbeiten produktiver; die Ziele verstärken sich.</p>"},{"nr":7,"titel":"Wirtschaftliche Kennzahlen","punkte":6,"aufgabentext":"<p>Frau Meyerhoff teilt folgende Zahlen für den Hamburger JIKU-Standort mit:</p><ul><li>Erträge im letzten Monat: 180.000 €</li><li>Aufwendungen im letzten Monat: 150.000 €</li><li>Jahresüberschuss: 36.000 €</li><li>Eingesetztes Kapital: 240.000 €</li><li>Support-Tickets: 600 in 8 Stunden (gestern); 540 in 6 Stunden (vorgestern)</li></ul><ol type='a'><li><strong>Berechnen</strong> Sie die Wirtschaftlichkeit des Hamburger Standorts für den letzten Monat. <em>(2 P.)</em></li><li><strong>Berechnen</strong> Sie die Rentabilität des eingesetzten Kapitals für das letzte Jahr. <em>(2 P.)</em></li><li><strong>Berechnen</strong> Sie die Produktivität des Support-Teams für beide Tage und <strong>bestimmen</strong> Sie, an welchem Tag das Team produktiver war. <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Wirtschaftlichkeit = 180.000 ÷ 150.000 = <strong>1,2</strong> (bzw. 120 %). Der Standort arbeitet wirtschaftlich (Wert &gt; 1).</p><p><strong>(b)</strong> Rentabilität = (36.000 × 100) ÷ 240.000 = <strong>15 %</strong>.</p><p><strong>(c)</strong> Produktivität gestern = 600 ÷ 8 = <strong>75 Tickets/Stunde</strong>. Produktivität vorgestern = 540 ÷ 6 = <strong>90 Tickets/Stunde</strong>. Das Team war <strong>vorgestern</strong> produktiver.</p>"}];
+var SESSION_NR = '3';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

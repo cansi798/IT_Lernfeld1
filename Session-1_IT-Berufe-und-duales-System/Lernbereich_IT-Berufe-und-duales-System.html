@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 1 — IT-Berufe & duales System</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 1 — IT-Berufe & duales System</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"Die vier IT-Berufe seit 2020","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> Sie beginnen als neue Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong>, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden. Die Geschäftsführerin, Frau Kaya, begrüßt Sie und erklärt den Ablauf der Einführungswoche.</p><ol type='a'><li><strong>Nennen</strong> Sie die vier IT-Ausbildungsberufe, die seit der Neuordnung 2020 existieren. <em>(4 P.)</em></li><li><strong>Begründen</strong> Sie, warum der Fachinformatiker in vier Fachrichtungen unterschieden wird. <em>(3 P.)</em></li><li>Welche zwei Fachrichtungen sind seit 2020 <em>neu hinzugekommen</em>? <strong>Erläutern</strong> Sie kurz, warum gerade diese neu eingeführt wurden. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Die vier IT-Ausbildungsberufe seit 2020 sind:</p><ol><li>IT-Systemelektroniker/-in</li><li>Kaufmann/-frau für IT-Systemmanagement</li><li>Kaufmann/-frau für Digitalisierungsmanagement</li><li>Fachinformatiker/-in (mit vier Fachrichtungen)</li></ol><p><strong>(b)</strong> Wegen der vielfältigen Aufgaben und Einsatzbereiche in der IT-Branche wird ein breites Spektrum an Fachkenntnissen benötigt, das sich nicht in einer einzigen Berufsausbildung abbilden lässt. Daher unterscheidet der Beruf Fachinformatiker vier Fachrichtungen, die jeweils spezifische Kompetenzen vermitteln.</p><p><strong>(c)</strong> Neu seit 2020 sind <em>Digitale Vernetzung</em> (FIDV) und <em>Daten- und Prozessanalyse</em> (FIDP), weil in diesen Bereichen zukünftig hoher Bedarf erwartet wird (Vernetzung von Produktionssystemen, datengesteuerte Prozessoptimierung).</p>"},{"nr":2,"titel":"Berufsbild zuordnen","punkte":8,"aufgabentext":"<p><strong>Ordnen</strong> Sie die folgenden Tätigkeitsbeschreibungen dem passenden IT-Beruf zu. Jede Beschreibung passt zu genau einem Beruf.</p><table><tr><th>Tätigkeit</th><th>IT-Beruf</th></tr><tr><td>a) Analysiert Geschäftsprozesse aus betriebswirtschaftlicher Perspektive und erschließt wirtschaftlichen Nutzen aus der Digitalisierung.</td><td></td></tr><tr><td>b) Erstellt Angebote für IT-Dienstleistungen, administriert IT-Systeme und berät Kunden zu IT-Lösungen.</td><td></td></tr><tr><td>c) Führt elektrotechnische Arbeiten im IT-Bereich durch, prüft die elektrische Sicherheit und betreut IT-Infrastrukturen.</td><td></td></tr><tr><td>d) Konzipiert und entwickelt Softwarelösungen für interne und externe Kunden unter Beachtung von IT-Sicherheit und Datenschutz.</td><td></td></tr></table><p><em>Zur Auswahl: Fachinformatiker/-in Anwendungsentwicklung (FIAE), IT-Systemelektroniker/-in, Kaufmann/-frau für IT-Systemmanagement, Kaufmann/-frau für Digitalisierungsmanagement</em></p><p><em>(2 Punkte je richtige Zuordnung)</em></p>","loesung":"<p>(a) Kaufmann/-frau für <em>Digitalisierungsmanagement</em></p><p>(b) Kaufmann/-frau für <em>IT-Systemmanagement</em></p><p>(c) <em>IT-Systemelektroniker/-in</em></p><p>(d) Fachinformatiker/-in <em>Anwendungsentwicklung</em></p>"},{"nr":3,"titel":"Das duale System","punkte":10,"aufgabentext":"<p>Frau Kaya erklärt Ihnen: &bdquo;Sie lernen jetzt an zwei Orten gleichzeitig.&ldquo;</p><ol type='a'><li><strong>Erklären</strong> Sie, was mit dem &bdquo;dualen System&ldquo; gemeint ist und welche zwei Lernorte gemeint sind. <em>(3 P.)</em></li><li><strong>Beschreiben</strong> Sie je eine Aufgabe des Ausbildungsbetriebs und der Berufsschule im dualen System. <em>(4 P.)</em></li><li>Welches Gesetz bildet die Rechtsgrundlage der dualen Berufsausbildung in Deutschland? <em>(1 P.)</em></li><li>In wie vielen staatlich anerkannten Ausbildungsberufen ist eine duale Berufsausbildung in Deutschland möglich? <em>(2 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Das duale System bezeichnet die Berufsausbildung an zwei Lernorten gleichzeitig: dem <em>Ausbildungsbetrieb</em> für die praktische Ausbildung und der <em>Berufsschule (BBS)</em> für den theoretischen Unterricht.</p><p><strong>(b)</strong> Ausbildungsbetrieb: schließt Berufsausbildungsvertrag ab und vermittelt praktische berufliche Handlungsfähigkeit. Berufsschule: erteilt theoretischen Unterricht in Lernfeldern und allgemeinbildenden Fächern auf Basis des Rahmenlehrplans.</p><p><strong>(c)</strong> Das <em>Berufsbildungsgesetz (BBiG)</em>.</p><p><strong>(d)</strong> In über <em>300</em> staatlich anerkannten Ausbildungsberufen.</p>"},{"nr":4,"titel":"Wahr oder falsch?","punkte":8,"aufgabentext":"<p><strong>Kreuzen</strong> Sie an und korrigieren Sie falsche Aussagen in einem Satz.</p><table><tr><th>Aussage</th><th>W</th><th>F</th><th>Korrektur (wenn falsch)</th></tr><tr><td>a) Die duale Berufsausbildung dauert grundsätzlich zwei Jahre.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>b) Die IHK ist für die Abschlussprüfungen und Beratung von Ausbildungsbeteiligten zuständig.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>c) Ausbilder im Betrieb kann jeder Mitarbeiter ohne Eignungsnachweis werden.</td><td>[ ]</td><td>[ ]</td><td></td></tr><tr><td>d) Die Lernfelder 1 bis 6 sind für alle vier IT-Berufe weitgehend gleich.</td><td>[ ]</td><td>[ ]</td><td></td></tr></table><p><em>(2 Punkte je Zeile: 1 P. Kreuz korrekt, 1 P. Korrektur soweit nötig)</em></p>","loesung":"<p>(a) <strong>Falsch</strong> — Die Regelausbildungsdauer beträgt grundsätzlich <em>drei</em> Jahre.</p><p>(b) <strong>Richtig</strong></p><p>(c) <strong>Falsch</strong> — Ausbilder muss persönlich und fachlich geeignet und mindestens 24 Jahre alt sein; die IHK stellt die Eignung fest.</p><p>(d) <strong>Richtig</strong></p>"},{"nr":5,"titel":"Fallaufgabe: JIKU IT-Solutions","punkte":10,"aufgabentext":"<p>Frau Kaya berichtet, dass JIKU IT-Solutions einen neuen Auszubildenden zum Fachinformatiker für Systemintegration eingestellt hat: Leon (20 Jahre, mit Hochschulreife).</p><ol type='a'><li>Leon fragt, ob er aufgrund seiner Hochschulreife die Ausbildungsdauer verkürzen kann. <strong>Erklären</strong> Sie, welche Möglichkeit es dafür gibt und worauf sie rechtlich beruht. <em>(3 P.)</em></li><li>Ein Mitarbeiter von JIKU soll als Ausbilder eingesetzt werden. Er ist 22 Jahre alt und hat die Ausbildereignungsprüfung vor der IHK bestanden. Darf er ausbilden? <strong>Begründen</strong> Sie Ihre Antwort. <em>(4 P.)</em></li><li><strong>Beschreiben</strong> Sie, wann und warum Teil 1 der gestreckten Abschlussprüfung stattfindet und wie er in die Gesamtnote eingeht. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Eine Verkürzung der Ausbildungszeit ist auf Antrag möglich, wenn anerkannte Bildungsgänge angerechnet werden (z. B. Hochschulreife). Rechtsgrundlage sind die §§ 7, 8, 45 BBiG. Leon kann bei der IHK einen entsprechenden Antrag stellen.</p><p><strong>(b)</strong> Nein, er darf <em>nicht</em> ausbilden, auch wenn er die Ausbildereignungsprüfung bestanden hat. Der Ausbilder muss mindestens <strong>24 Jahre</strong> alt sein. Mit 22 Jahren fehlt ihm die erforderliche Altersvoraussetzung. Die IHK stellt die persönliche und fachliche Eignung fest.</p><p><strong>(c)</strong> Teil 1 findet nach etwa 15 Monaten (Mitte des zweiten Ausbildungsjahres) statt. Er prüft den Stoff der Lernfelder 1 bis 6 und ist für alle IT-Berufe gleich (Leitthema: Einrichten eines IT-gestützten Arbeitsplatzes, 90 Minuten schriftlich). Teil 1 geht mit <strong>20 %</strong> in die Gesamtnote der Abschlussprüfung ein.</p>"},{"nr":6,"titel":"Handlungskompetenz","punkte":6,"aufgabentext":"<ol type='a'><li><strong>Erläutern</strong> Sie den Begriff &bdquo;Handlungskompetenz&ldquo; in eigenen Worten. <em>(2 P.)</em></li><li><strong>Ordnen</strong> Sie folgende Eigenschaften den Kompetenzdimensionen <em>Fachkompetenz</em>, <em>Sozialkompetenz</em> oder <em>Selbstkompetenz</em> zu: Toleranz — Fachkenntnisse — Flexibilität — Kooperationsfähigkeit — Sorgfalt — Arbeitsqualität. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Handlungskompetenz ist die Bereitschaft und Befähigung, sich in beruflichen, privaten und gesellschaftlichen Situationen sachgerecht, individuell, durchdacht und sozial verantwortlich zu verhalten. Sie umfasst Fach-, Sozial- und Selbstkompetenz.</p><p><strong>(b)</strong></p><ul><li><em>Fachkompetenz</em>: Fachkenntnisse, Arbeitsqualität</li><li><em>Sozialkompetenz</em>: Toleranz, Kooperationsfähigkeit</li><li><em>Selbstkompetenz</em>: Flexibilität, Sorgfalt</li></ul>"}];
+var SESSION_NR = '1';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>

@@ -1,0 +1,330 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernbereich · Session 4 — Rechtsformen & Aufbauorganisation</title>
+<style>
+:root {
+  --primary:      #0EA5A4;
+  --primary-dark: #0F766E;
+  --accent:       #F59E0B;
+  --success:      #10B981;
+  --warn:         #F97316;
+  --ink:          #0F172A;
+  --ink-soft:     #475569;
+  --bg:           #FAFAFA;
+  --bg-soft:      #F8FAFC;
+  --border:       #E2E8F0;
+  --radius:       12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+header a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+header a:hover { color: white; text-decoration: underline; }
+header h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  flex: 1;
+}
+#toolbar {
+  max-width: 800px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.loeschen-btn {
+  padding: 0.45rem 1rem;
+  background: transparent;
+  border: 1.5px solid var(--warn);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--warn);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.loeschen-btn:hover { background: #FFEDD5; color: #9A3412; }
+#app {
+  max-width: 800px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.aufgabe-karte {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+}
+.aufgabe-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.aufgabe-titel {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  line-height: 1.35;
+}
+.punkte-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.aufgaben-text {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.aufgaben-text p { margin-bottom: 0.6em; }
+.aufgaben-text p:last-child { margin-bottom: 0; }
+.aufgaben-text ul, .aufgaben-text ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.6em;
+}
+.aufgaben-text li { margin-bottom: 0.3em; }
+.aufgaben-text table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+}
+.aufgaben-text th, .aufgaben-text td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.aufgaben-text th { background: var(--bg-soft); font-weight: 600; }
+.antwort-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.antwort-textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+}
+.antwort-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.15);
+  background: white;
+}
+.hinweis-btn {
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--success);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #065F46;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hinweis-btn:hover { background: #DCFCE7; }
+.musterloesung-box {
+  display: none;
+  margin-top: 1rem;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.musterloesung-box.sichtbar { display: block; }
+.musterloesung-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.musterloesung-inhalt {
+  font-size: 0.97rem;
+  color: #14532D;
+  line-height: 1.6;
+}
+.musterloesung-inhalt p { margin-bottom: 0.5em; }
+.musterloesung-inhalt p:last-child { margin-bottom: 0; }
+.musterloesung-inhalt ul, .musterloesung-inhalt ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.musterloesung-inhalt li { margin-bottom: 0.25em; }
+.musterloesung-inhalt table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+  font-size: 0.93rem;
+}
+.musterloesung-inhalt th, .musterloesung-inhalt td {
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.musterloesung-inhalt th { background: #DCFCE7; font-weight: 600; }
+.autosave-info {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  height: 1.1em;
+}
+</style></head>
+<body>
+<header>
+  <a href="../index.html">← Kursübersicht</a>
+  <h1>Lernbereich · Session 4 — Rechtsformen & Aufbauorganisation</h1>
+</header>
+<div id="toolbar">
+  <button class="loeschen-btn" id="alle-loeschen-btn">Alle Eingaben löschen</button>
+</div>
+<main id="app"></main>
+<script>
+var AUFGABEN = [{"nr":1,"titel":"Rechtsformvergleich","punkte":10,"aufgabentext":"<p><strong>Kontext:</strong> Sie arbeiten seit Kurzem als Auszubildende bei der <strong>JIKU IT-Solutions GmbH</strong> in Hamburg. Im Rahmen Ihrer Ausbildung beschäftigen Sie sich heute mit der rechtlichen Struktur Ihres Ausbildungsbetriebs und der internen Aufbauorganisation. Ihre Ausbilderin Frau Meyerhoff begleitet Sie dabei.</p><ol type='a'><li><strong>Nennen</strong> Sie die drei Kapitalgesellschaften, die in der deutschen Rechtspraxis besonders verbreitet sind, und geben Sie jeweils das gesetzliche Mindestkapital an. <em>(6 P.)</em></li><li><strong>Erläutern</strong> Sie den Unterschied zwischen der Haftung bei einer OHG und der Haftung bei einer GmbH. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Drei Kapitalgesellschaften:</p><ul><li><strong>GmbH (Gesellschaft mit beschränkter Haftung):</strong> Mindest-Stammkapital <strong>25.000 €</strong> (§ 5 GmbHG); bei Gründung mindestens 12.500 € sofort einzuzahlen.</li><li><strong>UG (haftungsbeschränkt):</strong> Mindest-Stammkapital <strong>ab 1 €</strong>; Thesaurierungspflicht: 25 % des Jahresüberschusses zurücklegen, bis 25.000 € erreicht sind.</li><li><strong>AG (Aktiengesellschaft):</strong> Mindest-Grundkapital <strong>50.000 €</strong> (§ 7 AktG).</li></ul><p><em>Häufiger Fehler: GmbH-Mindestkapital (25.000 €) mit AG-Mindestkapital (50.000 €) verwechseln.</em></p><p><strong>(b)</strong> Bei der <strong>OHG</strong> haften alle Gesellschafter <em>persönlich, unbeschränkt und solidarisch</em> — jeder Gesellschafter haftet für die gesamten Schulden der Gesellschaft, auch mit seinem Privatvermögen. Bei der <strong>GmbH</strong> haftet <em>ausschließlich die Gesellschaft</em> mit ihrem Gesellschaftsvermögen; Gesellschafter haften nicht persönlich (Haftungsbeschränkung).</p>"},{"nr":2,"titel":"Kaufmannseigenschaft und Handelsregister","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Beschreiben</strong> Sie, welche Funktion das Handelsregister in der deutschen Wirtschaft hat, und <strong>nennen</strong> Sie die beiden Abteilungen mit je einem Beispiel. <em>(4 P.)</em></li><li>JIKU IT-Solutions GmbH ist im Handelsregister eingetragen. <strong>Erläutern</strong> Sie, welche rechtlichen Konsequenzen die Kaufmannseigenschaft für JIKU hat. Nennen Sie zwei konkrete Pflichten. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Das Handelsregister beim Amtsgericht ist eine zentrale Informationsquelle für die Wirtschaft (Publikationsfunktion: jedermann kann Einsicht nehmen; Schutzfunktion: schützt Kunden und Lieferanten). <strong>Abteilung A:</strong> Einzelkaufleute und Personengesellschaften (z. B. JIKU Hamburg e. K., Netzwerk OHG). <strong>Abteilung B:</strong> Kapitalgesellschaften (z. B. JIKU IT-Solutions GmbH, DataCenter AG).</p><p><strong>(b)</strong> Als Kaufmann unterliegt JIKU neben dem BGB auch dem HGB. Zwei Pflichten (Auswahl): <strong>doppelte Buchführung</strong> einrichten (§ 238 HGB), <strong>Jahresabschluss</strong> erstellen und offenlegen, Firma mit Rechtsformzusatz führen, Prokura erteilen können. <em>Hinweis: Die Kaufmannseigenschaft entsteht durch Eintragung oder durch Betreiben eines kaufmännisch eingerichteten Handelsgewerbes.</em></p>"},{"nr":3,"titel":"Firma und Firmengrundsätze","punkte":8,"aufgabentext":"<ol type='a'><li><strong>Erklären</strong> Sie, was man im Handelsrecht unter der Firma eines Unternehmens versteht, und <strong>grenzen</strong> Sie diesen Begriff vom alltäglichen Sprachgebrauch ab. <em>(2 P.)</em></li><li><strong>Ordnen</strong> Sie die folgenden Firmennamen den drei Firmenarten zu (Personenfirma, Sachfirma oder Fantasiefirma) und <strong>begründen</strong> Sie kurz. <em>(3 P.)</em><table><tr><th>Firmenname</th><th>Firmenart</th><th>Begründung</th></tr><tr><td>IT-Sander e. K.</td><td></td><td></td></tr><tr><td>Lasse Müller e. Kfm.</td><td></td><td></td></tr><tr><td>Sysygy e. Kfm.</td><td></td><td></td></tr></table></li><li><strong>Nennen</strong> und <strong>erläutern</strong> Sie die drei Firmengrundsätze nach dem HGB. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Die <strong>Firma</strong> ist nach § 17 HGB der Name, unter dem ein Kaufmann seine Geschäfte betreibt und die Unterschrift abgibt. Im alltäglichen Sprachgebrauch meint Firma oft das Unternehmen selbst — juristisch bezeichnet sie nur den <em>Handelsnamen</em> des Kaufmanns. Nur eingetragene Kaufleute dürfen eine Firma führen.</p><p><strong>(b)</strong> Firmenarten:</p><ul><li>IT-Sander e. K.: <strong>Sachfirma</strong> (Gegenstand der Tätigkeit im Namen)</li><li>Lasse Müller e. Kfm.: <strong>Personenfirma</strong> (Familienname des Inhabers im Namen)</li><li>Sysygy e. Kfm.: <strong>Fantasiefirma</strong> (freie Namensgestaltung ohne sachlichen Bezug)</li></ul><p><strong>(c)</strong> Firmengrundsätze:</p><ul><li><strong>Firmenausschließlichkeit</strong> (§ 30 HGB): Die Firma muss sich von anderen Firmen am selben Ort klar unterscheiden — keine Verwechslungsgefahr.</li><li><strong>Firmenwahrheit</strong> (§ 18 Abs. 2 HGB): Irreführungsverbot — keine täuschenden Angaben über Art, Umfang oder sonstige Verhältnisse des Unternehmens.</li><li><strong>Firmenbeständigkeit</strong> (§ 22 HGB): Die Firma kann auch bei Inhaberwechsel fortgeführt werden; sie ist durch § 12 BGB, § 37 HGB und § 15 MarkenG geschützt.</li></ul>"},{"nr":4,"titel":"Prokura und Handlungsvollmacht","punkte":10,"aufgabentext":"<p>Frau Meyerhoff erklärt Ihnen, dass Mitarbeiterinnen und Mitarbeiter je nach Aufgabe unterschiedliche Vollmachten erhalten.</p><ol type='a'><li><strong>Unterscheiden</strong> Sie Prokura und Handlungsvollmacht hinsichtlich Umfang, Zeichnung und Erteilung. <em>(6 P.)</em></li><li>Der Buchhalter Herr Garza unterschreibt einen Liefervertrag mit dem Zusatz i. A. Garza. Die Einkäuferin Frau Pelz zeichnet einen Rahmenvertrag mit i. V. Pelz. Der Prokurist Herr Volk unterschreibt mit ppa. Volk. <strong>Ordnen</strong> Sie jedem die korrekte Vollmachtsart zu und <strong>begründen</strong> Sie kurz. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong></p><table><tr><th>Merkmal</th><th>Prokura (§§ 48–53 HGB)</th><th>Handlungsvollmacht (§§ 54–58 HGB)</th></tr><tr><td>Umfang</td><td>Alle gewöhnlichen und außergewöhnlichen Geschäfte; ausgenommen: Bilanz/Steuererklärung, HR-Eintragungen, Prokura erteilen</td><td>Gewöhnliche Geschäfte (Gesamt), bestimmte Art (Art), Einzelgeschäft (Einzel)</td></tr><tr><td>Zeichnung</td><td>ppa. Name (per procura)</td><td>i. V. Name oder i. A. Name</td></tr><tr><td>Erteilung</td><td>Nur durch Kaufmann; Eintragung ins HR vorgeschrieben (deklaratorisch)</td><td>Formlos (mündlich/schriftlich); kein HR-Eintrag möglich</td></tr></table><p><strong>(b)</strong></p><ul><li>Herr Garza (i. A.): <strong>Einzelvollmacht (Artvollmacht)</strong> — i. A. steht für im Auftrag, typisch für Einzel- oder Artvollmachten für konkrete Einzelgeschäfte.</li><li>Frau Pelz (i. V.): <strong>Gesamtvollmacht (allgemeine Handlungsvollmacht)</strong> — i. V. steht für in Vollmacht, typisch für die allgemeine Handlungsvollmacht.</li><li>Herr Volk (ppa.): <strong>Prokura</strong> — ppa. (per procura) ist der gesetzlich vorgeschriebene Zeichnungszusatz für Prokuristen.</li></ul>"},{"nr":5,"titel":"Aufbauorganisation und Leitungssysteme","punkte":10,"aufgabentext":"<ol type='a'><li><strong>Unterscheiden</strong> Sie Aufbauorganisation und Ablauforganisation. Geben Sie je ein konkretes Beispiel aus JIKU IT-Solutions. <em>(4 P.)</em></li><li>JIKU hat laut Organigramm Stabsstellen eingerichtet. <strong>Erläutern</strong> Sie, was eine Stabsstelle ist, und nennen Sie zwei Merkmale, die sie von einer Instanz unterscheiden. <em>(3 P.)</em></li><li><strong>Beschreiben</strong> Sie das Leitungssystem, das JIKU IT-Solutions nach dem Lehrbuch eingerichtet hat, und <strong>begründen</strong> Sie, warum es für das IT-Systemhaus geeignet ist. <em>(3 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> <strong>Aufbauorganisation:</strong> Gliederung des Betriebes in Einheiten, Übertragung von Aufgaben und Kompetenzen (z. B. Organigramm mit Abteilungen IT-Service, Cloud-Hosting, Verwaltung bei JIKU). <strong>Ablauforganisation:</strong> Regelung des Arbeitsablaufs in zeitlicher, räumlicher und funktionaler Hinsicht (z. B. Ticketbearbeitungsprozess im Help-Desk: Anfrage — Diagnose — Lösung — Rückmeldung).</p><p><strong>(b)</strong> Eine <strong>Stabsstelle</strong> ist eine Hilfsstelle einer Instanz, die berät und Entscheidungen vorbereitet, aber <em>keine Weisungsbefugnis</em> gegenüber anderen Stellen hat. Zwei Unterschiede zur Instanz: (1) Instanz hat Anordnungsbefugnis, Stabsstelle nicht. (2) Stabsstelle hat kein Weisungsrecht, aber ein Informationsrecht aus allen Linienstellen.</p><p><strong>(c)</strong> JIKU hat laut Lehrbuch eine <strong>Kombination aus Stabliniensystem und Matrixorganisation</strong> eingerichtet. Das Stabliniensystem sorgt für klare Linienkommunikation und Entlastung durch Stabsstellen. Die Matrixorganisation ist für die kundennahen IT-Solutions-Bereiche geeignet, in denen Projektarbeit mit unterschiedlichen Fachkompetenzen überwiegt.</p>"},{"nr":6,"titel":"Rechtsformwahl","punkte":10,"aufgabentext":"<p>Frau Meyerhoff stellt Ihnen drei fiktive Gründungsvorhaben vor:</p><ul><li><strong>Vorhaben A:</strong> Zwei IT-Fachinformatikerinnen wollen gemeinsam Webentwicklungs-Projekte übernehmen. Sie haben kein Startkapital, wollen aber schnell loslegen und keine aufwendige Gründungsformalität.</li><li><strong>Vorhaben B:</strong> Ein IT-Gründer möchte ein innovatives Start-up für KI-gestützte Softwarelösungen aufbauen, haftet aber grundsätzlich nicht mit seinem Privatvermögen. Er hat 8.000 € Eigenkapital.</li><li><strong>Vorhaben C:</strong> Ein etabliertes IT-Systemhaus will weiterwachsen, externe Investoren anziehen und Mitarbeitende durch Unternehmensanteile am Erfolg beteiligen.</li></ul><ol type='a'><li><strong>Empfehlen</strong> Sie für jedes Vorhaben eine passende Rechtsform und <strong>begründen</strong> Sie Ihre Entscheidung anhand von mindestens zwei Kriterien. <em>(6 P.)</em></li><li><strong>Erläutern</strong> Sie den steuerlichen Unterschied zwischen Personen- und Kapitalgesellschaften und nennen Sie die jeweilige Steuerart. <em>(4 P.)</em></li></ol>","loesung":"<p><strong>(a)</strong> Empfehlungen:</p><ul><li><strong>Vorhaben A: GbR</strong> — einfachste Mehrpersonengesellschaft, formlos per Vertrag gründbar, kein Mindestkapital. Nachteil: persönliche Haftung, keine eigene Firma. Alternative gut begründbar: OHG (wenn Handelsgewerbe beabsichtigt).</li><li><strong>Vorhaben B: UG (haftungsbeschränkt)</strong> — ab 1 € Stammkapital; Haftung beschränkt auf Gesellschaftsvermögen; bei 25.000 € Aufstieg zur GmbH möglich. Kriterien: Haftungsbeschränkung, geringer Kapitalbedarf.</li><li><strong>Vorhaben C: AG</strong> — einfache Beteiligung externer Investoren und Mitarbeitender über Aktien; Kapital beschaffbar über Börse. Kriterien: Kapitalaufnahme, Mitarbeiterbeteiligung. Mindestgrundkapital: 50.000 €.</li></ul><p><em>Häufiger Fehler: UG und GmbH verwechseln; die UG hat kein Mindestkapital von 25.000 €, sondern ab 1 € mit Thesaurierungspflicht.</em></p><p><strong>(b)</strong> <strong>Personengesellschaften</strong> (Einzelunternehmen, GbR, OHG, KG): Jeder Gesellschafter ist selbst Steuersubjekt und zahlt <strong>Einkommensteuer</strong> (§§ 15, 18 EStG) auf seinen Gewinnanteil. <strong>Kapitalgesellschaften</strong> (GmbH, AG): Die Gesellschaft ist als juristische Person eigenes Steuersubjekt und zahlt <strong>Körperschaftsteuer</strong> (§ 1 KStG) auf ihren Gewinn.</p>"}];
+var SESSION_NR = '4';
+
+(function() {
+  var app = document.getElementById('app');
+
+  function lsKey(nr) {
+    return 'lernbereich_s' + SESSION_NR + '_aufgabe_' + nr;
+  }
+
+  function renderAufgaben() {
+    var html = '';
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      var a = AUFGABEN[i];
+      var savedVal = localStorage.getItem(lsKey(a.nr)) || '';
+      var safeVal = savedVal
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      html += '<div class="aufgabe-karte" id="aufgabe-' + a.nr + '">'
+        + '<div class="aufgabe-kopf">'
+        + '<div class="aufgabe-titel">Aufgabe ' + escHtml(String(a.nr)) + ' — ' + escHtml(a.titel) + '</div>'
+        + '<span class="punkte-badge">' + escHtml(String(a.punkte)) + ' P.</span>'
+        + '</div>'
+        + '<div class="aufgaben-text">' + a.aufgabentext + '</div>'
+        + '<div class="antwort-label">Meine Antwort</div>'
+        + '<textarea class="antwort-textarea" rows="6" data-nr="' + a.nr + '" placeholder="Schreiben Sie Ihre Antwort hier …">' + safeVal + '</textarea>'
+        + '<div class="autosave-info" id="save-info-' + a.nr + '"></div>'
+        + '<button class="hinweis-btn" data-nr="' + a.nr + '">Lösungshinweis anzeigen</button>'
+        + '<div class="musterloesung-box" id="musterloesung-' + a.nr + '">'
+        + '<div class="musterloesung-label">Musterlösung</div>'
+        + '<div class="musterloesung-inhalt">' + a.loesung + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    app.innerHTML = html;
+
+    // Textareas: autosave on input
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].addEventListener('input', onTextareaInput);
+    }
+
+    // Toggle-Buttons
+    var hinweisBtns = app.querySelectorAll('.hinweis-btn');
+    for (var k = 0; k < hinweisBtns.length; k++) {
+      hinweisBtns[k].addEventListener('click', onHinweisToggle);
+    }
+  }
+
+  function onTextareaInput(evt) {
+    var ta = evt.currentTarget;
+    var nr = ta.getAttribute('data-nr');
+    localStorage.setItem(lsKey(nr), ta.value);
+    var info = document.getElementById('save-info-' + nr);
+    if (info) {
+      info.textContent = 'Gespeichert.';
+      setTimeout(function() { if (info) info.textContent = ''; }, 1500);
+    }
+  }
+
+  function onHinweisToggle(evt) {
+    var btn = evt.currentTarget;
+    var nr = btn.getAttribute('data-nr');
+    var box = document.getElementById('musterloesung-' + nr);
+    if (!box) return;
+    var sichtbar = box.classList.contains('sichtbar');
+    if (sichtbar) {
+      box.classList.remove('sichtbar');
+      btn.textContent = 'Lösungshinweis anzeigen';
+    } else {
+      box.classList.add('sichtbar');
+      btn.textContent = 'Lösungshinweis verbergen';
+    }
+  }
+
+  document.getElementById('alle-loeschen-btn').addEventListener('click', function() {
+    if (!confirm('Wirklich alle Eingaben löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+    for (var i = 0; i < AUFGABEN.length; i++) {
+      localStorage.removeItem(lsKey(AUFGABEN[i].nr));
+    }
+    var textareas = app.querySelectorAll('.antwort-textarea');
+    for (var j = 0; j < textareas.length; j++) {
+      textareas[j].value = '';
+    }
+  });
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  renderAufgaben();
+})();
+</script>
+</body></html>
