@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 3 — Betrieb, Unternehmen &amp; Unternehmensziele</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Diagramm-Container */
+.figure { margin: 1.5rem auto; text-align: center; }
+.figure svg { max-width: 100%; height: auto; }
+.caption { color: var(--bfw-ink-soft); font-size: 0.95rem; margin-top: 0.5rem; }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+.numlist { list-style: none; margin-left: 0; counter-reset: numitem; }
+.numlist li { padding-left: 3rem; position: relative; counter-increment: numitem; margin-bottom: 0.8rem; }
+.numlist li::before {
+  content: counter(numitem);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--bfw-primary); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 3</span>
+    <h1>Betrieb, Unternehmen &amp; Unternehmensziele</h1>
+    <p class="subtitle">Von JIKU IT-Solutions bis zu Wirtschaftlichkeit, Produktivität und Rentabilität</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.3.1 – 1.3.3</span>
+      <span><strong>Dauer</strong>90 Minuten</span>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <h2>Was erwartet Sie heute?</h2>
+    <ol class="numlist">
+      <li>Das Modellunternehmen JIKU IT-Solutions kennenlernen</li>
+      <li>Betrieb, Unternehmen und Firma fachlich abgrenzen</li>
+      <li>Betriebe klassifizieren: Wirtschaftszweige &amp; Betriebstypen</li>
+      <li>Wirtschaftliche Verflechtungen verstehen</li>
+      <li>Unternehmensleitbild, Vision &amp; Mission</li>
+      <li>Sach- und Formalziele, SMART, Zielbeziehungen</li>
+      <li>Kennzahlen: Wirtschaftlichkeit, Produktivität, Rentabilität</li>
+    </ol>
+  </section>
+
+  <!-- 3. JIKU Eckdaten -->
+  <section class="slide">
+    <h2>JIKU IT-Solutions — Auf einen Blick</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">10 Systemhäuser</div>
+        <p>an <strong>16 Standorten</strong> in Deutschland</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">480 Mitarbeitende</div>
+        <p>insgesamt im Verbund; am Standort Hamburg: <strong>52 Mitarbeitende</strong></p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">96 Auszubildende</div>
+        <p>im gesamten Verbund; am Standort Hamburg: <strong>8 Auszubildende</strong></p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Eigene Rechenzentren</div>
+        <p>Jedes Systemhaus rechtlich <strong>selbstständig</strong>; alle beteiligt an einem Gemeinschaftsunternehmen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Was ist ein IT-Systemhaus? -->
+  <section class="slide">
+    <h2>Was macht ein IT-Systemhaus?</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Ein IT-Systemhaus agiert als <strong>Mittler zwischen IT-Herstellern und Endkunden</strong>. Es berät, beschafft, richtet ein und wartet — ohne selbst Standardprodukte zu fertigen.
+    </div>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">IT-Service</div>
+        <p>Vor-Ort-Betreuung, IT-Management, Help-Desk, IT-Outsourcing</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Cloud-Hosting</div>
+        <p>Migration, Managed Hosting, Housing &amp; Colocation im eigenen RZ</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Fernwartung</div>
+        <p>Techniker schalten sich direkt auf Kundensysteme auf — ohne Anreise</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">IT-Outsourcing</div>
+        <p>Immer mehr Kunden übertragen ihre gesamte IT-Infrastruktur an JIKU</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CSR bei JIKU -->
+  <section class="slide">
+    <h2>Corporate Social Responsibility bei JIKU</h2>
+    <p>JIKU lebt <strong>CSR = gelebte Wertschätzung</strong> für verantwortungsvolles, nachhaltiges Handeln.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Work-Life-Balance</div>
+        <ul>
+          <li>Flexible Arbeitszeiten</li>
+          <li>Home-Office, Sabbaticals</li>
+          <li>Betriebssport, Fahrradleasing</li>
+          <li>Betriebsarzt, Betriebliches Eingliederungsmanagement</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">IT-Nachwuchsförderung</div>
+        <ul>
+          <li>Girls Day, Infotage zur Berufswahl</li>
+          <li>Bewerbungstrainings</li>
+          <li>Hackathon-Sponsoring</li>
+          <li>Stipendien &amp; LEGO Mindstorms an Schulen</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Betrieb, Unternehmen, Firma -->
+  <section class="slide">
+    <h2>Betrieb, Unternehmen, Firma — kein Synonym!</h2>
+    <table>
+      <thead>
+        <tr><th>Begriff</th><th>Definition</th><th>Beispiel JIKU</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Unternehmen</strong></td><td>Rechtlich-wirtschaftliche Einheit mit Gewinnabsicht; führt Bücher, zahlt Steuern</td><td>JIKU IT-Solutions GmbH (rechtlich selbstständig)</td></tr>
+        <tr><td><strong>Betrieb</strong></td><td>Organisatorisch-technische Wirtschaftseinheit; erstellt Güter/Dienstleistungen</td><td>Hamburger Standort = ein Betrieb des Unternehmens</td></tr>
+        <tr><td><strong>Firma</strong></td><td>Name, unter dem ein Kaufmann Geschäfte betreibt (§ 17 HGB)</td><td>„JIKU IT-Solutions" ist der Handelsname</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz" style="margin-top: 1.2rem;">
+      <span class="merksatz-label">Merksatz</span>
+      Ein <strong>Unternehmen</strong> kann mehrere <strong>Betriebe</strong> haben. Die <strong>Firma</strong> ist nur der Name — nicht das Unternehmen selbst.
+    </div>
+  </section>
+
+  <!-- 7. Unternehmenstypen -->
+  <section class="slide">
+    <h2>Erwerbswirtschaftlich vs. gemeinwirtschaftlich</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Erwerbswirtschaftlich</div>
+        <ul>
+          <li>Privatunternehmen auf eigene Rechnung</li>
+          <li>Ziel: <strong>Gewinnmaximierung</strong></li>
+          <li>Gewinn fließt Inhabern / Kapitalgebern</li>
+          <li>Beispiel: JIKU IT-Solutions GmbH</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Gemeinwirtschaftlich</div>
+        <ul>
+          <li>Staatliche / gemeinnützige Betriebe</li>
+          <li>Ziel: <strong>Kostendeckung &amp; Gemeinwohl</strong></li>
+          <li>Keine Gewinnausschüttung</li>
+          <li>Beispiele: Stadtwerke, kommunale Theater</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Wirtschaftssektoren -->
+  <section class="slide">
+    <h2>Die drei Wirtschaftssektoren</h2>
+    <table>
+      <thead>
+        <tr><th>Sektor</th><th>Inhalt</th><th>Beispiele</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Primär</strong></td><td>Urproduktion</td><td>Landwirtschaft, Forstwirtschaft, Bergbau</td></tr>
+        <tr><td><strong>Sekundär</strong></td><td>Produktion &amp; Verarbeitung</td><td>Maschinenbau, Chipfertigung, Elektroindustrie</td></tr>
+        <tr><td><strong>Tertiär</strong></td><td>Dienstleistungen &amp; Handel</td><td>IT-Systemhäuser, Banken, Versicherungen, Handel</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz" style="margin-top: 1.2rem;">
+      <span class="merksatz-label">JIKU-Einordnung</span>
+      JIKU IT-Solutions gehört als Dienstleister zum <strong>tertiären Sektor</strong>. In Deutschland gibt es fast <strong>4 Millionen Unternehmen</strong>, davon über 95 % KMU.
+    </div>
+  </section>
+
+  <!-- 9. Wirtschaftliche Verflechtungen -->
+  <section class="slide">
+    <h2>Wirtschaftliche Verflechtungen</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Konzern</div>
+        <p>Mehrere rechtlich selbstständige Unternehmen unter gemeinsamer Leitung (Holding)</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Fusion / Merger</div>
+        <p>Zusammenschluss zu einer einzigen rechtlichen Einheit</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Kartell</div>
+        <p>Vertraglicher Zusammenschluss für Wettbewerbsvorteile — Preis- und Gebietskartelle <strong>verboten</strong> (GWB)</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Konsortium / Franchise</div>
+        <p>Konsortium: befristetes Gemeinschaftsprojekt. Franchise: Geschäftskonzept gegen Entgelt</p>
+      </div>
+    </div>
+    <p style="margin-top:0.8rem;" class="muted">Richtungen: horizontal (gleiche Stufe) | vertikal (mehrere Stufen) | diagonal (ohne Bezug zur Stufe)</p>
+  </section>
+
+  <!-- 10. Stakeholder -->
+  <section class="slide">
+    <h2>Stakeholder — Alle Anspruchsgruppen</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Definition</span>
+      Stakeholder sind alle Gruppen, die <strong>Erwartungen und Interessen</strong> an ein Unternehmen haben und von ihm profitieren oder betroffen sind.
+    </div>
+    <table>
+      <thead><tr><th>Stakeholder</th><th>Typisches Interesse</th></tr></thead>
+      <tbody>
+        <tr><td>Mitarbeitende</td><td>Sicherer Arbeitsplatz, gutes Einkommen</td></tr>
+        <tr><td>Kapitalgeber</td><td>Hohe Rendite, Kapitalsicherheit</td></tr>
+        <tr><td>Kunden</td><td>Günstiger Preis, hohe Qualität, guter Service</td></tr>
+        <tr><td>Staat / Kommunen</td><td>Steuereinnahmen, Arbeitsplätze, Compliance</td></tr>
+        <tr><td>Lieferanten</td><td>Zahlungsfähigkeit, hoher Umsatz</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 11. Unternehmensleitbild JIKU -->
+  <section class="slide">
+    <h2>Das Unternehmensleitbild von JIKU</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Vision</div>
+        <p>„Wir wollen immer das <strong>beste IT-Systemhaus unserer Region</strong> sein und diesen Status halten."</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Mission</div>
+        <p>„Alle unsere Handlungen werden <strong>wirtschaftlich, kompetent, sozial nachhaltig und umweltfreundlich</strong> ausgeführt — Motto: ,Die können es einfach!'"</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Werte</div>
+        <p>Kundenorientierung, Kompetenz/Exzellenz, Wirtschaftlichkeit, Nachhaltigkeit</p>
+      </div>
+    </div>
+    <div class="merksatz" style="margin-top:1rem;">
+      <span class="merksatz-label">Leitbild-Zweck</span>
+      Nach <strong>innen</strong>: Orientierung für Mitarbeitende. Nach <strong>außen</strong>: Vertrauen bei Kunden und Öffentlichkeit.
+    </div>
+  </section>
+
+  <!-- 12. Unternehmensziele -->
+  <section class="slide">
+    <h2>Unternehmensziele im Überblick</h2>
+    <table>
+      <thead><tr><th>Zieltyp</th><th>Beschreibung</th><th>Beispiel JIKU</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sachziel</strong></td><td>Art, Menge, Qualität der Leistung</td><td>50 neue Help-Desk-Verträge im Quartal</td></tr>
+        <tr><td><strong>Formalziel</strong></td><td>Wirtschaftlicher Erfolg</td><td>Umsatzsteigerung um 10 % p. a.</td></tr>
+        <tr><td><strong>Strategisch</strong></td><td>Langfristig, von Unternehmensleitung</td><td>Marktführerschaft in der Region Hamburg</td></tr>
+        <tr><td><strong>Operativ</strong></td><td>Kurz-/mittelfristig, von Abteilung</td><td>Reaktionszeit Help-Desk unter 2 Stunden</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 13. SMART-Formel -->
+  <section class="slide">
+    <h2>Ziele SMART formulieren</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">S — Spezifisch</div>
+        <p>Eindeutig und präzise, nicht vage</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">M — Messbar</div>
+        <p>Zielerreichung muss überprüfbar sein</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">A — Ausführbar / Akzeptiert</div>
+        <p>Erreichbar, angemessen, von Beteiligten akzeptiert</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">R — Realistisch</div>
+        <p>Tatsächlich möglich unter gegebenen Bedingungen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">T — Terminierbar</div>
+        <p>Klare Zeitvorgabe für die Zielerreichung</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. Zielbeziehungen -->
+  <section class="slide">
+    <h2>Zielbeziehungen: komplementär oder konkurrierend?</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Komplementär</div>
+        <p>Ziele <strong>unterstützen</strong> sich gegenseitig</p>
+        <p>Beispiel: Höhere Energieeffizienz → Kostensenkung</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Konkurrierend</div>
+        <p>Ziele <strong>behindern</strong> sich gegenseitig</p>
+        <p>Beispiel: Mehr Innovation ↔ Kostensenkung</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Indifferent / Neutral</div>
+        <p>Ziele beeinflussen sich <strong>nicht</strong></p>
+        <p>Beispiel: Neue Kantine und Serverausbau</p>
+      </div>
+    </div>
+    <div class="merksatz" style="margin-top:1rem;">
+      <span class="merksatz-label">Merksatz</span>
+      Nach der Zielbestimmung ist immer eine <strong>Priorisierung</strong> (Rangfolge) vorzunehmen — Ziele mit dem größten Wirkungsgrad zuerst!
+    </div>
+  </section>
+
+  <!-- 15. Wirtschaftliche Kennzahlen -->
+  <section class="slide">
+    <h2>Wirtschaftliche Kennzahlen</h2>
+    <table>
+      <thead><tr><th>Kennzahl</th><th>Formel</th><th>Aussage</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Wirtschaftlichkeit</strong></td>
+          <td>Erträge ÷ Aufwendungen</td>
+          <td>Wert &gt; 1 = wirtschaftlich</td>
+        </tr>
+        <tr>
+          <td><strong>Produktivität</strong></td>
+          <td>Output ÷ Input</td>
+          <td>z. B. Stück pro Stunde</td>
+        </tr>
+        <tr>
+          <td><strong>Rentabilität</strong></td>
+          <td>Jahresüberschuss × 100 ÷ Kapital</td>
+          <td>Verzinsung des eingesetzten Kapitals in %</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="merksatz" style="margin-top: 1.2rem;">
+      <span class="merksatz-label">Rechenbeispiel</span>
+      Erträge 12.000 €, Aufwendungen 10.000 €: Wirtschaftlichkeit = 12.000 ÷ 10.000 = <strong>1,2</strong> (120 %) → wirtschaftlich!
+    </div>
+  </section>
+
+  <!-- 16. Qualitätsmanagement kurz -->
+  <section class="slide">
+    <h2>Qualitätsmanagement bei JIKU</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">TQM — Total Quality Management</span>
+      Allumfassendes Qualitätsmanagement: <strong>alle Mitarbeitenden</strong>, <strong>alle Prozesse</strong>, <strong>alle Produkte</strong>. Kernprinzip: <em>Null-Fehler-Prinzip</em> — nur einwandfreie Leistungen werden weitergegeben.
+    </div>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">PDCA-Zyklus (Deming)</div>
+        <p><strong>Plan</strong> → <strong>Do</strong> → <strong>Check</strong> → <strong>Act</strong></p>
+        <p>Sichert den kontinuierlichen Verbesserungsprozess (KVP)</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">ISO-Zertifizierungen</div>
+        <p>ISO 9001: Qualitätsmanagement<br>ISO 14001: Umweltmanagement<br>ISO/IEC 27001: IT-Sicherheit</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17. Zusammenfassung / Das nehmen Sie mit -->
+  <section class="slide cover">
+    <h2>Das nehmen Sie mit</h2>
+    <ul class="checklist" style="margin-top: 1.5rem;">
+      <li>JIKU IT-Solutions: 10 Systemhäuser, 16 Standorte, 480 Mitarbeitende, 96 Auszubildende</li>
+      <li>Betrieb = technisch-organisatorisch | Unternehmen = rechtlich-wirtschaftlich | Firma = Handelsname (§ 17 HGB)</li>
+      <li>Tertiärer Sektor für Dienstleistungsunternehmen; fast 4 Mio. Unternehmen in Deutschland, &gt; 95 % KMU</li>
+      <li>Leitbild: Vision (wohin?), Mission (was?), Werte (wie?)</li>
+      <li>Zieltypen: Sachziel / Formalziel; strategisch / operativ; SMART-Formel</li>
+      <li>Zielbeziehungen: komplementär, konkurrierend, indifferent</li>
+      <li>Kennzahlen: Wirtschaftlichkeit = E÷A, Produktivität = Output÷Input, Rentabilität = JÜ×100÷K</li>
+    </ul>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>

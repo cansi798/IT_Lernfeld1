@@ -1,0 +1,143 @@
+{
+  "session": 3,
+  "thema": "Betrieb, Unternehmen & Unternehmensziele",
+  "slug": "Betrieb-Unternehmen-und-Ziele",
+  "day_id": "s3",
+  "cards": [
+    {
+      "topic": "JIKU IT-Solutions",
+      "front": "Wie viele Systemhäuser und Standorte hat der JIKU-Verbund?",
+      "back": "Der JIKU-Verbund umfasst 10 Systemhäuser an insgesamt 16 Standorten in Deutschland. Insgesamt beschäftigt der Verbund 480 Mitarbeiterinnen und Mitarbeiter sowie 96 Auszubildende."
+    },
+    {
+      "topic": "JIKU IT-Solutions",
+      "front": "Was macht ein IT-Systemhaus wie JIKU grundsätzlich?",
+      "back": "Ein IT-Systemhaus berät Endkunden (Unternehmen, Behörden, Organisationen), beschafft IT-Produkte von Herstellern, richtet diese beim Kunden ein und übernimmt anschließend Wartung und Betrieb der Systeme."
+    },
+    {
+      "topic": "JIKU IT-Solutions",
+      "front": "Was versteht man unter dem Leistungsportfolio von JIKU?",
+      "back": "JIKUs Portfolio umfasst vier Bereiche: IT-Service (Vor-Ort-Betreuung, IT-Management, Help-Desk), Cloud-Hosting (Migration, Managed Hosting), Server & Storage sowie IT-Infrastrukturen (VPN, Telefonanlagen). Dazu kommen branchenspezifische IT-Solutions (Business, Public, Industrial 4.0)."
+    },
+    {
+      "topic": "JIKU IT-Solutions",
+      "front": "Was bedeutet Corporate Social Responsibility (CSR) bei JIKU?",
+      "back": "CSR steht bei JIKU für gelebte Wertschätzung gegenüber Beschäftigten, Kunden und der Gesellschaft: nachhaltige Geschäftspolitik, Work-Life-Balance-Angebote (Home-Office, Betriebssport) und IT-Nachwuchsförderung (z. B. Girls Day, Stipendien, Hackathon-Sponsoring)."
+    },
+    {
+      "topic": "Begriffsabgrenzung",
+      "front": "Was ist der Unterschied zwischen Betrieb und Unternehmen?",
+      "back": "Der Betrieb ist die organisatorisch-technische Wirtschaftseinheit, die Güter und Dienstleistungen beschafft, erstellt und anbietet. Das Unternehmen ist die rechtlich-wirtschaftliche Einheit mit dauerhafter Tätigkeit und Gewinnabsicht, die Bücher führt und Steuern zahlt. Ein Unternehmen kann mehrere Betriebe haben."
+    },
+    {
+      "topic": "Begriffsabgrenzung",
+      "front": "Was ist die Firma im juristischen Sinn (§ 17 HGB)?",
+      "back": "Die Firma ist nach § 17 HGB der Name, unter dem ein Kaufmann seine Geschäfte betreibt und seine Unterschrift abgibt. Die Firma bezeichnet also nicht das Unternehmen selbst, sondern nur den Handelsnamen."
+    },
+    {
+      "topic": "Begriffsabgrenzung",
+      "front": "Was kennzeichnet ein erwerbswirtschaftliches Unternehmen?",
+      "back": "Erwerbswirtschaftliche Unternehmen sind Privatunternehmen, die auf eigene Rechnung und Verantwortung handeln und Gewinn anstreben (erwerbswirtschaftliches Prinzip). Der Gewinn fließt dem Inhaber, den Gesellschaftern oder Kapitalgebern zu."
+    },
+    {
+      "topic": "Begriffsabgrenzung",
+      "front": "Was kennzeichnet ein gemeinwirtschaftliches Unternehmen?",
+      "back": "Gemeinwirtschaftliche Unternehmen (z. B. Stadtwerke, kommunale Theater) arbeiten nach dem Prinzip der Kostendeckung: Sie streben an, die Selbstkosten zu decken, ohne Gewinne auszuschütten. Das Ziel ist das Gemeinwohl, nicht die Gewinnmaximierung."
+    },
+    {
+      "topic": "Wirtschaftszweige",
+      "front": "Welche drei Wirtschaftssektoren unterscheidet man, und wo ist JIKU einzuordnen?",
+      "back": "Primärer Sektor: Urproduktion (Rohstoffgewinnung, Landwirtschaft). Sekundärer Sektor: Produktion und Verarbeitung. Tertiärer Sektor: Dienstleistungen und Handel. JIKU als IT-Systemhaus gehört zum tertiären Sektor."
+    },
+    {
+      "topic": "Wirtschaftszweige",
+      "front": "Was ist ein KMU, und warum sind sie wichtig?",
+      "back": "KMU steht für kleine und mittlere Unternehmen. In Deutschland gibt es fast 4 Millionen Unternehmen, weit über 95 % davon zählen zu den KMU. Sie sind ein zentraler Bestandteil der Wirtschaft und wichtige Ausbilder."
+    },
+    {
+      "topic": "Wirtschaftszweige",
+      "front": "Was versteht man unter einem Start-up-Unternehmen?",
+      "back": "Ein Start-up ist ein Kleinst- oder Kleinunternehmen, das mit einer innovativen Geschäftsidee und hohem Wachstumspotenzial gegründet wird. Besonders im IT-Bereich sind Start-ups ein wichtiger Treiber für Innovationen und neue Geschäftsmodelle."
+    },
+    {
+      "topic": "Wirtschaftszweige",
+      "front": "Was ist ein Konzern, und wie unterscheidet er sich von einer Fusion?",
+      "back": "Ein Konzern ist der Zusammenschluss größerer rechtlich selbstständiger Unternehmen zu einer großen wirtschaftlichen Einheit unter einer gemeinsamen Leitung (Holding). Bei einer Fusion (Merger) schließen sich Unternehmen rechtlich zu einer einzigen Einheit zusammen."
+    },
+    {
+      "topic": "Wirtschaftliche Verflechtungen",
+      "front": "Was versteht man unter horizontaler, vertikaler und diagonaler Unternehmensverflechtung?",
+      "back": "Horizontal: Zusammenschluss auf derselben Leistungsstufe (z. B. zwei Rechenzentren). Vertikal: Zusammenschluss mehrerer Leistungsstufen (z. B. Lithium-Gewinnung und Batteriehersteller). Diagonal/anorganisch: Zusammenschluss ohne Bezug zur Leistungsstufe, zur Risikominimierung."
+    },
+    {
+      "topic": "Wirtschaftliche Verflechtungen",
+      "front": "Was ist ein Kartell, und warum sind viele Kartelle verboten?",
+      "back": "Ein Kartell ist ein vertraglicher Zusammenschluss rechtlich selbstständiger Unternehmen zur Erlangung von Wettbewerbsvorteilen (z. B. Preis- oder Gebietskartelle). Diese sind verboten, da sie den fairen Wettbewerb verzerren. Das Bundeskartellamt überwacht die Einhaltung."
+    },
+    {
+      "topic": "Stakeholder",
+      "front": "Was sind Stakeholder, und wen zählt man dazu?",
+      "back": "Stakeholder sind alle Anspruchsgruppen, die Erwartungen und Interessen an ein Unternehmen haben. Dazu zählen: Mitarbeiter, Kapitalgeber, Lieferanten, Kunden, Staat/Kommunen, Mitbewerber und Wirtschaftsorganisationen."
+    },
+    {
+      "topic": "Stakeholder",
+      "front": "Was bedeutet Compliance im Unternehmenskontext?",
+      "back": "Compliance bezeichnet die Regeltreue (Regelkonformität) von Unternehmen: die Einhaltung von Gesetzen und aktuellen gesellschaftlichen Anforderungen. Viele Unternehmen haben eigene Stellen (Compliance-Beauftragte) zur Sicherstellung der Regelkonformität."
+    },
+    {
+      "topic": "Unternehmensleitbild",
+      "front": "Was ist ein Unternehmensleitbild, und was enthält es?",
+      "back": "Das Leitbild beschreibt das Selbstverständnis und die Grundsätze eines Unternehmens. Es ist schriftlich fixiert und richtet sich an Mitarbeiter, Kunden und die Öffentlichkeit. Es enthält drei Hauptaussagen: Vision (Zukunftsbild), Mission (Zweck/Aufgaben) und Werte/Verhaltensweisen."
+    },
+    {
+      "topic": "Unternehmensleitbild",
+      "front": "Was ist die Vision von JIKU IT-Solutions?",
+      "back": "JIKUs Vision lautet: Wir wollen immer das beste IT-Systemhaus unserer Region sein und diesen Status halten. Die Vision beschreibt das langfristige Zukunftsbild des Unternehmens."
+    },
+    {
+      "topic": "Unternehmensziele",
+      "front": "Was sind Sachziele (Leistungsziele) und Formalziele?",
+      "back": "Sachziele beziehen sich auf das konkrete Handeln bei der Leistungserstellung (Art, Menge, Qualität, Ort, Zeit der Güter/Dienstleistungen). Formalziele beschreiben den allgemeinen wirtschaftlichen Erfolg, z. B. Umsatz, Gewinn, Marktanteil, Produktivität."
+    },
+    {
+      "topic": "Unternehmensziele",
+      "front": "Was ist die SMART-Formel zur Zielformulierung?",
+      "back": "SMART steht für: Spezifisch (eindeutig und präzise), Messbar (überprüfbar), Ausführbar/Akzeptiert (erreichbar, angemessen), Realistisch (möglich) und Terminierbar (klare Zeitvorgabe). Ziele sollen SMART formuliert sein, damit der Grad der Zielerreichung geprüft werden kann."
+    },
+    {
+      "topic": "Unternehmensziele",
+      "front": "Was versteht man unter strategischen und operativen Zielen?",
+      "back": "Strategische Ziele sind langfristig ausgerichtet (z. B. Technologieführerschaft, Gewinnmaximierung) und werden von der Unternehmensleitung festgelegt. Operative Ziele sind kurz- bis mittelfristig (z. B. Absatzmaximierung, Kostenminimierung) und von Abteilungs- oder Teamleitungen formuliert."
+    },
+    {
+      "topic": "Wirtschaftliche Kennzahlen",
+      "front": "Wie berechnet man die Wirtschaftlichkeit eines Unternehmens?",
+      "back": "Wirtschaftlichkeit = Erträge ÷ Aufwendungen (bzw. Erlöse ÷ Kosten). Ein Wert über 1 (bzw. über 100 %) zeigt an, dass die Erträge die Aufwendungen übersteigen — das Unternehmen arbeitet wirtschaftlich."
+    },
+    {
+      "topic": "Wirtschaftliche Kennzahlen",
+      "front": "Wie berechnet man die Produktivität?",
+      "back": "Produktivität = Output ÷ Input (Ausbringungsmenge ÷ Einsatzmenge), z. B. hergestellte Stücke pro Stunde oder abgerechnete Stunden gesamt ÷ eingesetzte Stunden. Sie misst das Verhältnis von Ergebnis zu eingesetzten Mitteln."
+    },
+    {
+      "topic": "Wirtschaftliche Kennzahlen",
+      "front": "Was ist die Rentabilität, und wie wird sie berechnet?",
+      "back": "Rentabilität (Rendite) misst die Verzinsung des eingesetzten Kapitals: Rentabilität (%) = Jahresüberschuss × 100 ÷ Kapital. Sie zeigt, wie effizient das eingesetzte Kapital verzinst wird."
+    },
+    {
+      "topic": "Zielbeziehungen",
+      "front": "Was sind komplementäre und konkurrierende Ziele?",
+      "back": "Komplementäre Ziele verstärken oder ergänzen sich gegenseitig, z. B. höhere Energieeffizienz und Kosteneinsparung. Konkurrierende Ziele behindern sich gegenseitig, z. B. mehr Innovationsausgaben und gleichzeitige Kostensenkung."
+    },
+    {
+      "topic": "Qualitätsmanagement",
+      "front": "Wofür steht TQM, und was ist das Null-Fehler-Prinzip?",
+      "back": "TQM steht für Total Quality Management (allumfassendes Qualitätsmanagement). Das Null-Fehler-Prinzip besagt, dass nur einwandfreie Produkte und Leistungen in die nächste Bearbeitungsstufe übergeben werden. Qualität wird in allen Prozessen und von allen Mitarbeitern angestrebt."
+    },
+    {
+      "topic": "Qualitätsmanagement",
+      "front": "Was ist der PDCA-Zyklus (Deming-Kreislauf)?",
+      "back": "PDCA steht für Plan–Do–Check–Act: Ziele planen, Maßnahmen ausführen, Ergebnisse überprüfen, Verbesserungen umsetzen. Dieser Kreislauf sichert den kontinuierlichen Verbesserungsprozess (KVP) und ist Grundlage vieler Qualitätsmanagementsysteme."
+    }
+  ]
+}
