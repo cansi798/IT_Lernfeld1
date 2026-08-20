@@ -10,10 +10,10 @@ window.QUIZ_DATA = {
         "Umsatzerlöse minus Personalkosten",
         "Gesamtkosten minus Fixkosten",
         "Gewinn plus Steuern plus Löhne",
-        "Umsatzerlöse minus Vorleistungen minus Abschreibungen"
+        "Verkaufte Leistungen ± Lagerveränderung − Vorleistungen − Abschreibungen"
       ],
       richtig: 3,
-      erklaerung: "Die Wertschöpfung ergibt sich aus den Umsatzerlösen abzüglich der Vorleistungen (eingekaufte Güter und Dienste) und der Abschreibungen. Personalkosten sind kein Abzugsposten, sondern Teil der Wertschöpfungsverteilung."
+      erklaerung: "Die vollständige Formel lautet: Wertschöpfung = Verkaufte Leistungen (Umsatzerlöse) ± Lagerveränderung − Vorleistungen − Abschreibungen. Die Lagerveränderung (Bestandszu- oder -abnahme) ist Bestandteil der Formel und darf nicht fehlen — auch wenn sie in Praxisaufgaben oft 0 beträgt. Personalkosten sind kein Abzugsposten, sondern Teil der Wertschöpfungsverteilung."
     },
 
     {
