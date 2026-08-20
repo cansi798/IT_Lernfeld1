@@ -3,8 +3,9 @@
 Kursplattform für **Lernfeld 1: „Das Unternehmen und die eigene Rolle im
 Betrieb beschreiben"** (IT-Berufe / Fachinformatiker).
 
-Die Kursseite (`index.html`) ist mit einem Zugangscode gesichert — der Code
-wird intern kommuniziert und ist nicht im Repository hinterlegt.
+Die Kursseite (`index.html`) ist mit einem Zugangscode geschützt. Der
+Zugangscode ist ein einfacher Zugriffsschutz (im Quelltext von `index.html`
+einsehbar) — kein Sicherheitsmerkmal.
 
 > **Hinweis Verlagsmaterial:** Die Grundlagen-PDFs und Arbeitsbuch-PDFs
 > (Auszüge aus dem Lehrbuch) liegen aus urheberrechtlichen Gründen
@@ -54,7 +55,7 @@ Session-N_<Slug>/
 
 ```
 data/                    # Quiz-Quelldaten (JSON, eine Datei je Session)
-media/                   # Videso & Podcast-Audiodateien (lokal, nicht im Repo)
+media/                   # Videos & Podcast-Audiodateien liegen im jeweiligen Session-Ordner
 scripts/                 # Build- und Audit-Skripte
 templates/               # HTML/CSS-Vorlagen
 docs/
@@ -79,21 +80,21 @@ python3 scripts/split_pdf.py
 ### Spiele & Karteikarten generieren
 
 ```bash
-# Hangman, Wordle, Memory, Karteikarten aus data/<slug>.json bauen
+# Hangman, Wordle, Memory, Karteikarten aus scripts/data/{karteikarten,spiele}/session-N.json bauen
 node scripts/build-spiele-und-karten.js
 ```
 
 ### Quiz generieren
 
 ```bash
-# Quiz-HTMLs aus data/<slug>.json bauen
+# Quiz-HTMLs aus data/quiz-tNsM.js bauen
 node scripts/build-quiz.js
 ```
 
 ### LaTeX-PDFs bauen (Handout & Aufgabenheft)
 
 ```bash
-# .tex → .pdf für alle Sessions (benötigt lualatex im PATH)
+# .tex → .pdf für alle Sessions (benötigt xelatex im PATH)
 python3 scripts/build_tex.py
 ```
 
@@ -110,7 +111,8 @@ node scripts/audit-links.js && node scripts/validate-quiz.js && echo OK
 
 1. **`scripts/config.js`** — neuen Eintrag im `SESSIONS`-Array hinzufügen
    (`nr`, `slug`, `titel`, `quiz`-Kürzel).
-2. **Daten anlegen** — `data/<slug>.json` mit Quiz-/Spiel-Daten befüllen
+2. **Daten anlegen** — `scripts/data/karteikarten/session-N.json` und
+   `scripts/data/spiele/session-N.json` mit Karten-/Spieldaten befüllen
    (Schema: vorhandene JSON-Dateien als Vorlage).
 3. **LaTeX-Quellen** — `Session-<Nr>_<Slug>/Handout_<Slug>.tex` und
    `Aufgabenheft_<Slug>.tex` anlegen.
@@ -125,5 +127,5 @@ node scripts/audit-links.js && node scripts/validate-quiz.js && echo OK
 - Verlagsmaterial (Grundlagen-/Arbeitsbuch-PDFs) ist nicht eingecheckt
   (`.gitignore`); alle eigenständig formulierten Inhalte sind frei lizenzierbar.
 - Gefundene Quellfehler: `docs/errata.md`.
-- Design-Dokument: `docs/superpowers/specs/2026-08-19-it-lernfeld1-plattform-design.md`
+- Design-Dokument: `docs/superpowers/specs/2026-08-20-beispiel-struktur-umbau-design.md`
 - Sync in den VirtualBox-Shared-Folder: `bash scripts/sync-to-shared.sh`

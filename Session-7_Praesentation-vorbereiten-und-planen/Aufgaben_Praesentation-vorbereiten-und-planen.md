@@ -53,7 +53,7 @@ Das Präsentationsteam erfährt: Die Besucher sind Schüler der 10. Klasse, ca. 
 
 **(a)** Beschreiben Sie die drei Strukturabschnitte einer Präsentation (Einstieg, Hauptteil, Schluss) und nennen Sie je eine wichtige Funktion. **(6 P.)**
 
-**(b)** Das JIKU-Team plant folgende Foliensreihenfolge:
+**(b)** Das JIKU-Team plant folgende Folienreihenfolge:
 
 > Folie 1: Produktportfolio · Folie 2: Firmenname und Logo · Folie 3: Ausbildungsberufe · Folie 4: Teamvorstellung · Folie 5: Außenansicht des Gebäudes
 

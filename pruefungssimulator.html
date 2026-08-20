@@ -123,11 +123,12 @@ body {
   border-radius: 10px; background: white; cursor: pointer; font-size: 0.97rem;
   font-family: inherit; transition: all 0.15s; color: var(--bfw-ink);
 }
-.option-btn:hover:not(:disabled):not(.correct):not(.wrong) {
+.option-btn:hover:not(:disabled):not(.correct):not(.wrong):not(.selected) {
   border-color: var(--bfw-primary); background: var(--bfw-bg-teal);
 }
 .option-btn.correct { border-color: var(--bfw-success); background: var(--bfw-bg-green); font-weight: 600; }
 .option-btn.wrong { border-color: var(--bfw-danger); background: var(--bfw-bg-rose); }
+.option-btn.selected { border-color: var(--bfw-primary); background: var(--bfw-bg-teal); }
 .option-btn:disabled { cursor: default; }
 
 /* Feedback */
@@ -415,14 +416,14 @@ var Simulator = (function() {
 // Constants
 // ============================================================
 var SESSIONS = [
-  { id: 't1s1', label: 'S1 IT-Berufe & duales System' },
-  { id: 't1s2', label: 'S2 Rechte, Pflichten & Arbeitsrecht' },
-  { id: 't2s1', label: 'S3 Betrieb, Unternehmen & Unternehmensziele' },
-  { id: 't2s2', label: 'S4 Rechtsformen & Aufbauorganisation' },
-  { id: 't3s1', label: 'S5 Geschäftsprozesse, Produktionsfaktoren & Güterarten' },
-  { id: 't3s2', label: 'S6 Wirtschaftskreislauf & Marktsituationen' },
-  { id: 't4s1', label: 'S7 Präsentation vorbereiten & planen' },
-  { id: 't4s2', label: 'S8 Präsentieren, Feedback & Gesamtwiederholung' }
+  { id: 't1s1', label: 'IT-Berufe & duales System' },
+  { id: 't1s2', label: 'Rechte, Pflichten & Arbeitsrecht' },
+  { id: 't2s1', label: 'Betrieb, Unternehmen & Unternehmensziele' },
+  { id: 't2s2', label: 'Rechtsformen & Aufbauorganisation' },
+  { id: 't3s1', label: 'Geschäftsprozesse, Produktionsfaktoren & Güterarten' },
+  { id: 't3s2', label: 'Wirtschaftskreislauf & Marktsituationen' },
+  { id: 't4s1', label: 'Präsentation vorbereiten & planen' },
+  { id: 't4s2', label: 'Präsentieren, Feedback & Gesamtwiederholung' }
 ];
 
 // ============================================================
@@ -685,7 +686,7 @@ function renderExam() {
   optDiv.innerHTML = '';
   f.optionen.forEach(function(o, n) {
     var btn = document.createElement('button');
-    btn.className = 'option-btn' + (examAnswers[examCurrent] === n ? ' correct' : '');
+    btn.className = 'option-btn' + (examAnswers[examCurrent] === n ? ' selected' : '');
     btn.textContent = o;
     (function(nn) {
       btn.addEventListener('click', function() { examSelect(nn); });

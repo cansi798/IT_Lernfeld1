@@ -1,21 +1,28 @@
 # Medien — Videos & Podcasts
 
-Hier werden die Video- und Audiodateien abgelegt. Die Session-Seiten
-erkennen die Dateien automatisch — **kein Codeeingriff nötig**, einfach
-Datei hochladen, committen, pushen.
+Mediendateien gehören **nicht** in diesen Ordner, sondern jeweils in den
+zugehörigen Session-Ordner. Die Kursseite erkennt die Dateien automatisch
+und aktiviert die Kacheln — **kein Codeeingriff nötig**, einfach Datei
+hochladen, committen, pushen.
 
 ## Namenskonvention (verbindlich)
 
+Lege die Datei im Session-Ordner ab:
+
+```
+Session-N_<Slug>/Session-N_Video.mp4
+Session-N_<Slug>/Session-N_Podcast.m4a
+```
+
+Beispiele:
+
 | Session | Video | Podcast |
-|---|---|---|
-| Tag 1 · Session 1 | `tag1-session1-video.mp4` | `tag1-session1-podcast.mp3` |
-| Tag 1 · Session 2 | `tag1-session2-video.mp4` | `tag1-session2-podcast.mp3` |
-| Tag 2 · Session 1 | `tag2-session1-video.mp4` | `tag2-session1-podcast.mp3` |
-| Tag 2 · Session 2 | `tag2-session2-video.mp4` | `tag2-session2-podcast.mp3` |
-| Tag 3 · Session 1 | `tag3-session1-video.mp4` | `tag3-session1-podcast.mp3` |
-| Tag 3 · Session 2 | `tag3-session2-video.mp4` | `tag3-session2-podcast.mp3` |
-| Tag 4 · Session 1 | `tag4-session1-video.mp4` | `tag4-session1-podcast.mp3` |
-| Tag 4 · Session 2 | `tag4-session2-video.mp4` | `tag4-session2-podcast.mp3` |
+|---------|-------|---------|
+| Session 1 | `Session-1_IT-Berufe-und-duales-System/Session-1_Video.mp4` | `Session-1_IT-Berufe-und-duales-System/Session-1_Podcast.m4a` |
+| Session 2 | `Session-2_Rechte-Pflichten-und-Arbeitsrecht/Session-2_Video.mp4` | `Session-2_Rechte-Pflichten-und-Arbeitsrecht/Session-2_Podcast.m4a` |
+| Session 3 | `Session-3_Betrieb-Unternehmen-und-Ziele/Session-3_Video.mp4` | `Session-3_Betrieb-Unternehmen-und-Ziele/Session-3_Podcast.m4a` |
+| … | … | … |
 
 Solange eine Datei fehlt, zeigt die Seite „folgt in Kürze".
-Hinweis: GitHub begrenzt Dateien auf 100 MB; Videos ggf. komprimieren.
+Hinweis: GitHub begrenzt Dateien auf 100 MB; Videos ggf. komprimieren
+oder per Git LFS verwalten.
