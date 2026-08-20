@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Karteikarten Tag {{TAG}} — {{THEMA}} (60 Karten)</title>
+<title>Karteikarten Tag {{TAG}} — {{THEMA}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root {
@@ -98,7 +98,7 @@ footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--b
   <header>
     <span class="tag-pill">Tag {{TAG}} · Karteikarten</span>
     <h1>{{THEMA}}</h1>
-    <p class="subtitle">60 Lernkarten · Begriff → Definition · Leitner-System</p>
+    <p class="subtitle" id="subtitleText">Lernkarten · Begriff → Definition · Leitner-System</p>
   </header>
 
   <div class="how">
@@ -109,7 +109,7 @@ footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--b
 
   <div class="stats">
     <div class="boxes" id="boxes"></div>
-    <div class="mastered" id="mastered">0 / 60 gemeistert</div>
+    <div class="mastered" id="mastered">0 / … gemeistert</div>
     <div class="progress"><div id="progressBar"></div></div>
   </div>
 
@@ -146,7 +146,7 @@ footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--b
 
   <div id="doneArea" class="done hidden">
     <h2>🎉 Alle Karten gemeistert!</h2>
-    <p id="doneText">Sie haben alle 60 Karten sicher beantwortet. Starke Leistung!</p>
+    <p id="doneText">Sie haben alle Karten sicher beantwortet. Starke Leistung!</p>
     <div class="mini-actions">
       <button class="btn btn-flip" onclick="resetProgress()">Von vorne beginnen</button>
     </div>
@@ -248,6 +248,8 @@ function resetProgress() {
 
 // Init
 loadState();
+document.getElementById('subtitleText').textContent = CARDS.length + ' Lernkarten · Begriff → Definition · Leitner-System';
+document.getElementById('doneText').textContent = 'Sie haben alle ' + CARDS.length + ' Karten sicher beantwortet. Starke Leistung!';
 renderStats();
 buildQueue();
 if (queue.length === 0) finish(); else showCard();

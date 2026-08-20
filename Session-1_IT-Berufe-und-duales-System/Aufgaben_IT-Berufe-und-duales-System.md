@@ -25,7 +25,7 @@ Ordnen Sie die folgenden Tätigkeitsbeschreibungen dem passenden IT-Beruf zu. Je
 | c) Führt elektrotechnische Arbeiten im IT-Bereich durch, prüft die elektrische Sicherheit und betreut IT-Infrastrukturen. | |
 | d) Konzipiert und entwickelt Softwarelösungen für interne und externe Kunden unter Beachtung von IT-Sicherheit und Datenschutz. | |
 
-*(Zur Auswahl: Fachinformatiker/-in FIAE, IT-Systemelektroniker/-in, Kaufmann/-frau für IT-Systemmanagement, Kaufmann/-frau für Digitalisierungsmanagement)*
+*(Zur Auswahl: Fachinformatiker/-in Anwendungsentwicklung (FIAE), IT-Systemelektroniker/-in, Kaufmann/-frau für IT-Systemmanagement, Kaufmann/-frau für Digitalisierungsmanagement)*
 
 ---
 
