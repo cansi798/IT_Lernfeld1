@@ -3,30 +3,127 @@
 Kursplattform für **Lernfeld 1: „Das Unternehmen und die eigene Rolle im
 Betrieb beschreiben"** (IT-Berufe / Fachinformatiker).
 
-🌐 **Live über GitHub Pages:** https://cansi798.github.io/IT_Lernfeld1/
-(Zugangscode: `Lernfeld1`)
+Die Kursseite (`index.html`) ist mit einem Zugangscode gesichert — der Code
+wird intern kommuniziert und ist nicht im Repository hinterlegt.
+
+> **Hinweis Verlagsmaterial:** Die Grundlagen-PDFs und Arbeitsbuch-PDFs
+> (Auszüge aus dem Lehrbuch) liegen aus urheberrechtlichen Gründen
+> **ausschließlich lokal** und sind nicht im Repository eingecheckt
+> (`.gitignore`). Beim Aufruf über GitHub Pages erscheinen die entsprechenden
+> Kacheln ausgegraut/gesperrt.
+
+---
 
 ## Aufbau
 
-4 Kurstage × 2 Sessions. Jede Session bietet: Präsentation (Foliendeck im
-Browser), druckbares Handout, Video- & Podcast-Bereich, Lernbereich-Aufgaben
-mit Lösungshinweisen und ein 40-Fragen-Quiz.
+8 Sessions in 4 Kurstagen. Jede Session hat einen eigenen Ordner
+`Session-<Nr>_<Slug>/` mit vollständigem Artefakt-Satz.
 
-| Tag | Sessions | Lehrbuch-Kapitel |
-|---|---|---|
-| 1 | IT-Berufe & duales System · Rechte & Pflichten | 1.1 / 1.2 |
-| 2 | Betrieb & Unternehmen · Rechtsformen & Organisation | 1.3.1–1.3.4 |
-| 3 | Prozesse & Produktionsfaktoren · Wirtschaftskreislauf & Markt | 1.3.5–1.4 |
-| 4 | Präsentation vorbereiten · Präsentieren & Reflexion | 1.5 |
+| Nr | Ordner-Slug | Tag |
+|----|-------------|-----|
+| 1 | IT-Berufe-und-duales-System | 1 |
+| 2 | Rechte-Pflichten-und-Arbeitsrecht | 1 |
+| 3 | Betrieb-Unternehmen-und-Ziele | 2 |
+| 4 | Rechtsformen-und-Aufbauorganisation | 2 |
+| 5 | Geschaeftsprozesse-Produktionsfaktoren-Gueterarten | 3 |
+| 6 | Wirtschaftskreislauf-und-Marktsituationen | 3 |
+| 7 | Praesentation-vorbereiten-und-planen | 4 |
+| 8 | Praesentieren-Feedback-und-Wiederholung | 4 |
 
-## Videos & Podcasts nachrüsten
+### Artefakte je Session
 
-Dateien nach `media/` hochladen (Namenskonvention siehe `media/README.md`),
-committen, pushen — die Seiten erkennen sie automatisch.
+```
+Session-N_<Slug>/
+├── Praesentation_<Slug>.html       # Foliendeck (Browser)
+├── Handout_<Slug>.pdf              # Druckbares Handout
+├── Handout_<Slug>.tex              # LaTeX-Quelle
+├── Aufgabenheft_<Slug>.pdf         # Aufgabenheft
+├── Aufgabenheft_<Slug>.tex         # LaTeX-Quelle
+├── Grundlagen_<Slug>.pdf           # Grundlagen-Auszug (nur lokal)
+├── Arbeitsbuch_<Slug>.pdf          # Arbeitsbuch-Auszug (nur lokal)
+├── Quiz_<Slug>.html                # Interaktives Quiz
+├── Hangman_<Slug>.html             # Hangman-Spiel
+├── Wordle_<Slug>.html              # Wordle-Spiel
+├── Memory_<Slug>.html              # Memory-Kartenspiel
+├── Karteikarten_<Slug>.html        # Karteikarten-Lernset
+├── Aufgaben_<Slug>.md              # Aufgaben-Quelldaten (Markdown)
+└── Tagesplan_<Slug>.md             # Tagesplanung
+```
+
+### Weitere Verzeichnisse
+
+```
+data/                    # Quiz-Quelldaten (JSON, eine Datei je Session)
+media/                   # Videso & Podcast-Audiodateien (lokal, nicht im Repo)
+scripts/                 # Build- und Audit-Skripte
+templates/               # HTML/CSS-Vorlagen
+docs/
+├── errata.md            # Quellfehler-Protokoll
+└── superpowers/specs/   # Planungsdokumente
+```
+
+---
+
+## Build-Pipeline
+
+Alle Skripte arbeiten config-basiert (`scripts/config.js`) — keine harten
+Session-Pfade im Code.
+
+### PDF-Auszüge extrahieren
+
+```bash
+# Grundlagen- und Arbeitsbuch-PDFs aus dem Lehrbuch-PDF heraustrennen
+python3 scripts/split_pdf.py
+```
+
+### Spiele & Karteikarten generieren
+
+```bash
+# Hangman, Wordle, Memory, Karteikarten aus data/<slug>.json bauen
+node scripts/build-spiele-und-karten.js
+```
+
+### Quiz generieren
+
+```bash
+# Quiz-HTMLs aus data/<slug>.json bauen
+node scripts/build-quiz.js
+```
+
+### LaTeX-PDFs bauen (Handout & Aufgabenheft)
+
+```bash
+# .tex → .pdf für alle Sessions (benötigt lualatex im PATH)
+python3 scripts/build_tex.py
+```
+
+### Audits
+
+```bash
+# Interne Links prüfen + Quiz-Daten validieren
+node scripts/audit-links.js && node scripts/validate-quiz.js && echo OK
+```
+
+---
+
+## Neue Session ergänzen
+
+1. **`scripts/config.js`** — neuen Eintrag im `SESSIONS`-Array hinzufügen
+   (`nr`, `slug`, `titel`, `quiz`-Kürzel).
+2. **Daten anlegen** — `data/<slug>.json` mit Quiz-/Spiel-Daten befüllen
+   (Schema: vorhandene JSON-Dateien als Vorlage).
+3. **LaTeX-Quellen** — `Session-<Nr>_<Slug>/Handout_<Slug>.tex` und
+   `Aufgabenheft_<Slug>.tex` anlegen.
+4. **Bauen** — Build-Skripte der Reihe nach ausführen (s. o.).
+5. **Audits** — `node scripts/audit-links.js && node scripts/validate-quiz.js`
+   grün halten.
+
+---
 
 ## Hinweise
 
-- Verlagsmaterial (Lehrbuch-/Arbeitsbuch-PDFs) ist **nicht** im Repo
-  (`.gitignore`); alle Inhalte sind eigenständig formuliert.
-- Gefundene Fehler der Quellen: siehe `docs/errata.md`.
+- Verlagsmaterial (Grundlagen-/Arbeitsbuch-PDFs) ist nicht eingecheckt
+  (`.gitignore`); alle eigenständig formulierten Inhalte sind frei lizenzierbar.
+- Gefundene Quellfehler: `docs/errata.md`.
 - Design-Dokument: `docs/superpowers/specs/2026-08-19-it-lernfeld1-plattform-design.md`
+- Sync in den VirtualBox-Shared-Folder: `bash scripts/sync-to-shared.sh`
