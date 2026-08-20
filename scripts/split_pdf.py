@@ -66,6 +66,13 @@ def main() -> None:
             split(src, first, last, pdf)
             extract_text(src, first, last, pdf.with_suffix(".txt"))
             print(f"Session {nr} {kind}: S.{first}-{last} -> {pdf.name} ({last - first + 1} Seiten)")
+            # Zusätzlich in den Session-Ordner der Plattform legen
+            repo = Path.home() / "IT_Lernfeld1"
+            art = "Grundlagen" if kind == "lehrbuch" else "Arbeitsbuch"
+            sess_dir = repo / f"Session-{nr}_{slug}"
+            if sess_dir.is_dir():
+                import shutil
+                shutil.copy2(pdf, sess_dir / f"{art}_{slug}.pdf")
 
 
 if __name__ == "__main__":

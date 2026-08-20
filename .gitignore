@@ -1,3 +1,11 @@
 *.pdf
 *.log
 .DS_Store
+# Verlagsmaterial — urheberrechtlich geschützt, nur lokal
+Session-*/Grundlagen_*.pdf
+Session-*/Arbeitsbuch_*.pdf
+# LaTeX-Zwischendateien
+*.aux
+*.log
+*.out
+*.toc
