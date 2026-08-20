@@ -39,7 +39,7 @@
 
 ## Aufgabe 4 — Zielgruppenanalyse und Rahmenbedingungen (10 Punkte)
 
-Das Präsentationsteam erfahrt: Die Besucher sind Schüler der 10. Klasse, ca. 20 Personen, kaum IT-Kenntnisse, Interesse an Ausbildungsberufen. Die Präsentation findet im JIKU-Schulungsraum statt (Beamer vorhanden, 45 Minuten Zeit inklusive Fragen, kein Druckkostenbudget).
+Das Präsentationsteam erfährt: Die Besucher sind Schüler der 10. Klasse, ca. 20 Personen, kaum IT-Kenntnisse, Interesse an Ausbildungsberufen. Die Präsentation findet im JIKU-Schulungsraum statt (Beamer vorhanden, 45 Minuten Zeit inklusive Fragen, kein Druckkostenbudget).
 
 **(a)** Beschreiben Sie die Zielgruppe (Vorkenntnisse, Erwartungen, Interessen) und leiten Sie daraus zwei konkrete Konsequenzen für Inhalt und Sprache der Präsentation ab. **(4 P.)**
 
