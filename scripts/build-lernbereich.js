@@ -77,7 +77,7 @@ function buildPage(tpl, sessionCfg, data) {
   const html = tpl
     .replaceAll('{{NR}}', String(sessionCfg.nr))
     .replaceAll('{{THEMA}}', data.thema)
-    .replace('{{AUFGABEN_JSON}}', JSON.stringify(data.aufgaben));
+    .replaceAll('{{AUFGABEN_JSON}}', JSON.stringify(data.aufgaben).replace(/<\/script>/gi, '<\\/script>'));
   return html;
 }
 
