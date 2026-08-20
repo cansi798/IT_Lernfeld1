@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 2 — Rechte, Pflichten &amp; Arbeitsrecht</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 2</span>
+    <h1>Rechte, Pflichten &amp; Arbeitsrecht</h1>
+    <p class="subtitle">Von den BBiG-Pflichten bis zur persönlichen Berufs- und Lebensplanung</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.2.1–1.2.3 Rechte, Pflichten, Arbeitsrecht, Lebensplanung</span>
+      <span><strong>Modellunternehmen</strong>JIKU IT-Solutions GmbH</span>
+    </div>
+  </section>
+
+  <!-- 2. Lernziele -->
+  <section class="slide">
+    <h2>Was Sie in dieser Session lernen</h2>
+    <p class="subtitle">Am Ende können Sie ...</p>
+    <ul class="checklist">
+      <li>die gegenseitigen Rechte und Pflichten aus dem Ausbildungsverhältnis nach <strong>§§ 13–17 BBiG</strong> benennen</li>
+      <li>Regelungen zu <strong>Probezeit, Kündigung und Vergütung</strong> erläutern</li>
+      <li>Schutzvorschriften des <strong>JArbSchG</strong> auf jugendliche Auszubildende anwenden</li>
+      <li>Aufgaben und Wahl von <strong>Betriebsrat und JAV</strong> beschreiben</li>
+      <li>Grundzüge des <strong>sozialen Sicherungssystems</strong> und Möglichkeiten der <strong>Lebensplanung</strong> darstellen</li>
+    </ul>
+  </section>
+
+  <!-- 3. Agenda -->
+  <section class="slide">
+    <h2>Überblick dieser Session</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">1. Rechte &amp; Pflichten (BBiG)</div>
+        <p style="font-size:1rem;">§§ 13–17 BBiG: Pflichten beider Seiten, Ausbildungszeugnis</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">2. Vertrag, Vergütung &amp; Kündigung</div>
+        <p style="font-size:1rem;">§ 11 BBiG: Pflichtinhalte; Probezeit, Kündigung nach § 22 BBiG</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">3. Jugendarbeitsschutz (JArbSchG)</div>
+        <p style="font-size:1rem;">Arbeitszeit, Urlaubsanspruch, Untersuchungspflicht für unter 18-Jährige</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">4. Betriebsrat, JAV &amp; Lebensplanung</div>
+        <p style="font-size:1rem;">Mitbestimmung, Tarifverträge, soziale Sicherung, Karriereplanung</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Pflichten der Auszubildenden -->
+  <section class="slide">
+    <h2>Pflichten der Auszubildenden — § 13 BBiG</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Lernpflicht</div>
+        <p style="font-size:1rem;">Aktives Bemühen um den Erwerb der erforderlichen Fertigkeiten und Kenntnisse</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Weisungsgebundenheit</div>
+        <p style="font-size:1rem;">Befolgen der Anweisungen weisungsberechtigter Personen im Betrieb</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Berichtsheft</div>
+        <p style="font-size:1rem;">Schriftliche oder digitale Führung des Ausbildungsnachweises und regelmäßiges Vorlegen</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Geheimhaltungspflicht</div>
+        <p style="font-size:1rem;">Stillschweigen über Betriebs- und Geschäftsgeheimnisse während der gesamten Ausbildung</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Benachrichtigungspflicht</div>
+        <p style="font-size:1rem;">Bei Abwesenheit: unverzügliche Mitteilung; bei Krankheit: ärztliche Bescheinigung bis zum 3. Tag</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Ordnung &amp; Pfleglichkeit</div>
+        <p style="font-size:1rem;">Einhaltung betrieblicher Ordnungsvorschriften; sorgfältige Behandlung der Ausbildungsmittel</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Pflichten des Ausbildenden -->
+  <section class="slide">
+    <h2>Pflichten des Ausbildenden — § 14 BBiG</h2>
+    <table>
+      <tr><th>Pflicht</th><th>Inhalt</th></tr>
+      <tr><td>Ausbildungspflicht</td><td>Planmäßige Vermittlung aller zum Ausbildungsziel erforderlichen Inhalte</td></tr>
+      <tr><td>Freistellungspflicht</td><td>Freistellung für Berufsschulunterricht, Prüfungen und Ausbildungsmaßnahmen</td></tr>
+      <tr><td>Ausbildungsmittel</td><td>Kostenlose Bereitstellung aller für Ausbildung und Prüfung erforderlichen Mittel</td></tr>
+      <tr><td>Zweckbindung</td><td>Nur ausbildungszweckdienliche und körperlich angemessene Aufgaben übertragen</td></tr>
+      <tr><td>Zeugnispflicht § 16</td><td>Schriftliches Ausbildungszeugnis bei Beendigung der Ausbildung</td></tr>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Wird ein Auszubildender dauerhaft für betriebsfremde Aufgaben eingesetzt (z. B. Poststelle statt IT), verstößt das gegen <strong>§ 14 BBiG</strong>.
+    </div>
+  </section>
+
+  <!-- 6. Ausbildungsvertrag § 11 BBiG -->
+  <section class="slide">
+    <h2>Ausbildungsvertrag — § 11 BBiG</h2>
+    <p>Der Berufsausbildungsvertrag muss <strong>schriftlich</strong> vor Beginn der Ausbildung geschlossen und bei der IHK eingetragen werden.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">10 Pflichtinhalte (Auswahl)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Art, Dauer und Ziel der Ausbildung</li>
+          <li>Höhe und Zahlung der Vergütung</li>
+          <li>Dauer der Probezeit</li>
+          <li>Dauer des Urlaubs</li>
+          <li>Form des Ausbildungsnachweises</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Wichtig: Nichtigkeit</div>
+        <p style="font-size:1rem;">Vereinbarungen, die dem BBiG widersprechen oder dem Ausbildungszweck zuwiderlaufen, sind von Gesetzes wegen <strong>nichtig</strong> — unabhängig von der Zustimmung beider Seiten.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Vergütung, Probezeit, Kündigung -->
+  <section class="slide">
+    <h2>Vergütung, Probezeit &amp; Kündigung</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Vergütung (§§ 17, 18 BBiG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Muss angemessen sein und jährlich steigen</li>
+          <li>Gesetzliche Mindestausbildungsvergütung gilt</li>
+          <li>Bei Krankheit: bis zu 6 Wochen Fortzahlung, danach Krankengeld</li>
+        </ul>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Probezeit (§ 20 BBiG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Mindestens 1 Monat, höchstens 4 Monate</li>
+          <li>Beide Seiten können ohne Frist und ohne Grund kündigen</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Kündigung nach Probezeit (§ 22 BBiG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li><strong>Ausbildende:</strong> nur außerordentliche fristlose Kündigung aus wichtigem Grund</li>
+          <li><strong>Auszubildende:</strong> mit 4 Wochen Frist bei Berufswechsel oder Aufgabe der Ausbildung</li>
+          <li>Fristlose Kündigung muss innerhalb von 2 Wochen nach Kenntnis erklärt werden</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. JArbSchG Überblick -->
+  <section class="slide">
+    <h2>Jugendarbeitsschutzgesetz (JArbSchG)</h2>
+    <p>Gilt für alle Personen <strong>unter 18 Jahren</strong> in Berufsausbildung oder Dauerbeschäftigung von mehr als 2 Monaten außerhalb des Familienhaushalts.</p>
+    <table>
+      <tr><th>Regelung</th><th>Vorgabe</th></tr>
+      <tr><td>Tägliche Arbeitszeit</td><td>Höchstens 8 Stunden (Ausnahme: 8,5 Std.)</td></tr>
+      <tr><td>Wöchentliche Arbeitszeit</td><td>Höchstens 40 Stunden, 5 Arbeitstage</td></tr>
+      <tr><td>Beschäftigungszeit</td><td>Nur 6–20 Uhr (in Mehrschichtbetrieben bis 23 Uhr)</td></tr>
+      <tr><td>Ruhepausen</td><td>Ab 4,5 Std.: 30 Min.; ab 6 Std.: 60 Min.</td></tr>
+    </table>
+  </section>
+
+  <!-- 9. JArbSchG Urlaub und Mehrarbeit -->
+  <section class="slide">
+    <h2>JArbSchG — Urlaub, Mehrarbeit, Untersuchung</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Urlaubsanspruch (§ 19 JArbSchG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Unter 16 Jahre: <strong>30 Tage</strong></li>
+          <li>Unter 17 Jahre: <strong>27 Tage</strong></li>
+          <li>Unter 18 Jahre: <strong>25 Tage</strong></li>
+        </ul>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Mehrarbeit &amp; Freistellung</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Mehrarbeit: Ausgleich innerhalb 3 Wochen</li>
+          <li>Schulfreistellung: ganztägig bei mehr als 5 Unterrichtsstunden</li>
+          <li>Prüfungsfreistellung: am Tag vor der schriftlichen Prüfung</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Ärztliche Untersuchung</div>
+        <p style="font-size:1rem;">§§ 32 ff. JArbSchG: Erstuntersuchung vor Beginn der Ausbildung; nach einem Jahr Nachuntersuchung erforderlich</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Betriebsrat -->
+  <section class="slide">
+    <h2>Betriebsrat — Mitbestimmung im Betrieb</h2>
+    <p>Das <strong>Betriebsverfassungsgesetz (BetrVG)</strong> ermöglicht in Betrieben mit mindestens <strong>5 wahlberechtigten Beschäftigten</strong> (ab 18 Jahre) die Wahl eines Betriebsrats.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Aufgaben des Betriebsrats</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Verhandlung über Arbeitszeit, Urlaub, Arbeitsbedingungen</li>
+          <li>Mitbestimmungsrecht bei Kündigungen und Neueinstellungen</li>
+          <li>Vierteljährliche Betriebsversammlung (§ 43 BetrVG)</li>
+          <li>Abschluss von Betriebsvereinbarungen</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Wichtige Zahlen</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Wählbar ab 5 Beschäftigten</li>
+          <li>Amtszeit: <strong>4 Jahre</strong></li>
+          <li>Sonderkundigungsschutz: 12 Monate nach Amtsende</li>
+        </ul>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Bei JIKU IT-Solutions</span>
+      Mit 35 Mitarbeitenden kann ein Betriebsrat gewählt werden.
+    </div>
+  </section>
+
+  <!-- 11. JAV -->
+  <section class="slide">
+    <h2>Jugend- und Auszubildendenvertretung (JAV)</h2>
+    <p>Die <strong>JAV</strong> ist die gewählte Interessenvertretung aller Jugendlichen und Auszubildenden im Betrieb.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Wahlberechtigt</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Alle Beschäftigten unter 18 Jahren</li>
+          <li>Alle Auszubildenden bis zum 25. Lebensjahr</li>
+          <li>Voraussetzung: mind. 5 wahlberechtigte Personen</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Aufgaben der JAV (§ 70 BetrVG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Überwachung von BBiG, JArbSchG und Betriebsvereinbarungen</li>
+          <li>Weiterleitung von Verbesserungsvorschlägen über den Betriebsrat</li>
+          <li>Einsatz für Übernahme der Auszubildenden nach Ausbildungsende</li>
+        </ul>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Sonderrecht (§ 78a BetrVG)</span>
+      JAV-Mitglieder haben nach Ende der Ausbildung Anspruch auf <strong>Übernahme in ein unbefristetes Arbeitsverhältnis</strong>.
+    </div>
+  </section>
+
+  <!-- 12. Tarifverträge und Günstigkeitsprinzip -->
+  <section class="slide">
+    <h2>Tarifverträge &amp; Günstigkeitsprinzip</h2>
+    <p>Tarifverträge werden zwischen <strong>Gewerkschaften</strong> und <strong>Arbeitgeberverbänden</strong> abgeschlossen und regeln Arbeits- und Einkommensbedingungen.</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Rangfolge der Normen</div>
+        <ol style="font-size:1rem; margin-left:1rem;">
+          <li>Grundgesetz</li>
+          <li>Gesetze (BBiG, ArbZG, AGG …)</li>
+          <li>Tarifvertrag</li>
+          <li>Betriebsvereinbarung</li>
+          <li>Arbeitsvertrag</li>
+          <li>Direktionsrecht des Arbeitgebers</li>
+        </ol>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Günstigkeitsprinzip</div>
+        <p style="font-size:1rem;">Stets gilt die für den Arbeitnehmer <strong>günstigere</strong> Regelung — unabhängig auf welcher Ebene sie vereinbart wurde.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Soziale Sicherung -->
+  <section class="slide">
+    <h2>Das soziale Sicherungssystem</h2>
+    <p>Fünf Säulen der gesetzlichen Sozialversicherung — Beiträge teilen sich Arbeitgeber (AG) und Arbeitnehmer (AN) je zur Hälfte:</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Krankenversicherung</div>
+        <p style="font-size:1rem;">Arzt- und Behandlungskosten; gesetzliche Krankenkassen; AG + AN je 50 %</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Pflegeversicherung</div>
+        <p style="font-size:1rem;">Finanzielle Unterstützung bei Pflegebedürftigkeit; AG + AN je 50 %</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Rentenversicherung</div>
+        <p style="font-size:1rem;">Monatliche Altersrente; Deutsche Rentenversicherung; AG + AN je 50 %</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Arbeitslosenversicherung</div>
+        <p style="font-size:1rem;">Lohnersatz bei Jobverlust; Bundesagentur für Arbeit; AG + AN je 50 %</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Unfallversicherung</div>
+        <p style="font-size:1rem;">Absicherung bei Arbeitsunfällen; Berufsgenossenschaften; Kosten trägt <strong>allein der AG</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. Berufs- und Lebensplanung -->
+  <section class="slide">
+    <h2>Berufs- und Lebensplanung</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Lebenslanges Lernen</span>
+      In der IT-Branche verändern sich Technologien besonders schnell. Wer erfolgreich bleiben will, muss die eigene Karriere aktiv gestalten — durch Fortbildung, Flexibilität und vorausschauende Planung.
+    </div>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Karriereinstrumente</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li><strong>Europass</strong> — Qualifikationen europaweit dokumentieren</li>
+          <li><strong>Erasmus+</strong> — Auslandsaufenthalt während der Ausbildung</li>
+          <li><strong>Job-Enrichment</strong> — mehr Verantwortung übernehmen</li>
+          <li><strong>Job-Rotation</strong> — Wissen durch Arbeitsplatzwechsel vertiefen</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Fortbildungsarten (BBiG)</div>
+        <ul style="font-size:1rem; margin-left:1rem;">
+          <li>Erhaltungsfortbildung</li>
+          <li>Anpassungsfortbildung</li>
+          <li>Aufstiegsfortbildung</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. Abschlussfolie -->
+  <section class="slide">
+    <h2>Das nehmen Sie mit</h2>
+    <p class="subtitle">Kernergebnisse dieser Session</p>
+    <ul class="checklist">
+      <li><strong>§§ 13, 14 BBiG</strong>: Gegenseitige Pflichten in der Ausbildung — Lernpflicht, Geheimhaltung, Ausbildungspflicht, Freistellung</li>
+      <li><strong>§ 11 BBiG</strong>: 10 Pflichtinhalte des Ausbildungsvertrags; gesetzeswidrige Klauseln sind nichtig</li>
+      <li><strong>§§ 20, 22 BBiG</strong>: Probezeit 1–4 Monate; nach Probezeit kann der Betrieb nur außerordentlich fristlos kündigen</li>
+      <li><strong>JArbSchG</strong>: Schutz unter 18-Jähriger — max. 8 Std./Tag, gestaffelter Urlaub, Untersuchungspflicht</li>
+      <li><strong>Betriebsrat &amp; JAV</strong>: Mitbestimmungsrechte ab 5 Beschäftigten; JAV schützt Auszubildende</li>
+      <li><strong>Soziale Sicherung</strong>: Fünf Säulen; Günstigkeitsprinzip schützt Arbeitnehmer</li>
+    </ul>
+    <p class="muted" style="margin-top:1.5rem;">Nächste Session 3: Das Unternehmen — Betrieb, Ziele und Rechtsformen</p>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 15</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>

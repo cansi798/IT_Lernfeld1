@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Memory Session 2 — Rechte, Pflichten & Arbeitsrecht</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E; --bfw-accent:#F59E0B;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569; --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-bg-green:#D1FAE5; --bfw-border:#E2E8F0; --bfw-success:#10B981;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(180deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 240px); color: var(--bfw-ink); min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+.container { max-width: 820px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 1rem; }
+.tag-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--bfw-primary); color: white; border-radius: 999px; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+h1 { font-size: 1.6rem; color: var(--bfw-primary-dark); }
+details.how { background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); border-radius: 10px; padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); line-height: 1.5; }
+details.how summary { cursor: pointer; font-weight: 600; color: var(--bfw-primary-dark); }
+details.how p { margin: 0.5rem 0 0; }
+.stats { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; background: white; border: 1px solid var(--bfw-border); border-radius: 12px; padding: 0.7rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); }
+.stats b { color: var(--bfw-primary-dark); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 620px){ .grid { grid-template-columns: repeat(2, 1fr); } }
+.mcard { position: relative; min-height: 120px; border-radius: 12px; cursor: pointer; border: 2px solid var(--bfw-border);
+  background: var(--bfw-primary); color: white; display: flex; align-items: center; justify-content: center;
+  padding: 0.6rem; text-align: center; transition: transform 0.12s, background 0.2s; user-select: none; }
+.mcard:active { transform: scale(0.98); }
+.mcard .content { display: none; font-size: 0.82rem; line-height: 1.35; color: var(--bfw-ink); overflow: auto; max-height: 150px; }
+.mcard .facedown { font-size: 1.8rem; }
+.mcard .label { position: absolute; top: 5px; left: 8px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.mcard.up { background: white; cursor: default; }
+.mcard.up.term { border-color: var(--bfw-primary); }
+.mcard.up.term .content { font-weight: 700; font-size: 1rem; color: var(--bfw-primary-dark); }
+.mcard.up .content { display: block; }
+.mcard.up .facedown { display: none; }
+.mcard.up .label { color: var(--bfw-ink-soft); }
+.mcard.matched { background: var(--bfw-bg-green); border-color: var(--bfw-success); cursor: default; }
+.mcard.matched .content { display: block; }
+.mcard.matched .facedown { display: none; }
+.mcard.matched.term .content { color: #065F46; }
+.msg { text-align: center; min-height: 1.6rem; font-weight: 600; margin: 1rem 0; }
+.msg.win { color: var(--bfw-success); }
+.controls { text-align: center; margin-top: 0.5rem; }
+.btn { padding: 0.7rem 1.4rem; border: none; border-radius: 10px; background: var(--bfw-primary); color: white; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.stats2 { text-align: center; font-size: 0.85rem; color: var(--bfw-ink-soft); margin-top: 0.5rem; }
+footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--bfw-ink-soft); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="tag-pill">Session 2 · Memory</span>
+    <h1>Rechte, Pflichten & Arbeitsrecht</h1>
+  </header>
+  <details class="how" open>
+    <summary>ℹ️ Spielanleitung</summary>
+    <p>Finde die zusammengehörenden Paare: Jede Karte zeigt entweder einen <b>Begriff</b> oder eine <b>Definition</b>.
+    Decke zwei Karten auf – gehören Begriff und Definition zusammen, bleiben sie offen (grün).</p>
+    <p>Passt es nicht, werden beide wieder umgedreht. Ziel: alle <b>8 Paare</b> mit möglichst wenigen Zügen aufdecken – so prägst du dir Begriffe und ihre Bedeutung ein.</p>
+  </details>
+  <div class="stats">
+    <div>Paare: <b id="pairs">0</b> / 8</div>
+    <div>Züge: <b id="moves">0</b></div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="msg" id="msg"></div>
+  <div class="controls"><button class="btn" onclick="newGame()">🔄 Neues Spiel</button></div>
+  <div class="stats2" id="best"></div>
+  <footer>BFW Lernplattform · IT Lernfeld 1 · © Can Siebert 2026</footer>
+</div>
+<script>
+const DAY_ID = 's2';
+const PAIRS = [{"term":"Welcher Paragraph des BBiG regelt die Pflichten des Auszubildenden?","def":"§ 13 BBiG regelt die Pflichten der Auszubildenden: Lernpflicht, Weisungsgebundenheit, Teilnahme an Ausbildungsmaßnahmen, Einhaltung der Ordnung, Führung des Ausbildungsnachweises, Geheimhaltungspflicht und Benachrichtigungspflicht."},{"term":"Welcher Paragraph regelt die Pflichten des Ausbildenden (Betriebs)?","def":"§ 14 BBiG regelt die Pflichten des Ausbildenden: Ausbildungspflicht, Freistellung für Berufsschule und Prüfungen, Benennung weisungsberechtigter Personen, kostenlose Bereitstellung von Ausbildungsmitteln, Kontrolle des Ausbildungsnachweises und Übertragung ausbildungszweckdienlicher Aufgaben."},{"term":"Was besagt die Geheimhaltungspflicht eines Auszubildenden nach § 13 BBiG?","def":"Auszubildende sind nach § 13 BBiG verpflichtet, über Betriebs- und Geschäftsgeheimnisse Stillschweigen zu wahren. Diese Pflicht gilt während der gesamten Ausbildungszeit."},{"term":"Was schreibt § 16 BBiG zum Ausbildungszeugnis vor?","def":"Nach § 16 BBiG müssen Ausbildende dem Auszubildenden bei Beendigung des Ausbildungsverhältnisses ein schriftliches Zeugnis ausstellen. Es muss Art, Dauer und Ziel der Ausbildung sowie erworbene Fertigkeiten und Kenntnisse enthalten. Auf Verlangen werden auch Verhalten und Leistung aufgenommen."},{"term":"Was regelt § 17 BBiG zur Ausbildungsvergütung?","def":"§ 17 BBiG schreibt vor, dass die Ausbildungsvergütung angemessen sein und mindestens jährlich steigen muss. Sie darf nicht unterhalb der gesetzlichen Mindestausbildungsvergütung liegen. Mehrarbeit ist besonders zu vergüten."},{"term":"Wie viele Mindestinhalte schreibt § 11 BBiG für den Berufsausbildungsvertrag vor?","def":"§ 11 BBiG schreibt zehn Mindestinhalte vor, darunter: Art, Dauer und Ziel der Ausbildung, Beginn und Dauer, Probezeit, Vergütung, Urlaub, Ausbildungsmaßnahmen außerhalb der Ausbildungsstätte und die Form des Ausbildungsnachweises."},{"term":"Sind Vereinbarungen im Ausbildungsvertrag, die dem BBiG widersprechen, gültig?","def":"Nein. Vereinbarungen, die den Vorschriften des BBiG widersprechen oder dem Sinn und Zweck der Berufsausbildung zuwiderlaufen, sind nichtig — unabhängig davon, ob beide Seiten zugestimmt haben."},{"term":"Wie lang darf die Probezeit im Ausbildungsverhältnis nach § 20 BBiG dauern?","def":"Nach § 20 BBiG beträgt die Probezeit mindestens einen und höchstens vier Monate. Eine Probezeit von fünf oder sechs Monaten wäre unzulässig."},{"term":"Kann ein Ausbildender nach der Probezeit das Ausbildungsverhältnis ordentlich kündigen?","def":"Nein. § 22 BBiG sieht für Ausbildende nach der Probezeit nur die außerordentliche fristlose Kündigung aus wichtigem Grund vor. Eine ordentliche Kündigung durch den Ausbildenden ist nach der Probezeit ausgeschlossen."},{"term":"Mit welcher Frist können Auszubildende nach der Probezeit kündigen, wenn sie einen anderen Beruf anstreben?","def":"§ 22 Abs. 2 Nr. 2 BBiG erlaubt die Kündigung mit einer Frist von vier Wochen unter Angabe des Grundes. Die Kündigung muss schriftlich erfolgen."},{"term":"Für wen gilt das Jugendarbeitsschutzgesetz (JArbSchG)?","def":"Das JArbSchG gilt für alle Personen unter 18 Jahren in einer Berufsausbildung oder Dauerbeschäftigung von mehr als zwei Monaten außerhalb des Familienhaushalts."},{"term":"Wie viele Stunden darf ein jugendlicher Auszubildender täglich höchstens arbeiten?","def":"§ 8 JArbSchG begrenzt die tägliche Arbeitszeit Jugendlicher auf grundsätzlich 8 Stunden. In Ausnahmefällen sind 8,5 Stunden möglich, jedoch nie 9,5 Stunden."},{"term":"Wie viele Urlaubstage stehen einem 15-jährigen Auszubildenden nach § 19 JArbSchG zu?","def":"§ 19 JArbSchG staffelt den Urlaubsanspruch nach Alter: unter 16 Jahre → 30 Tage, unter 17 Jahre → 27 Tage, unter 18 Jahre → 25 Tage. Ein 15-Jähriger hat demnach 30 Urlaubstage."},{"term":"Wie lange muss die Ruhepause eines Jugendlichen bei mehr als sechs Stunden Arbeitszeit betragen?","def":"§ 11 JArbSchG schreibt bei mehr als viereinhalb bis sechs Stunden Arbeitszeit mindestens 30 Minuten Pause vor, bei mehr als sechs Stunden mindestens 60 Minuten Pause."},{"term":"Wann muss ein jugendlicher Auszubildender für einen Berufsschultag ganztägig freigestellt werden?","def":"§ 9 JArbSchG schreibt vor, dass jugendliche Auszubildende ganztägig freizustellen sind, wenn der Berufsschulunterricht an einem Tag mehr als fünf Unterrichtsstunden umfasst (einmal pro Woche)."},{"term":"Was regelt das Betriebsverfassungsgesetz (BetrVG)?","def":"Das BetrVG regelt die Zusammenarbeit zwischen Arbeitgeber und Betriebsrat, die Stellung von Gewerkschaften und Arbeitgeberverbänden sowie die Mitbestimmungsrechte der Arbeitnehmer. Es legt fest, wie ein Betriebsrat tätig werden kann und welche Informationspflichten bestehen."},{"term":"Ab wie vielen Beschäftigten kann ein Betriebsrat nach dem BetrVG gewählt werden?","def":"In jedem Betrieb mit mindestens fünf Beschäftigten (einschließlich Auszubildender und Aushilfen, die mindestens 18 Jahre alt sind) kann ein Betriebsrat gewählt werden. Die Wahl findet alle vier Jahre statt."},{"term":"Was ist die JAV und wer ist wahlberechtigt?","def":"Die Jugend- und Auszubildendenvertretung (JAV) ist die gewählte Interessenvertretung aller Jugendlichen und Auszubildenden im Betrieb. Wahlberechtigt sind alle unter 18-Jährigen und alle Auszubildenden bis zum 25. Lebensjahr."},{"term":"Welche Aufgabe hat die JAV laut § 70 BetrVG?","def":"Die JAV überwacht, ob Gesetze (z. B. BBiG, JArbSchG) und Betriebsvereinbarungen eingehalten werden. Sie reicht über den Betriebsrat Verbesserungsvorschläge weiter und setzt sich für die Übernahme der Auszubildenden nach der Ausbildung ein."},{"term":"Was ist das Günstigkeitsprinzip im Arbeitsrecht?","def":"Das Günstigkeitsprinzip besagt, dass bei mehreren anwendbaren Regelungen (Gesetz, Tarifvertrag, Betriebsvereinbarung, Einzelvertrag) stets die für den Arbeitnehmer günstigste Regelung Vorrang hat."},{"term":"Was ist ein Tarifvertrag?","def":"Ein Tarifvertrag ist eine Vereinbarung zwischen Gewerkschaften und Arbeitgeberverbänden (oder einzelnen Unternehmen) über Arbeits- und Einkommensbedingungen. Er gilt grundsätzlich für tarifgebundene Arbeitgeber und Beschäftigte. Allgemeinverbindliche Tarifverträge gelten für alle Betriebe des Geltungsbereichs."},{"term":"Welche fünf Säulen hat die gesetzliche Sozialversicherung in Deutschland?","def":"Die fünf Säulen der gesetzlichen Sozialversicherung sind: Krankenversicherung, Pflegeversicherung, Rentenversicherung, Arbeitslosenversicherung und Unfallversicherung (Berufsgenossenschaften). Die Beiträge teilen sich Arbeitgeber und Arbeitnehmer — außer bei der Unfallversicherung, die der Arbeitgeber allein trägt."},{"term":"Was ist das Subsidiaritätsprinzip in der sozialen Marktwirtschaft?","def":"Das Subsidiaritätsprinzip besagt, dass was der Einzelne, die Familie oder Gruppen aus eigener Kraft leisten können, nicht von einer übergeordneten Instanz oder dem Staat übernommen werden soll. Es stärkt Eigenverantwortung und Selbstbestimmung."},{"term":"Was sind die Fortbildungsarten laut BBiG?","def":"Das BBiG unterscheidet: Erhaltungsfortbildung (Kenntnisse auffrischen), Anpassungsfortbildung (an neue Anforderungen anpassen), Aufstiegsfortbildung (für höhere Positionen qualifizieren), innerbetriebliche Fortbildung und überbetriebliche Fortbildung."},{"term":"Was ist der Europass?","def":"Der Europass ist ein europäisches Karrieremanagement-Portal, über das erworbene Qualifikationen und Kompetenzen umfassend in verschiedenen Sprachen dokumentiert werden. Er erleichtert die internationale Anerkennung von Abschlüssen und Lernerfahrungen."},{"term":"Was ist Job-Enrichment?","def":"Job-Enrichment (Arbeitsbereicherung) bezeichnet die Erhöhung des Entscheidungs- und Kontrollspielraums eines Mitarbeiters. Ziel ist die Förderung von Arbeitsmotivation und -zufriedenheit durch mehr Verantwortung."},{"term":"Was ist eine Teilzeitausbildung und wer kann sie beantragen?","def":"Die Teilzeitausbildung nach § 8 BBiG ermöglicht eine Verkürzung der täglichen und wöchentlichen Ausbildungszeit auf 20 bis 30 Wochenstunden. Sie ist insbesondere für Alleinerziehende, junge Eltern und pflegende Angehörige gedacht. Ein gemeinsamer Antrag von Ausbildendem und Auszubildendem bei der IHK ist erforderlich."},{"term":"Was regelt das Allgemeine Gleichbehandlungsgesetz (AGG)?","def":"Das AGG zielt darauf ab, Benachteiligungen aus Gründen der Rasse, ethnischen Herkunft, des Geschlechts, der Religion oder Weltanschauung, einer Behinderung, des Alters oder der sexuellen Identität zu verhindern. Es gilt insbesondere bei Einstellungen, Umbesetzungen und Kündigungen."},{"term":"Was regelt das Arbeitszeitgesetz (ArbZG)?","def":"Das ArbZG begrenzt die höchstzulässige tägliche Arbeitszeit für Erwachsene (grundsätzlich 8 Stunden, in Ausnahmen bis 10 Stunden), bestimmt Mindestruhepausen und Mindestruhezeiten und regelt flexible Arbeitszeitmodelle. Es gilt nicht für leitende Angestellte und Beamte."},{"term":"Was versteht man unter der Benachrichtigungspflicht des Auszubildenden (§ 13 BBiG)?","def":"Bei Fernbleiben von der betrieblichen Ausbildung, vom Berufsschulunterricht oder sonstigen Ausbildungsveranstaltungen muss der Auszubildende unverzüglich unter Angabe von Gründen Nachricht geben. Bei Krankheit ist spätestens am dritten Tag eine ärztliche Bescheinigung vorzulegen."}];       // [{term, def}, ...] – ganzer Tagespool
+const PAIRS_PER_GAME = 8;
+const STORAGE = 'memory_' + DAY_ID;
+
+let deck=[], flipped=[], matched=0, moves=0, busy=false;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function loadBest(){ try { return JSON.parse(localStorage.getItem(STORAGE)); } catch(e){ return null; } }
+function saveBest(m){ try { localStorage.setItem(STORAGE, JSON.stringify(m)); } catch(e){} }
+function renderBest(){ const b=loadBest(); document.getElementById('best').textContent = b!=null ? `Bestleistung: ${b} Züge` : ''; }
+
+function newGame(){
+  const n = Math.min(PAIRS_PER_GAME, PAIRS.length);
+  const chosen = shuffle(PAIRS.map((p,i)=>i)).slice(0, n);
+  deck = [];
+  chosen.forEach((pi, k) => {
+    deck.push({ pair:k, kind:'term', text:PAIRS[pi].term });
+    deck.push({ pair:k, kind:'def',  text:PAIRS[pi].def  });
+  });
+  shuffle(deck);
+  flipped=[]; matched=0; moves=0; busy=false;
+  document.getElementById('pairs').textContent='0';
+  document.getElementById('pairs').nextSibling; // noop
+  document.getElementById('moves').textContent='0';
+  document.querySelector('.stats').firstElementChild.innerHTML = `Paare: <b id="pairs">0</b> / ${n}`;
+  document.getElementById('msg').textContent=''; document.getElementById('msg').className='msg';
+  render();
+  renderBest();
+}
+
+function render(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  deck.forEach((card, i)=>{
+    const el=document.createElement('div');
+    el.className='mcard'; el.id='c'+i;
+    el.innerHTML = `<span class="label"></span><span class="facedown">🧠</span><span class="content"></span>`;
+    el.onclick=()=>flip(i);
+    g.appendChild(el);
+  });
+}
+
+function flip(i){
+  if(busy) return;
+  const card=deck[i]; const el=document.getElementById('c'+i);
+  if(el.classList.contains('up') || el.classList.contains('matched')) return;
+  el.classList.add('up', card.kind);
+  el.querySelector('.content').textContent = card.text;
+  el.querySelector('.label').textContent = card.kind==='term' ? 'Begriff' : 'Definition';
+  flipped.push(i);
+  if(flipped.length===2){
+    moves++; document.getElementById('moves').textContent=moves;
+    const [a,b]=flipped;
+    if(deck[a].pair===deck[b].pair && deck[a].kind!==deck[b].kind){
+      // Treffer
+      document.getElementById('c'+a).classList.add('matched');
+      document.getElementById('c'+b).classList.add('matched');
+      flipped=[]; matched++;
+      document.getElementById('pairs').textContent=matched;
+      if(matched === deck.length/2) win();
+    } else {
+      busy=true;
+      setTimeout(()=>{
+        [a,b].forEach(idx=>{ const e=document.getElementById('c'+idx); e.classList.remove('up','term','def'); e.querySelector('.content').textContent=''; e.querySelector('.label').textContent=''; });
+        flipped=[]; busy=false;
+      }, 1000);
+    }
+  }
+}
+
+function win(){
+  const m=document.getElementById('msg'); m.textContent=`🎉 Geschafft in ${moves} Zügen!`; m.className='msg win';
+  const best=loadBest();
+  if(best==null || moves<best){ saveBest(moves); renderBest(); m.textContent += ' Neue Bestleistung!'; }
+}
+
+newGame();
+</script>
+</body>
+</html>
