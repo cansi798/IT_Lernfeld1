@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 7 — Präsentation vorbereiten &amp; planen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Diagramm-Container für Rough.js */
+.figure { margin: 1.5rem auto; text-align: center; }
+.figure svg { max-width: 100%; height: auto; }
+.caption { color: var(--bfw-ink-soft); font-size: 0.95rem; margin-top: 0.5rem; }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+.numlist { list-style: none; margin-left: 0; counter-reset: numitem; }
+.numlist li { padding-left: 3rem; position: relative; counter-increment: numitem; margin-bottom: 0.8rem; }
+.numlist li::before {
+  content: counter(numitem);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--bfw-primary); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 7</span>
+    <h1>Präsentation vorbereiten &amp; planen</h1>
+    <p class="subtitle">Teamarbeit, Zielgruppenanalyse und Medienwahl für die Betriebspräsentation bei JIKU IT-Solutions</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Die eigene Rolle im Betrieb mitgestalten und den Betrieb präsentieren</span>
+      <span><strong>Beruf</strong>Kaufmann/-frau für Büromanagement (IHK)</span>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <h2>Themen heute</h2>
+    <ol class="numlist">
+      <li>Den Ausbildungsbetrieb präsentieren — Anlässe und Ziele</li>
+      <li>Teamarbeit organisieren — IPERKA und Projektteam</li>
+      <li>Teamentwicklung nach Tuckman — Phasen und Konflikte</li>
+      <li>Zielgruppenanalyse und Rahmenbedingungen</li>
+      <li>Stoffauswahl — KISS-Regel und 10-20-30-Regel</li>
+      <li>Aufbau: Einstieg — Hauptteil — Schluss</li>
+      <li>Medienwahl und Visualisierung</li>
+      <li>Präsentationsregeln: Sprache, Körpersprache, Auftreten</li>
+    </ol>
+  </section>
+
+  <!-- 3. Auftrag und Anlässe -->
+  <section class="slide">
+    <h2>Die Aufgabe: Den Ausbildungsbetrieb präsentieren</h2>
+    <p>Es gibt unterschiedliche Anlässe, den Ausbildungsbetrieb zu präsentieren — je nach Anlass ändern sich Schwerpunkt und Umfang:</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Betriebsbesuch</div>
+        <p>Mitschüler besuchen gegenseitig die Betriebe — der Azubi präsentiert den eigenen Betrieb</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Berufsmesse</div>
+        <p>Breites Publikum, kurze Aufmerksamkeitsspanne — kompakter Überblick gefragt</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Abschlussprüfung</div>
+        <p>Ca. 2 Minuten, max. 3 Folien — Fokus auf das Wesentliche, IHK-Kriterien beachten</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Merke</span>
+      Ziel, Zielgruppe und Anlass bestimmen, wie eine Präsentation aufgebaut sein muss.
+    </div>
+  </section>
+
+  <!-- 4. Gruppenarbeit vs. Projektteam -->
+  <section class="slide">
+    <h2>Gruppenarbeit und Projektteam</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Gruppenarbeit</div>
+        <p>Alle arbeiten gemeinsam und weitgehend gleichwertig — wenig Arbeitsteilung, kein besonderes Leitungsgremium</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Projektteam</div>
+        <p>Befristet, unterschiedliche Kompetenzen, klare Rollen und eine Projektleitung — für komplexe, besondere Aufträge</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Projektteam-Definition</span>
+      Eine befristete Arbeitsgruppe, die kooperativ einen besonderen Auftrag umsetzt. Ein besonderes Gemeinschaftsgefühl ist wichtig für den Projekterfolg.
+    </div>
+  </section>
+
+  <!-- 5. Fünf Erfolgsfaktoren für das Team -->
+  <section class="slide">
+    <h2>Fünf Erfolgsfaktoren für ein gutes Team</h2>
+    <ol class="numlist">
+      <li><strong>Klares Ziel</strong> — verständlich und konkret formuliert</li>
+      <li><strong>Richtige Teamgröße</strong> — optimal: 5 bis 8 Personen</li>
+      <li><strong>Unterschiedliche Teampersönlichkeiten</strong> — Analytiker, Kreative, Macher, Teamer, Organisatoren</li>
+      <li><strong>Akzeptierte Projektleitung</strong> — moderiert, behält den Überblick, agiert gerecht</li>
+      <li><strong>Funktionierende Kommunikation</strong> — alle sind informiert, rechtzeitige Abstimmung</li>
+    </ol>
+  </section>
+
+  <!-- 6. IPERKA-Methode -->
+  <section class="slide">
+    <h2>IPERKA — die Methode der vollständigen Handlung</h2>
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Inhalt</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>I — Informieren</strong></td><td>Aufgabe verstehen; Informationen recherchieren oder erfragen</td></tr>
+        <tr><td><strong>P — Planen</strong></td><td>Arbeitsschritte, Zeitbedarf, Hilfsmittel und Termine festhalten</td></tr>
+        <tr><td><strong>E — Entscheiden</strong></td><td>Welcher Plan wird umgesetzt? Wer übernimmt die Leitung?</td></tr>
+        <tr><td><strong>R — Realisieren</strong></td><td>Den Maßnahmenplan wie vereinbart umsetzen</td></tr>
+        <tr><td><strong>K — Kontrollieren</strong></td><td>Selbst- und Fremdkontrolle anhand eines Kriterienbogens</td></tr>
+        <tr><td><strong>A — Auswerten</strong></td><td>Mit dem Auftraggeber reflektieren: Was lief gut? Was verbessern?</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 7. Teamentwicklung nach Tuckman -->
+  <section class="slide">
+    <h2>Teamentwicklung nach Bruce Tuckman (1965)</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">1. Forming — Einstieg</div>
+        <p>Kennenlernen, höflicher Umgang, erste Regeln vereinbaren</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">2. Storming — Streit</div>
+        <p>Unterschwellige Konflikte, Cliquenbildung, Sacharbeit tritt in den Hintergrund</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">3. Norming — Regelung</div>
+        <p>Regeln werden diskutiert und anerkannt; Rollen festigen sich</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">4. Performing — Leistung</div>
+        <p>Zielorientiert, ideen­reich, produktiv; gegenseitige Wertschätzung</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">+ Phase 5</span>
+      Adjourning — Auflösung des Teams nach Projektabschluss
+    </div>
+  </section>
+
+  <!-- 8. Teamkonflikte -->
+  <section class="slide">
+    <h2>Teamkonflikte erkennen und steuern</h2>
+    <div class="cards">
+      <div class="card amber">
+        <div class="card-title">Soziales Faulenzen</div>
+        <p>Einzelne reduzieren Leistung, weil sie sich in der Gruppe „verstecken" können</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Trittbrettfahren</div>
+        <p>Jemand profitiert vom Ergebnis ohne fairen Beitrag — Leistungsträger ziehen sich zurück</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem;"><strong>Gegenmaßnahmen:</strong></p>
+    <ul class="checklist">
+      <li>Aufgaben mit namentlicher Verantwortung verteilen</li>
+      <li>Verbindliche Regeln vereinbaren</li>
+      <li>Zwischenberichte und Feedback einplanen</li>
+      <li>Offene Kommunikation über Erwartungen und Leistung</li>
+    </ul>
+  </section>
+
+  <!-- 9. Rahmenbedingungen klären -->
+  <section class="slide">
+    <h2>Rahmenbedingungen einer Präsentation</h2>
+    <table>
+      <thead>
+        <tr><th>Faktor</th><th>Leitfragen</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Kosten</strong></td><td>Wie hoch ist das Budget für Technik und Druck?</td></tr>
+        <tr><td><strong>Zeit</strong></td><td>Vortragsdauer, Vorbereitungszeit, Tageszeit?</td></tr>
+        <tr><td><strong>Vorkenntnisse</strong></td><td>Was wissen die Teilnehmer bereits? Überschneidungen mit anderen Vorträgen?</td></tr>
+        <tr><td><strong>Interessen</strong></td><td>Breite oder Tiefe? Wie viel Zeit für Diskussion?</td></tr>
+        <tr><td><strong>Raum</strong></td><td>Medien, Strom, Akustik, Sichtverhältnisse?</td></tr>
+        <tr><td><strong>Unterlagen</strong></td><td>Handout, Dateien, Feedbackbogen, Protokoll?</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Merke</span>
+      Erst Rahmenbedingungen und Zielgruppe klären — dann Inhalte auswählen.
+    </div>
+  </section>
+
+  <!-- 10. Zielgruppenanalyse -->
+  <section class="slide">
+    <h2>Zielgruppenanalyse</h2>
+    <p>Wer hört zu? Welche Vorkenntnisse und Erwartungen hat das Publikum?</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Vorkenntnisse</div>
+        <p>Fachkenntnisse, Branchenwissen, Unternehmenswissen — bestimmen die Sprache und Erklärungstiefe</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Erwartungen</div>
+        <p>Eher Breite oder Tiefe? Wie viel Diskussion? Welche Fragen kommen?</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Interessen</div>
+        <p>Was ist für diese Zielgruppe relevant? Was motiviert sie, zuzuhören?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Stoffauswahl: KISS und 10-20-30 -->
+  <section class="slide">
+    <h2>Stoffauswahl: Was gehört hinein?</h2>
+    <p><strong>Leitfragen:</strong> Passt der Inhalt zum Thema? Wichtig für das Ziel? Interessant für die Zuhörer?</p>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">KISS-Regel</div>
+        <p><strong>Keep It Short and Simple</strong> — Inhalte auf das Wesentliche verdichten; keine Informationsüberflutung</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">10-20-30-Regel</div>
+        <p>Max. <strong>10 Folien</strong> · max. <strong>20 Minuten</strong> · min. Schriftgröße <strong>30 Punkt</strong></p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Prinzipien für den Aufbau</span>
+      Vom Problem zur Lösung · Vom Allgemeinen zum Besonderen · Vom Leichten zum Schweren
+    </div>
+  </section>
+
+  <!-- 12. Aufbau: Einstieg – Hauptteil – Schluss -->
+  <section class="slide">
+    <h2>Aufbau: Einstieg — Hauptteil — Schluss</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Einstieg (ca. 10–15 %)</div>
+        <p>Interesse wecken, Thema nennen, Überblick geben — <strong>die ersten Sätze bleiben am längsten in Erinnerung</strong></p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Hauptteil (ca. 70–75 %)</div>
+        <p>Sachlogisch gegliederte Kernaussagen, Spannungsbogen halten, Beispiele einsetzen</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Schluss (ca. 10–15 %)</div>
+        <p>Zusammenfassung, Fazit, Ausblick — <strong>die letzten Sätze bleiben ebenfalls in Erinnerung</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Storyboard und roter Faden -->
+  <section class="slide">
+    <h2>Storyboard und roter Faden</h2>
+    <p>Ein <strong>Storyboard</strong> skizziert alle Folien in der geplanten Reihenfolge — so lässt sich prüfen, ob der Aufbau logisch ist.</p>
+    <div class="merksatz">
+      <span class="merksatz-label">JIKU-Beispiel: Foliensreihenfolge</span>
+      Folie 1: Firmenname und Logo → Folie 2: Außenansicht → Folie 3: Branche und Geschäftsfelder → Folie 4: Produktportfolio → Folie 5: Ausbildung → Folie 6: Organisation → Folie 7: Geschäftsprozesse → Folie 8: Unternehmensmotto
+    </div>
+    <ul style="margin-top:1rem;">
+      <li>Jede Folie knüpft erkennbar an die vorherige an</li>
+      <li>Kurze Übergangssätze schaffen inhaltlichen Zusammenhang</li>
+      <li>Storyboard vorab mit dem Team besprechen und abstimmen</li>
+    </ul>
+  </section>
+
+  <!-- 14. Medienwahl -->
+  <section class="slide">
+    <h2>Medienwahl: Welche Medien einsetzen?</h2>
+    <table>
+      <thead>
+        <tr><th>Kategorie</th><th>Beispiele</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Flächen/Träger</td><td>Flip-Chart, Pinnwand, Plakate, Whiteboard, Beamer</td></tr>
+        <tr><td>Objekte</td><td>Karten, Zeichnungen, Bilder, Diagramme, Videos, Symbole</td></tr>
+        <tr><td>Vortragsextras</td><td>Handout, Skript, Rollenspiel, Rundgang, Vorführung</td></tr>
+        <tr><td>Multimedia-Tools</td><td>PowerPoint, Google Slides, Prezi, Apple Keynote, OpenOffice Impress</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Regel</span>
+      Nicht zu viele verschiedene Medien einsetzen. Jedes Medium muss einen klaren Zweck haben.
+    </div>
+  </section>
+
+  <!-- 15. Visualisierung und Behaltensquote -->
+  <section class="slide">
+    <h2>Visualisierung: Sinne ansprechen</h2>
+    <p><strong>Behaltensquote</strong> — je mehr Sinne angesprochen werden, desto mehr bleibt hängen:</p>
+    <table>
+      <thead>
+        <tr><th>Lernkanal</th><th>Behaltensquote</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nur hören</td><td>20 %</td></tr>
+        <tr><td>Nur sehen</td><td>30 %</td></tr>
+        <tr><td>Hören + Sehen</td><td>50 %</td></tr>
+        <tr><td>Hören + Sehen + darüber sprechen</td><td>70 %</td></tr>
+        <tr><td>Hören + Sehen + sprechen + selber tun</td><td>90 %</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Tipp</span>
+      Eine aussagekräftige Grafik ersetzt mehrere Textzeilen und erhöht die Behaltensquote.
+    </div>
+  </section>
+
+  <!-- 16. Foliengestaltung -->
+  <section class="slide">
+    <h2>Foliengestaltung: Was zu beachten ist</h2>
+    <ul class="checklist">
+      <li><strong>Schriftgröße:</strong> mindestens 30 Punkt (Fließtext), Überschriften deutlich größer</li>
+      <li><strong>Textverdichtung:</strong> max. 5–7 Stichpunkte pro Folie — keine ganzen Sätze</li>
+      <li><strong>Kontrast:</strong> dunkle Schrift auf hellem Grund oder helle Schrift auf dunklem Grund</li>
+      <li><strong>Einheitliches Design:</strong> konsistente Schriftart, Farben und Layout auf allen Folien</li>
+      <li><strong>Animationen sparsam:</strong> nur einsetzen, wenn sie den Inhalt unterstützen</li>
+      <li><strong>Copyright beachten:</strong> Bilder und Grafiken nur mit Nutzungsrecht verwenden</li>
+    </ul>
+  </section>
+
+  <!-- 17. Präsentationsregeln: Sprache -->
+  <section class="slide">
+    <h2>Präsentationsregeln: Sprache und Auftreten</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Sprache</div>
+        <p>Frei, anschaulich, lebendig · natürlich und deutlich · angemessene Lautstärke · Tonlage variieren</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Körpersprache</div>
+        <p>Aufrechte Haltung · natürliche Gestik · Blickkontakt zum Publikum · Zuhörer einbeziehen</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Nervosität abbauen</div>
+        <p>Stolpersteine beseitigen · positive innere Haltung · Atemübung: einatmen, 4 Sek. halten, langsam ausatmen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Timing</div>
+        <p>Vortragsdauer nicht überschreiten · kurze Sätze und Sprechpausen · Generalprobe mit Zeitnahme</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18. Bewertung: IHK-Kriterien -->
+  <section class="slide">
+    <h2>Präsentationsbewertung: IHK-Kriterien</h2>
+    <p>Für die mündliche Abschlussprüfung IT-Berufe gilt (max. 30 Punkte gesamt):</p>
+    <table>
+      <thead>
+        <tr><th>Bewertungsbereich</th><th>Inhalt</th><th>Max. Punkte</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Aufbau und inhaltliche Struktur</td><td>Gliederung, Logik, Zielorientierung</td><td>10</td></tr>
+        <tr><td>Sprachliche Gestaltung</td><td>Ausdrucksweise, Satzbau, Stil</td><td>10</td></tr>
+        <tr><td>Zielgruppengerechte Darstellung</td><td>Medieneinsatz, Visualisierung, Körpersprache</td><td>10</td></tr>
+      </tbody>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Bewertungsbogen 2 — Summe 60 Punkte</span>
+      1. Interaktion · 2. Inhalt · 3. Darstellung · 4. Medien · 5. Reflexion
+    </div>
+  </section>
+
+  <!-- 19. Checkliste Generalprobe -->
+  <section class="slide">
+    <h2>Checkliste vor der Präsentation</h2>
+    <ul class="checklist">
+      <li>Ziel und Zielgruppe geklärt</li>
+      <li>Rahmenbedingungen (Zeit, Raum, Medien) geprüft</li>
+      <li>Stoffsammlung erstellt und auf das Wesentliche verdichtet</li>
+      <li>Struktur (Einstieg – Hauptteil – Schluss) und Storyboard festgelegt</li>
+      <li>Medien ausgewählt und Folien nach 10-20-30-Regel und Gestaltungsregeln erstellt</li>
+      <li>Generalprobe durchgeführt — Zeit gestoppt, Feedback eingeholt</li>
+      <li>Bewertungsbogen vorbereitet für Selbst- und Fremdreflexion</li>
+    </ul>
+  </section>
+
+  <!-- 20. Das nehmen Sie mit -->
+  <section class="slide">
+    <h2>Das nehmen Sie mit</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">IPERKA</div>
+        <p>Die vollständige Handlung strukturiert Teamarbeit: Informieren · Planen · Entscheiden · Realisieren · Kontrollieren · Auswerten</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Planung vor Inhalt</div>
+        <p>Zielgruppe und Rahmenbedingungen zuerst klären — dann Inhalt, Tiefe und Medien festlegen</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">KISS &amp; 10-20-30</div>
+        <p>Weniger ist mehr: max. 10 Folien, max. 20 Minuten, min. 30-Punkt-Schrift</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Behaltensquote</div>
+        <p>90 % bei: Hören + Sehen + Sprechen + Selber tun — möglichst viele Sinne ansprechen</p>
+      </div>
+    </div>
+    <div class="merksatz" style="margin-top:1.5rem;">
+      <span class="merksatz-label">Ausblick Session 8</span>
+      Die Betriebspräsentation durchführen und reflektieren — Bewertungsbogen anwenden
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<!-- Rough.js für handgezeichnete Diagramme -->
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>
