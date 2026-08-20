@@ -1,0 +1,158 @@
+{
+  "session": 6,
+  "thema": "Wirtschaftskreislauf & Marktsituationen",
+  "slug": "Wirtschaftskreislauf-und-Marktsituationen",
+  "day_id": "s6",
+  "cards": [
+    {
+      "topic": "Einfacher Wirtschaftskreislauf",
+      "front": "Welche zwei Wirtschaftssubjekte stehen im einfachen Wirtschaftskreislauf im Mittelpunkt?",
+      "back": "Haushalte und Unternehmen. Haushalte stellen Faktorleistungen (Arbeit, Boden, Kapital) bereit; Unternehmen produzieren Konsumgüter. Geld- und Güterströme fließen stets gegenläufig."
+    },
+    {
+      "topic": "Einfacher Wirtschaftskreislauf",
+      "front": "Was versteht man unter Faktorleistungen im einfachen Wirtschaftskreislauf?",
+      "back": "Faktorleistungen sind die volkswirtschaftlichen Produktionsfaktoren Arbeit, Boden und Kapital, die Haushalte den Unternehmen zur Verfügung stellen, damit diese Konsumgüter erstellen können."
+    },
+    {
+      "topic": "Einfacher Wirtschaftskreislauf",
+      "front": "Wie werden Geld- und Güterströme im Wirtschaftskreislauf beschrieben?",
+      "back": "Geld- und Güterströme verlaufen entgegengesetzt: Wo Güter (Faktorleistungen oder Konsumgüter) hinfließen, fließt Geld (Löhne/Gehälter oder Konsumausgaben) in die entgegengesetzte Richtung."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Welche vier Wirtschaftssubjekte umfasst der erweiterte Wirtschaftskreislauf?",
+      "back": "Haushalte, Unternehmen, Staat und Banken sowie das Ausland. Jedes Subjekt erzeugt spezifische Geldströme (z. B. Steuern, Zinsen, Subventionen, Export-/Importausgaben)."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Wie wirkt der Staat auf den Wirtschaftskreislauf ein?",
+      "back": "Der Staat vereinnahmt direkte Steuern von Haushalten (z. B. Kfz-Steuer) und indirekte Steuern über Unternehmen (z. B. Umsatzsteuer). Er gibt diese als Staatsausgaben, Transferleistungen (z. B. Kindergeld) und Subventionen an Unternehmen aus."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Was sind direkte und indirekte Steuern — und von wem werden sie entrichtet?",
+      "back": "Direkte Steuern werden direkt vom Haushalt an den Staat gezahlt (z. B. Kfz-Steuer, Grundsteuer). Indirekte Steuern werden zunächst von Unternehmen vereinnahmt und dann an den Staat abgeführt (z. B. Umsatzsteuer, Mineralölsteuer)."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Welche Rolle übernehmen Banken im erweiterten Wirtschaftskreislauf?",
+      "back": "Banken sammeln Ersparnisse der Haushalte und zahlen dafür Zinsen. Das gesammelte Kapital stellen sie Unternehmen als Investitionskredite (Deckungskredite) zur Verfügung. Außerdem können sie Wertpapiere kaufen und den Staat mit Krediten versorgen."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Welche Rolle spielt das Ausland im erweiterten Wirtschaftskreislauf?",
+      "back": "Das Ausland nimmt durch Export und Import Einfluss. Exporterlöse fließen nach Deutschland; Importausgaben fließen ins Ausland. Auch Kapitalanlagen und Renditen aus dem Ausland beeinflussen den deutschen Geldkreislauf."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Was sind Transferleistungen des Staates, und welche Beispiele gibt es?",
+      "back": "Transferleistungen sind staatliche Zahlungen an Haushalte ohne direkte Gegenleistung. Beispiele: Kindergeld, Sozialhilfe, Sparzulage, Wohngeld. Sie fließen als Geldstrom vom Staat zu den Haushalten."
+    },
+    {
+      "topic": "Erweiterter Wirtschaftskreislauf",
+      "front": "Was sind Subventionen, und wer erhält sie?",
+      "back": "Subventionen sind staatliche Fördergelder an Unternehmen, z. B. zur Investitionsförderung oder zur Arbeitsplatzschaffung. Sie fließen als Geldstrom vom Staat zu den Unternehmen."
+    },
+    {
+      "topic": "Marktarten",
+      "front": "Was unterscheidet einen freien von einem geschlossenen Markt?",
+      "back": "Beim freien Markt hat jeder Zugang (z. B. Lebensmittelmarkt, Automarkt). Beim geschlossenen Markt ist der Zugang eingeschränkt (z. B. Waffenmarkt, Großhandelsmarkt)."
+    },
+    {
+      "topic": "Marktarten",
+      "front": "Was ist der Unterschied zwischen Gütermarkt und Faktorenmarkt?",
+      "back": "Auf dem Gütermarkt werden Konsumgüter und Investitionsgüter gehandelt (z. B. Automarkt, IT-Markt). Auf dem Faktorenmarkt werden Produktionsfaktoren gehandelt (z. B. Arbeitsmarkt, Immobilienmarkt, Finanzmärkte)."
+    },
+    {
+      "topic": "Marktarten",
+      "front": "Was sind die Bedingungen eines vollkommenen Marktes?",
+      "back": "Vollkommene Konkurrenz (viele Anbieter und Nachfrager), Güterhomogenität (gleichartige Güter), Markttransparenz (Überblick über alle Preise), Präferenzlosigkeit (keine besonderen Vorlieben) und sofortige Anpassungsfähigkeit der Marktteilnehmer."
+    },
+    {
+      "topic": "Marktarten",
+      "front": "Was sind E-Commerce-Transaktionsbereiche, und welche Kürzel gibt es?",
+      "back": "B2B (Business-to-Business), B2C (Business-to-Consumer), C2C (Consumer-to-Consumer), C2B, A2C/A2B/A2A (Administration-Beziehungen: E-Government). Sie beschreiben, wer mit wem Geschäfte über digitale Plattformen abwickelt."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Nach welchem Kriterium werden Marktformen klassifiziert?",
+      "back": "Marktformen werden nach der Anzahl der Anbieter und Nachfrager klassifiziert. Es entstehen drei Grundformen: Monopol (ein Anbieter oder Nachfrager), Oligopol (wenige) und Polypol (viele)."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was ist ein Angebotsmonopol, und welche Folgen hat es?",
+      "back": "Beim Angebotsmonopol gibt es nur einen Anbieter, dem viele Nachfrager gegenüberstehen. Der Monopolist kann den Preis selbst bestimmen und seine Marktmacht ausnutzen. Beispiel: Alleinhersteller eines Patents."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was sind die drei Monopolvarianten in der Marktformmatrix?",
+      "back": "Angebotsmonopol (1 Anbieter, viele Nachfrager), Nachfragemonopol/Monopson (viele Anbieter, 1 Nachfrager, z. B. die Bahn als einziger Auftraggeber für Schienen-IT) und zweiseitiges Monopol (je 1 Anbieter und 1 Nachfrager)."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was ist ein Angebotsoligopol, und wo findet man es in der IT-Branche?",
+      "back": "Beim Angebotsoligopol stehen vielen Nachfragern nur wenige Anbieter gegenüber. Die Anbieter beobachten sich gegenseitig. IT-Beispiele: Chipmarkt (Intel, AMD, Qualcomm), Smartphone-Betriebssysteme (Android/iOS), Cloud-Anbieter (AWS, Azure, Google Cloud)."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was ist ein Polypol, und warum ist es volkswirtschaftlich erwünscht?",
+      "back": "Beim Polypol stehen vielen Nachfragern viele Anbieter gegenüber. Es ist die angestrebte Marktform, weil freier Wettbewerb den Preis durch Angebot und Nachfrage optimal bildet und Innovationsdruck erzeugt. Beispiel: Lebensmittelmarkt, App-Entwickler."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was sind beschränkte Monopole in der Marktformmatrix?",
+      "back": "Beschränktes Angebotsmonopol: 1 Anbieter, wenige Nachfrager (z. B. patentiertes Produkt für Nischenabnehmer). Beschränktes Nachfragemonopol: wenige Anbieter, 1 Nachfrager (z. B. Spezialausrüster und Bahn als einziger Abnehmer)."
+    },
+    {
+      "topic": "Marktformen",
+      "front": "Was ist ein Quasimonopol, und wie entsteht es?",
+      "back": "Ein Quasimonopol entsteht in polypolistischen Märkten, wenn ein Anbieter durch Alleinstellungsmerkmale eine monopolähnliche Stellung erlangt, z. B. durch Patente, Netzwerkeffekte, Diversifikation, Exklusivität oder Mitbewerberübernahmen."
+    },
+    {
+      "topic": "Kartellrecht",
+      "front": "Ab welchem Marktanteil vermutet das GWB eine marktbeherrschende Stellung?",
+      "back": "Laut § 18 Abs. 4 GWB (Gesetz gegen Wettbewerbsbeschränkungen) wird eine marktbeherrschende Stellung vermutet, wenn ein Unternehmen mindestens 40 % Marktanteil hat. Das Bundeskartellamt muss dann prüfen, ob Maßnahmen gegen Missbrauch zu ergreifen sind."
+    },
+    {
+      "topic": "Preisbildung",
+      "front": "Wie bildet sich der Gleichgewichtspreis auf einem vollkommenen Markt?",
+      "back": "Der Gleichgewichtspreis liegt im Schnittpunkt von Angebots- und Nachfragekurve. Bei diesem Preis entspricht die angebotene Menge genau der nachgefragten Menge — es gibt weder Über- noch Unterversorgung."
+    },
+    {
+      "topic": "Preisbildung",
+      "front": "Was unterscheidet Käufermarkt und Verkäufermarkt?",
+      "back": "Käufermarkt: Angebot > Nachfrage — Verkäufer senken Preise, Käufer haben Verhandlungsmacht. Verkäufermarkt: Nachfrage > Angebot — Verkäufer können Preise erhöhen, z. B. bei Chip-Engpässen in der IT-Branche."
+    },
+    {
+      "topic": "Preisbildung",
+      "front": "Welche externen Faktoren können die Angebots- oder Nachfragekurve verschieben?",
+      "back": "Nachfragekurve verschiebt sich nach rechts z. B. bei Einkommenserhöhungen oder Steuersenkungen. Angebotskurve verschiebt sich nach links z. B. bei höheren Produktionskosten oder schlechten Konjunkturaussichten. Beides führt zu einem neuen Gleichgewichtspreis."
+    },
+    {
+      "topic": "Marktsituation",
+      "front": "Was sind konjunkturelle, saisonale und strukturelle Einflussfaktoren auf Märkte?",
+      "back": "Saisonal: Wetterbedingte oder kalendarische Schwankungen (z. B. Weihnachtsgeschäft, Ferienzeiten). Strukturell: Neue Technologien, Gesetze oder veränderte Wertvorstellungen. Konjunkturell: BIP-Schwankungen im Zyklus Aufschwung → Boom → Rezession → Depression."
+    },
+    {
+      "topic": "Marktsituation",
+      "front": "Was ist das Bruttoinlandsprodukt (BIP), und warum ist es für Marktteilnehmer relevant?",
+      "back": "Das BIP ist die Summe aller abgesetzten Waren und Dienstleistungen eines Landes in einem Zeitraum. Es zeigt die wirtschaftliche Auslastung. Konjunkturpolitik nutzt staatliche Maßnahmen, um Schwankungen zu dämpfen und einen langfristigen Wachstumspfad zu sichern."
+    },
+    {
+      "topic": "Marktsituation",
+      "front": "Was ist Marktsegmentierung, und nach welchen Kriterien kann sie erfolgen?",
+      "back": "Marktsegmentierung ist die Aufteilung des Gesamtmarktes in Teilmärkte, um den Marketingmix gezielter auf Kundengruppen abzustimmen. Kriterien: geografisch, demografisch (Alter, Geschlecht), sozioökonomisch (Einkommen, Beruf), verhaltensbezogen (Kaufmotive, Kundentypen)."
+    },
+    {
+      "topic": "Marktsituation",
+      "front": "Was unterscheidet A-, B- und C-Kunden in der ABC-Kundenanalyse?",
+      "back": "A-Kunden: ca. 20 % der Kunden, generieren 75–80 % des Umsatzes (Topkunden). B-Kunden: ca. 30–35 % der Kunden, ca. 20 % Umsatzanteil (Wachstumskunden). C-Kunden: ca. 45 % der Kunden, nur ca. 5 % Umsatz, wechseln häufig den Anbieter."
+    },
+    {
+      "topic": "Marktsituation",
+      "front": "Was sind Marktpotenzial und Marktvolumen in der quantitativen Marktanalyse?",
+      "back": "Marktpotenzial: maximal mögliche Absatzmenge aller Marktteilnehmer zusammen. Marktvolumen: tatsächlich erzielte Absatzmenge aller Marktteilnehmer. Absatzpotenzial und Absatzvolumen beziehen sich analog auf ein einzelnes Unternehmen; der Marktanteil ist das Verhältnis Absatzvolumen zu Marktvolumen."
+    }
+  ]
+}

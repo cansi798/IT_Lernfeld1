@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Karteikarten Session 6 — Wirtschaftskreislauf & Marktsituationen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E;
+  --bfw-accent:#F59E0B; --bfw-warn:#F97316;
+  --bfw-success:#10B981; --bfw-danger:#EF4444;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569;
+  --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-bg-amber:#FEF3C7;
+  --bfw-bg-green:#D1FAE5; --bfw-border:#E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 240px);
+  color: var(--bfw-ink); min-height: 100vh; padding: 2rem 1rem 6rem;
+}
+.container { max-width: 720px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 1.5rem; }
+.tag-pill {
+  display: inline-block; padding: 0.4rem 1rem; background: var(--bfw-primary);
+  color: white; border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+  letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem;
+}
+h1 { font-size: 2rem; color: var(--bfw-primary-dark); margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.subtitle { color: var(--bfw-ink-soft); font-size: 1.05rem; }
+
+/* Fortschritt / Leitner-Fächer */
+.stats {
+  background: white; border: 1px solid var(--bfw-border); border-radius: 14px;
+  padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+}
+.boxes { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.box-chip {
+  font-size: 0.8rem; font-weight: 600; padding: 0.35rem 0.7rem; border-radius: 999px;
+  background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); color: var(--bfw-ink-soft);
+}
+.box-chip b { color: var(--bfw-primary-dark); }
+.mastered { font-weight: 700; color: var(--bfw-success); }
+.progress { width: 100%; background: var(--bfw-bg-teal); height: 10px; border-radius: 999px; overflow: hidden; margin-top: 0.5rem; }
+.progress > div { height: 100%; background: var(--bfw-success); border-radius: 999px; transition: width 0.3s; width: 0; }
+
+/* Karte */
+.card-scene { perspective: 1200px; margin-bottom: 1.25rem; }
+.card {
+  position: relative; width: 100%; min-height: 320px; cursor: pointer;
+  transform-style: preserve-3d; transition: transform 0.5s; transition-timing-function: cubic-bezier(.4,.2,.2,1);
+}
+.card.flipped { transform: rotateY(180deg); }
+.face {
+  position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  border-radius: 18px; padding: 2rem; display: flex; flex-direction: column; justify-content: center;
+  box-shadow: 0 6px 24px rgba(15,23,42,0.08); border: 1px solid var(--bfw-border);
+}
+.face-front { background: white; }
+.face-back { background: linear-gradient(160deg, #ffffff 0%, var(--bfw-bg-green) 100%); transform: rotateY(180deg); }
+.card-topic {
+  align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--bfw-primary-dark); background: var(--bfw-bg-teal);
+  padding: 0.25rem 0.6rem; border-radius: 999px; margin-bottom: 1rem;
+}
+.card-label { font-size: 0.75rem; color: var(--bfw-ink-soft); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.card-front-text { font-size: 1.5rem; font-weight: 600; line-height: 1.35; color: var(--bfw-ink); }
+.card-back-text { font-size: 1.12rem; line-height: 1.55; color: var(--bfw-ink); }
+.flip-hint { margin-top: auto; padding-top: 1rem; font-size: 0.85rem; color: var(--bfw-ink-soft); }
+
+/* Buttons */
+.actions { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+.btn { flex: 1; padding: 0.9rem 1rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; font-family: inherit; }
+.btn:active { transform: translateY(1px); }
+.btn-flip { background: var(--bfw-primary); color: white; }
+.btn-known { background: var(--bfw-success); color: white; }
+.btn-again { background: var(--bfw-bg-amber); color: #92400E; border: 1px solid #FCD34D; }
+.btn-ghost { background: white; color: var(--bfw-ink-soft); border: 1px solid var(--bfw-border); }
+.mini-actions { display: flex; gap: 0.75rem; justify-content: center; }
+.mini-actions .btn { flex: 0 1 auto; padding: 0.55rem 1rem; font-size: 0.85rem; }
+.hidden { display: none !important; }
+
+/* Abschluss */
+.done { background: white; border: 1px solid var(--bfw-border); border-radius: 18px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 6px 24px rgba(15,23,42,0.08); }
+.done h2 { color: var(--bfw-success); font-size: 1.8rem; margin-bottom: 0.75rem; }
+.done p { color: var(--bfw-ink-soft); margin-bottom: 1.5rem; line-height: 1.6; }
+.how { background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: var(--bfw-ink-soft); line-height: 1.5; }
+.how b { color: var(--bfw-ink); }
+footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--bfw-ink-soft); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="tag-pill">Session 6 · Karteikarten</span>
+    <h1>Wirtschaftskreislauf & Marktsituationen</h1>
+    <p class="subtitle" id="subtitleText">Lernkarten · Begriff → Definition · Leitner-System</p>
+  </header>
+
+  <div class="how">
+    <b>So funktioniert's:</b> Lesen Sie die Vorderseite, überlegen Sie die Antwort, dann <b>Umdrehen</b>.
+    Wussten Sie es? → <b>Gewusst</b> (Karte wandert ins nächste Fach). Nicht sicher? → <b>Nochmal</b>
+    (Karte kommt zurück in Fach 1). Ziel: alle Karten in Fach 3. Ihr Fortschritt wird im Browser gespeichert.
+  </div>
+
+  <div class="stats">
+    <div class="boxes" id="boxes"></div>
+    <div class="mastered" id="mastered">0 / … gemeistert</div>
+    <div class="progress"><div id="progressBar"></div></div>
+  </div>
+
+  <div id="quizArea">
+    <div class="card-scene">
+      <div class="card" id="card" onclick="flipCard()">
+        <div class="face face-front">
+          <span class="card-topic" id="frontTopic">Thema</span>
+          <div class="card-label">Begriff / Frage</div>
+          <div class="card-front-text" id="frontText">…</div>
+          <div class="flip-hint">👆 Zum Umdrehen tippen</div>
+        </div>
+        <div class="face face-back">
+          <span class="card-topic" id="backTopic">Thema</span>
+          <div class="card-label">Definition / Antwort</div>
+          <div class="card-back-text" id="backText">…</div>
+          <div class="flip-hint">Wussten Sie es?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions" id="flipRow">
+      <button class="btn btn-flip" onclick="flipCard()">Umdrehen</button>
+    </div>
+    <div class="actions hidden" id="gradeRow">
+      <button class="btn btn-again" onclick="grade(false)">↺ Nochmal</button>
+      <button class="btn btn-known" onclick="grade(true)">✓ Gewusst</button>
+    </div>
+    <div class="mini-actions">
+      <button class="btn btn-ghost" onclick="shuffleRestart()">🔀 Neu mischen</button>
+      <button class="btn btn-ghost" onclick="resetProgress()">♻ Fortschritt zurücksetzen</button>
+    </div>
+  </div>
+
+  <div id="doneArea" class="done hidden">
+    <h2>🎉 Alle Karten gemeistert!</h2>
+    <p id="doneText">Sie haben alle Karten sicher beantwortet. Starke Leistung!</p>
+    <div class="mini-actions">
+      <button class="btn btn-flip" onclick="resetProgress()">Von vorne beginnen</button>
+    </div>
+  </div>
+
+  <footer>BFW Lernplattform · IT Lernfeld 1 · © Can Siebert 2026</footer>
+</div>
+
+<script>
+const DAY_ID = 's6';
+const MAX_BOX = 3;                    // Fach 3 = gemeistert
+const CARDS = [{"topic":"Einfacher Wirtschaftskreislauf","front":"Welche zwei Wirtschaftssubjekte stehen im einfachen Wirtschaftskreislauf im Mittelpunkt?","back":"Haushalte und Unternehmen. Haushalte stellen Faktorleistungen (Arbeit, Boden, Kapital) bereit; Unternehmen produzieren Konsumgüter. Geld- und Güterströme fließen stets gegenläufig."},{"topic":"Einfacher Wirtschaftskreislauf","front":"Was versteht man unter Faktorleistungen im einfachen Wirtschaftskreislauf?","back":"Faktorleistungen sind die volkswirtschaftlichen Produktionsfaktoren Arbeit, Boden und Kapital, die Haushalte den Unternehmen zur Verfügung stellen, damit diese Konsumgüter erstellen können."},{"topic":"Einfacher Wirtschaftskreislauf","front":"Wie werden Geld- und Güterströme im Wirtschaftskreislauf beschrieben?","back":"Geld- und Güterströme verlaufen entgegengesetzt: Wo Güter (Faktorleistungen oder Konsumgüter) hinfließen, fließt Geld (Löhne/Gehälter oder Konsumausgaben) in die entgegengesetzte Richtung."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Welche vier Wirtschaftssubjekte umfasst der erweiterte Wirtschaftskreislauf?","back":"Haushalte, Unternehmen, Staat und Banken sowie das Ausland. Jedes Subjekt erzeugt spezifische Geldströme (z. B. Steuern, Zinsen, Subventionen, Export-/Importausgaben)."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Wie wirkt der Staat auf den Wirtschaftskreislauf ein?","back":"Der Staat vereinnahmt direkte Steuern von Haushalten (z. B. Kfz-Steuer) und indirekte Steuern über Unternehmen (z. B. Umsatzsteuer). Er gibt diese als Staatsausgaben, Transferleistungen (z. B. Kindergeld) und Subventionen an Unternehmen aus."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Was sind direkte und indirekte Steuern — und von wem werden sie entrichtet?","back":"Direkte Steuern werden direkt vom Haushalt an den Staat gezahlt (z. B. Kfz-Steuer, Grundsteuer). Indirekte Steuern werden zunächst von Unternehmen vereinnahmt und dann an den Staat abgeführt (z. B. Umsatzsteuer, Mineralölsteuer)."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Welche Rolle übernehmen Banken im erweiterten Wirtschaftskreislauf?","back":"Banken sammeln Ersparnisse der Haushalte und zahlen dafür Zinsen. Das gesammelte Kapital stellen sie Unternehmen als Investitionskredite (Deckungskredite) zur Verfügung. Außerdem können sie Wertpapiere kaufen und den Staat mit Krediten versorgen."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Welche Rolle spielt das Ausland im erweiterten Wirtschaftskreislauf?","back":"Das Ausland nimmt durch Export und Import Einfluss. Exporterlöse fließen nach Deutschland; Importausgaben fließen ins Ausland. Auch Kapitalanlagen und Renditen aus dem Ausland beeinflussen den deutschen Geldkreislauf."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Was sind Transferleistungen des Staates, und welche Beispiele gibt es?","back":"Transferleistungen sind staatliche Zahlungen an Haushalte ohne direkte Gegenleistung. Beispiele: Kindergeld, Sozialhilfe, Sparzulage, Wohngeld. Sie fließen als Geldstrom vom Staat zu den Haushalten."},{"topic":"Erweiterter Wirtschaftskreislauf","front":"Was sind Subventionen, und wer erhält sie?","back":"Subventionen sind staatliche Fördergelder an Unternehmen, z. B. zur Investitionsförderung oder zur Arbeitsplatzschaffung. Sie fließen als Geldstrom vom Staat zu den Unternehmen."},{"topic":"Marktarten","front":"Was unterscheidet einen freien von einem geschlossenen Markt?","back":"Beim freien Markt hat jeder Zugang (z. B. Lebensmittelmarkt, Automarkt). Beim geschlossenen Markt ist der Zugang eingeschränkt (z. B. Waffenmarkt, Großhandelsmarkt)."},{"topic":"Marktarten","front":"Was ist der Unterschied zwischen Gütermarkt und Faktorenmarkt?","back":"Auf dem Gütermarkt werden Konsumgüter und Investitionsgüter gehandelt (z. B. Automarkt, IT-Markt). Auf dem Faktorenmarkt werden Produktionsfaktoren gehandelt (z. B. Arbeitsmarkt, Immobilienmarkt, Finanzmärkte)."},{"topic":"Marktarten","front":"Was sind die Bedingungen eines vollkommenen Marktes?","back":"Vollkommene Konkurrenz (viele Anbieter und Nachfrager), Güterhomogenität (gleichartige Güter), Markttransparenz (Überblick über alle Preise), Präferenzlosigkeit (keine besonderen Vorlieben) und sofortige Anpassungsfähigkeit der Marktteilnehmer."},{"topic":"Marktarten","front":"Was sind E-Commerce-Transaktionsbereiche, und welche Kürzel gibt es?","back":"B2B (Business-to-Business), B2C (Business-to-Consumer), C2C (Consumer-to-Consumer), C2B, A2C/A2B/A2A (Administration-Beziehungen: E-Government). Sie beschreiben, wer mit wem Geschäfte über digitale Plattformen abwickelt."},{"topic":"Marktformen","front":"Nach welchem Kriterium werden Marktformen klassifiziert?","back":"Marktformen werden nach der Anzahl der Anbieter und Nachfrager klassifiziert. Es entstehen drei Grundformen: Monopol (ein Anbieter oder Nachfrager), Oligopol (wenige) und Polypol (viele)."},{"topic":"Marktformen","front":"Was ist ein Angebotsmonopol, und welche Folgen hat es?","back":"Beim Angebotsmonopol gibt es nur einen Anbieter, dem viele Nachfrager gegenüberstehen. Der Monopolist kann den Preis selbst bestimmen und seine Marktmacht ausnutzen. Beispiel: Alleinhersteller eines Patents."},{"topic":"Marktformen","front":"Was sind die drei Monopolvarianten in der Marktformmatrix?","back":"Angebotsmonopol (1 Anbieter, viele Nachfrager), Nachfragemonopol/Monopson (viele Anbieter, 1 Nachfrager, z. B. die Bahn als einziger Auftraggeber für Schienen-IT) und zweiseitiges Monopol (je 1 Anbieter und 1 Nachfrager)."},{"topic":"Marktformen","front":"Was ist ein Angebotsoligopol, und wo findet man es in der IT-Branche?","back":"Beim Angebotsoligopol stehen vielen Nachfragern nur wenige Anbieter gegenüber. Die Anbieter beobachten sich gegenseitig. IT-Beispiele: Chipmarkt (Intel, AMD, Qualcomm), Smartphone-Betriebssysteme (Android/iOS), Cloud-Anbieter (AWS, Azure, Google Cloud)."},{"topic":"Marktformen","front":"Was ist ein Polypol, und warum ist es volkswirtschaftlich erwünscht?","back":"Beim Polypol stehen vielen Nachfragern viele Anbieter gegenüber. Es ist die angestrebte Marktform, weil freier Wettbewerb den Preis durch Angebot und Nachfrage optimal bildet und Innovationsdruck erzeugt. Beispiel: Lebensmittelmarkt, App-Entwickler."},{"topic":"Marktformen","front":"Was sind beschränkte Monopole in der Marktformmatrix?","back":"Beschränktes Angebotsmonopol: 1 Anbieter, wenige Nachfrager (z. B. patentiertes Produkt für Nischenabnehmer). Beschränktes Nachfragemonopol: wenige Anbieter, 1 Nachfrager (z. B. Spezialausrüster und Bahn als einziger Abnehmer)."},{"topic":"Marktformen","front":"Was ist ein Quasimonopol, und wie entsteht es?","back":"Ein Quasimonopol entsteht in polypolistischen Märkten, wenn ein Anbieter durch Alleinstellungsmerkmale eine monopolähnliche Stellung erlangt, z. B. durch Patente, Netzwerkeffekte, Diversifikation, Exklusivität oder Mitbewerberübernahmen."},{"topic":"Kartellrecht","front":"Ab welchem Marktanteil vermutet das GWB eine marktbeherrschende Stellung?","back":"Laut § 18 Abs. 4 GWB (Gesetz gegen Wettbewerbsbeschränkungen) wird eine marktbeherrschende Stellung vermutet, wenn ein Unternehmen mindestens 40 % Marktanteil hat. Das Bundeskartellamt muss dann prüfen, ob Maßnahmen gegen Missbrauch zu ergreifen sind."},{"topic":"Preisbildung","front":"Wie bildet sich der Gleichgewichtspreis auf einem vollkommenen Markt?","back":"Der Gleichgewichtspreis liegt im Schnittpunkt von Angebots- und Nachfragekurve. Bei diesem Preis entspricht die angebotene Menge genau der nachgefragten Menge — es gibt weder Über- noch Unterversorgung."},{"topic":"Preisbildung","front":"Was unterscheidet Käufermarkt und Verkäufermarkt?","back":"Käufermarkt: Angebot > Nachfrage — Verkäufer senken Preise, Käufer haben Verhandlungsmacht. Verkäufermarkt: Nachfrage > Angebot — Verkäufer können Preise erhöhen, z. B. bei Chip-Engpässen in der IT-Branche."},{"topic":"Preisbildung","front":"Welche externen Faktoren können die Angebots- oder Nachfragekurve verschieben?","back":"Nachfragekurve verschiebt sich nach rechts z. B. bei Einkommenserhöhungen oder Steuersenkungen. Angebotskurve verschiebt sich nach links z. B. bei höheren Produktionskosten oder schlechten Konjunkturaussichten. Beides führt zu einem neuen Gleichgewichtspreis."},{"topic":"Marktsituation","front":"Was sind konjunkturelle, saisonale und strukturelle Einflussfaktoren auf Märkte?","back":"Saisonal: Wetterbedingte oder kalendarische Schwankungen (z. B. Weihnachtsgeschäft, Ferienzeiten). Strukturell: Neue Technologien, Gesetze oder veränderte Wertvorstellungen. Konjunkturell: BIP-Schwankungen im Zyklus Aufschwung → Boom → Rezession → Depression."},{"topic":"Marktsituation","front":"Was ist das Bruttoinlandsprodukt (BIP), und warum ist es für Marktteilnehmer relevant?","back":"Das BIP ist die Summe aller abgesetzten Waren und Dienstleistungen eines Landes in einem Zeitraum. Es zeigt die wirtschaftliche Auslastung. Konjunkturpolitik nutzt staatliche Maßnahmen, um Schwankungen zu dämpfen und einen langfristigen Wachstumspfad zu sichern."},{"topic":"Marktsituation","front":"Was ist Marktsegmentierung, und nach welchen Kriterien kann sie erfolgen?","back":"Marktsegmentierung ist die Aufteilung des Gesamtmarktes in Teilmärkte, um den Marketingmix gezielter auf Kundengruppen abzustimmen. Kriterien: geografisch, demografisch (Alter, Geschlecht), sozioökonomisch (Einkommen, Beruf), verhaltensbezogen (Kaufmotive, Kundentypen)."},{"topic":"Marktsituation","front":"Was unterscheidet A-, B- und C-Kunden in der ABC-Kundenanalyse?","back":"A-Kunden: ca. 20 % der Kunden, generieren 75–80 % des Umsatzes (Topkunden). B-Kunden: ca. 30–35 % der Kunden, ca. 20 % Umsatzanteil (Wachstumskunden). C-Kunden: ca. 45 % der Kunden, nur ca. 5 % Umsatz, wechseln häufig den Anbieter."},{"topic":"Marktsituation","front":"Was sind Marktpotenzial und Marktvolumen in der quantitativen Marktanalyse?","back":"Marktpotenzial: maximal mögliche Absatzmenge aller Marktteilnehmer zusammen. Marktvolumen: tatsächlich erzielte Absatzmenge aller Marktteilnehmer. Absatzpotenzial und Absatzvolumen beziehen sich analog auf ein einzelnes Unternehmen; der Marktanteil ist das Verhältnis Absatzvolumen zu Marktvolumen."}];
+
+const STORAGE_KEY = 'kk_' + DAY_ID;
+let boxes = {};                       // cardIndex -> Fach (1..3)
+let queue = [];                       // zu übende Karten-Indizes (Reihenfolge)
+let current = null;
+
+function loadState() {
+  try { boxes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch (e) { boxes = {}; }
+  CARDS.forEach((_, i) => { if (!boxes[i]) boxes[i] = 1; });
+}
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(boxes)); } catch (e) {} }
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function buildQueue() {
+  queue = shuffle(CARDS.map((_, i) => i).filter(i => boxes[i] < MAX_BOX));
+}
+
+function renderStats() {
+  const counts = [0, 0, 0];
+  CARDS.forEach((_, i) => counts[boxes[i] - 1]++);
+  document.getElementById('boxes').innerHTML =
+    counts.map((c, k) => `<span class="box-chip">Fach ${k + 1}: <b>${c}</b></span>`).join('');
+  const mastered = counts[MAX_BOX - 1];
+  document.getElementById('mastered').textContent = `${mastered} / ${CARDS.length} gemeistert`;
+  document.getElementById('progressBar').style.width = (mastered / CARDS.length * 100) + '%';
+}
+
+function showCard() {
+  if (queue.length === 0) { finish(); return; }
+  current = queue[0];
+  const c = CARDS[current];
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('frontTopic').textContent = c.topic;
+  document.getElementById('backTopic').textContent = c.topic;
+  document.getElementById('frontText').textContent = c.front;
+  document.getElementById('backText').textContent = c.back;
+  document.getElementById('flipRow').classList.remove('hidden');
+  document.getElementById('gradeRow').classList.add('hidden');
+}
+
+function flipCard() {
+  const card = document.getElementById('card');
+  card.classList.toggle('flipped');
+  const flipped = card.classList.contains('flipped');
+  document.getElementById('flipRow').classList.toggle('hidden', flipped);
+  document.getElementById('gradeRow').classList.toggle('hidden', !flipped);
+}
+
+function grade(known) {
+  if (current === null) return;
+  if (known) { boxes[current] = Math.min(MAX_BOX, boxes[current] + 1); }
+  else { boxes[current] = 1; }
+  saveState();
+  queue.shift();
+  if (!known) queue.push(current);        // falsche Karte kommt später wieder
+  else if (boxes[current] < MAX_BOX) queue.push(current);
+  renderStats();
+  showCard();
+}
+
+function finish() {
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('doneArea').classList.remove('hidden');
+}
+
+function shuffleRestart() {
+  document.getElementById('doneArea').classList.add('hidden');
+  document.getElementById('quizArea').classList.remove('hidden');
+  buildQueue();
+  renderStats();
+  showCard();
+}
+
+function resetProgress() {
+  CARDS.forEach((_, i) => boxes[i] = 1);
+  saveState();
+  shuffleRestart();
+}
+
+// Init
+loadState();
+document.getElementById('subtitleText').textContent = CARDS.length + ' Lernkarten · Begriff → Definition · Leitner-System';
+document.getElementById('doneText').textContent = 'Sie haben alle ' + CARDS.length + ' Karten sicher beantwortet. Starke Leistung!';
+renderStats();
+buildQueue();
+if (queue.length === 0) finish(); else showCard();
+</script>
+</body>
+</html>
