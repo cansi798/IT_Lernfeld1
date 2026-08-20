@@ -6,6 +6,5 @@ Session-*/Grundlagen_*.pdf
 Session-*/Arbeitsbuch_*.pdf
 # LaTeX-Zwischendateien
 *.aux
-*.log
 *.out
 *.toc
