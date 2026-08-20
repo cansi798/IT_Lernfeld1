@@ -64,22 +64,26 @@ for (const s of SESSIONS) {
     }
 
     // 5. Intra-Session-Duplikate
-    if (f.frage) {
-      const norm = f.frage.trim();
-      if (sessionFragen.has(norm)) {
-        const prev = sessionFragen.get(norm);
-        errors.push(`FEHLER [Session ${s.nr}]: Duplikat-Frage: Frage ${prev} und Frage ${idx}: "${norm.substring(0, 80)}..."`);
-      } else {
-        sessionFragen.set(norm, idx);
-      }
+    if (!f.frage || String(f.frage).trim() === '') {
+      errors.push(`FEHLER [Session ${s.nr}, Frage ${idx}]: frage fehlt oder leer`);
+      continue;
+    }
 
-      // Für Cross-Session-Prüfung sammeln
-      const loc = { session: s.nr, index: idx };
-      if (!allFragen.has(norm)) {
-        allFragen.set(norm, [loc]);
-      } else {
-        allFragen.get(norm).push(loc);
-      }
+    const norm = f.frage.trim();
+    if (sessionFragen.has(norm)) {
+      const prev = sessionFragen.get(norm);
+      const preview = norm.length > 80 ? norm.substring(0, 80) + "..." : norm;
+      errors.push(`FEHLER [Session ${s.nr}]: Duplikat-Frage: Frage ${prev} und Frage ${idx}: "${preview}"`);
+    } else {
+      sessionFragen.set(norm, idx);
+    }
+
+    // Für Cross-Session-Prüfung sammeln
+    const loc = { session: s.nr, index: idx };
+    if (!allFragen.has(norm)) {
+      allFragen.set(norm, [loc]);
+    } else {
+      allFragen.get(norm).push(loc);
     }
   }
 
@@ -96,7 +100,8 @@ for (const [frage, locs] of allFragen) {
     if (sessions.size > 1) {
       crossDupCount++;
       const locStr = locs.map(l => `Session ${l.session} Frage ${l.index}`).join(' UND ');
-      errors.push(`FEHLER: Cross-Session-Duplikat: "${frage.substring(0, 80)}" → ${locStr}`);
+      const preview = frage.length > 80 ? frage.substring(0, 80) + "..." : frage;
+      errors.push(`FEHLER: Cross-Session-Duplikat: "${preview}" → ${locStr}`);
     }
   }
 }
