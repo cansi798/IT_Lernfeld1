@@ -76,6 +76,10 @@ Memory, Aufgabenheft, Grundlagen- und Arbeitsbuch-Auszug; Podcast/Video ausgegra
 hervorgehobene Kachel **Prüfungssimulator**. Session-Metadaten (Titel, Slug, Ordner)
 stehen als JS-Konstante `SESSIONS` in der Seite — analog zum Beispiel.
 
+**Abmelden:** Im Kopfbereich der Kursseite gibt es einen „Abmelden"-Button (fehlt im
+Beispiel). Er löscht die Freischaltung (`localStorage.removeItem(...)`) und zeigt
+wieder das Zugangscode-Gate. Der Button erscheint nur im freigeschalteten Zustand.
+
 ## Prüfungssimulator (pruefungssimulator.html)
 
 Eigenständige Seite, lädt alle 8 `data/quiz-t*.js` (320 Fragen). Drei Modi:
