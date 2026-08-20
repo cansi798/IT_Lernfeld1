@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Session 5 — Geschäftsprozesse, Produktionsfaktoren &amp; Güterarten</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:       #0EA5A4;
+  --bfw-primary-dark:  #0F766E;
+  --bfw-accent:        #F59E0B;
+  --bfw-warn:          #F97316;
+  --bfw-success:       #10B981;
+  --bfw-ink:           #0F172A;
+  --bfw-ink-soft:      #475569;
+  --bfw-bg:            #FAFAFA;
+  --bfw-bg-teal:       #ECFEFF;
+  --bfw-bg-amber:      #FEF3C7;
+  --bfw-bg-rose:       #FFE4E6;
+  --bfw-border:        #E2E8F0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; color: var(--bfw-ink); background: var(--bfw-bg); }
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  padding: 4rem 6rem;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  animation: fadeIn 0.35s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { font-size: 3.5rem; line-height: 1.1; color: var(--bfw-primary-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.4rem; color: var(--bfw-primary-dark); margin-bottom: 1.5rem; }
+h3 { font-size: 1.4rem; color: var(--bfw-primary); margin-bottom: 0.8rem; font-weight: 600; }
+p { font-size: 1.25rem; line-height: 1.55; margin-bottom: 0.8rem; color: var(--bfw-ink); }
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { font-size: 1.2rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.subtitle { font-size: 1.4rem; color: var(--bfw-ink-soft); margin-bottom: 2rem; font-weight: 500; }
+.muted { color: var(--bfw-ink-soft); }
+
+/* Deckblatt */
+.cover { background: linear-gradient(135deg, var(--bfw-bg-teal) 0%, white 60%, var(--bfw-bg-amber) 100%); }
+.cover-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--bfw-primary);
+  color: white;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cover-meta { display: flex; gap: 2rem; margin-top: 2rem; color: var(--bfw-ink-soft); font-size: 1.1rem; }
+.cover-meta span strong { color: var(--bfw-ink); display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Karten-Grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+.card { background: white; border: 1px solid var(--bfw-border); border-radius: 14px; padding: 1.4rem; box-shadow: 0 2px 8px rgba(15,23,42,0.04); }
+.card.teal { background: var(--bfw-bg-teal); border-color: var(--bfw-primary); }
+.card.amber { background: var(--bfw-bg-amber); border-color: var(--bfw-accent); }
+.card.rose { background: var(--bfw-bg-rose); border-color: var(--bfw-warn); }
+.card-title { font-size: 1.15rem; font-weight: 700; color: var(--bfw-primary-dark); margin-bottom: 0.5rem; }
+.card.amber .card-title { color: var(--bfw-warn); }
+
+/* Merksatz */
+.merksatz {
+  background: var(--bfw-bg-teal);
+  border-left: 6px solid var(--bfw-primary);
+  border-radius: 8px;
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  font-size: 1.15rem;
+}
+.merksatz-label { font-weight: 700; color: var(--bfw-primary-dark); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.1rem; }
+th { background: var(--bfw-bg-teal); color: var(--bfw-primary-dark); text-align: left; padding: 0.7rem 1rem; font-weight: 700; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--bfw-border); }
+
+/* Diagramm-Container */
+.figure { margin: 1.5rem auto; text-align: center; }
+.figure svg { max-width: 100%; height: auto; }
+.caption { color: var(--bfw-ink-soft); font-size: 0.95rem; margin-top: 0.5rem; }
+
+/* Navigation */
+.nav { position: fixed; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; align-items: center; z-index: 100; }
+.nav button {
+  border: none; background: var(--bfw-primary); color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.12);
+  transition: all 0.15s;
+}
+.nav button:hover { background: var(--bfw-primary-dark); transform: translateY(-1px); }
+.nav-counter { background: white; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; color: var(--bfw-ink-soft); font-size: 0.95rem; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+
+.slide-num { position: fixed; bottom: 1rem; left: 1.5rem; color: var(--bfw-ink-soft); font-size: 0.9rem; }
+
+/* Listen mit Icons */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding-left: 2rem; position: relative; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--bfw-success); font-weight: 700; font-size: 1.3rem; }
+
+.numlist { list-style: none; margin-left: 0; counter-reset: numitem; }
+.numlist li { padding-left: 3rem; position: relative; counter-increment: numitem; margin-bottom: 0.8rem; }
+.numlist li::before {
+  content: counter(numitem);
+  position: absolute; left: 0; top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--bfw-primary); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+/* Print-friendly */
+@media print {
+  .slide { display: flex; page-break-after: always; }
+  .nav, .slide-num { display: none; }
+  html, body { height: auto; overflow: visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 1. Deckblatt -->
+  <section class="slide active cover">
+    <span class="cover-tag">Session 5</span>
+    <h1>Geschäftsprozesse, Produktionsfaktoren &amp; Güterarten</h1>
+    <p class="subtitle">Wertschöpfungskette, Prozessarten und Güterklassifikation bei JIKU IT-Solutions</p>
+    <div class="cover-meta">
+      <span><strong>Lernfeld</strong>1 — Das Unternehmen und die eigene Rolle im Betrieb beschreiben</span>
+      <span><strong>Kapitel</strong>1.3.5–1.3.6</span>
+      <span><strong>Dauer</strong>90 Minuten</span>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <h2>Was erwartet Sie heute?</h2>
+    <ol class="numlist">
+      <li>Wertschöpfung — Begriff, Berechnung und Nutznießer</li>
+      <li>Wertschöpfungskette nach Branchen</li>
+      <li>Digitalisierung, Transformation und Disruption</li>
+      <li>Geschäftsprozessarten: Kern-, Support- und Führungsprozesse</li>
+      <li>Integrierte Unternehmenssoftware entlang der Wertschöpfungskette</li>
+      <li>Betriebliche Produktionsfaktoren nach Gutenberg</li>
+      <li>Güterarten und Klassifikationskriterien</li>
+      <li>Organisationsmittel im Zeitalter der Digitalisierung</li>
+    </ol>
+  </section>
+
+  <!-- 3. Wertschöpfung: Begriff und Berechnung -->
+  <section class="slide">
+    <h2>Wertschöpfung — Begriff und Berechnung</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Formel</span>
+      Wertschöpfung = Umsatzerlöse (netto) +/&minus; Lagerveränderung &minus; Vorleistungen &minus; Abschreibungen
+    </div>
+    <table>
+      <tr><th>Begriff</th><th>Erläuterung</th></tr>
+      <tr><td><strong>Vorleistungen</strong></td><td>Alle eingekauften Güter und Dienste für den Betrieb — ohne Löhne, Zinsen und Steuern</td></tr>
+      <tr><td><strong>Abschreibungen</strong></td><td>Wertminderungen auf Anlage- und Umlaufvermögen (Maschinen, Systeme, Fahrzeuge)</td></tr>
+      <tr><td><strong>Wertschöpfungstiefe</strong></td><td>Wertschöpfung ÷ Gesamtleistung — wie viel erzeugt das Unternehmen selbst?</td></tr>
+      <tr><td><strong>W/M-Kennzahl</strong></td><td>Wertschöpfung ÷ Mitarbeiterzahl — Produktivitätsmaß</td></tr>
+    </table>
+  </section>
+
+  <!-- 4. Wertschöpfungsnutznießer -->
+  <section class="slide">
+    <h2>Wer profitiert von der Wertschöpfung?</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Mitarbeiter</div>
+        <p>Löhne, Gehälter, Sozialabgaben, Leistungsprämien</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Fremdkapitalgeber</div>
+        <p>Zinsen für Darlehen und Kredite</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Staat</div>
+        <p>Steuern und Abgaben</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Eigenkapitalgeber</div>
+        <p>Gewinne als Risikoprämie und Investitionskapital</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Sinkt die Wertschöpfung, können alle vier Gruppen nicht mehr mit bisherigen Anteilen rechnen — es entstehen Verteilungsauseinandersetzungen.
+    </div>
+  </section>
+
+  <!-- 5. Wertschöpfungskette nach Branchen -->
+  <section class="slide">
+    <h2>Wertschöpfungskette nach Branchen</h2>
+    <table>
+      <tr><th>Betriebstyp</th><th>Wertschöpfungskette</th></tr>
+      <tr><td><strong>Industriebetrieb</strong></td><td>Beschaffung → Herstellung → Marketing → Verkauf → Service</td></tr>
+      <tr><td><strong>Handelsbetrieb</strong></td><td>Beschaffung → Lagerung → Marketing → Verkauf → Service</td></tr>
+      <tr><td><strong>Dienstleistungsbetrieb</strong></td><td>Marketing → Verkauf → Beschaffung → Dienstleistung → Service</td></tr>
+    </table>
+    <div class="merksatz">
+      <span class="merksatz-label">Achtung</span>
+      Verwaltende Tätigkeiten (Personalwesen, Rechnungswesen, interne IT) zählen <strong>nicht</strong> zur Wertschöpfungskette — sie sind Supportprozesse.
+    </div>
+  </section>
+
+  <!-- 6. Digitalisierung, Transformation, Disruption -->
+  <section class="slide">
+    <h2>Digitalisierung, Transformation &amp; Disruption</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Digitalisierung</div>
+        <p>Umstellung <strong>analoger Prozesse</strong> auf digitale Bearbeitung — z. B. papierloses Büro</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Digitale Transformation</div>
+        <p>Veränderte <strong>Wertschöpfungsprozesse</strong> durch digitale Technologien oder neue Kundenerwartungen</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Digitale Disruption</div>
+        <p>Löst Kundenproblem auf <strong>komplett neue Art</strong> — schafft ganz andere Geschäftsmodelle (z. B. Uber, Airbnb)</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:1rem">Disruption geht weiter als Transformation: nicht nur verbessern, sondern neu erfinden.</p>
+  </section>
+
+  <!-- 7. Prozessarten: Überblick -->
+  <section class="slide">
+    <h2>Prozessarten im Unternehmen</h2>
+    <table>
+      <tr><th>Prozessart</th><th>Merkmal</th><th>JIKU-Beispiel</th></tr>
+      <tr>
+        <td><strong>Kernprozess</strong></td>
+        <td>Kundennah, wertschöpfungsintensiv; Kernkompetenz des Unternehmens</td>
+        <td>Netzwerkinstallation beim Kunden, Cloud-Migration</td>
+      </tr>
+      <tr>
+        <td><strong>Supportprozess</strong></td>
+        <td>Nicht direkt wertschöpfend, aber notwendig für Kernprozesse</td>
+        <td>Buchhaltung, Lohnabrechnung, interne IT</td>
+      </tr>
+      <tr>
+        <td><strong>Führungsprozess</strong></td>
+        <td>Koordiniert und steuert das Unternehmen auf Zielebene</td>
+        <td>Jahresplanung, Qualitätsmanagement, Controlling</td>
+      </tr>
+      <tr>
+        <td><strong>Workflow</strong></td>
+        <td>Unterste Detaillierungsebene; rechnergestützt, automatisiert</td>
+        <td>Automatisierte Ticket-Eskalation im Help-Desk</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 8. Kern- vs. Supportprozess: Entscheidungsregel -->
+  <section class="slide">
+    <h2>Kernprozess oder Supportprozess?</h2>
+    <div class="merksatz">
+      <span class="merksatz-label">Entscheidungsregel</span>
+      Stellt die Aktivität einen <strong>direkten Nutzen für externe Kunden</strong> bereit und ist sie <strong>wertschöpfungsintensiv</strong>? → Kernprozess. Läuft sie intern und ermöglicht nur die Kernprozesse? → Supportprozess.
+    </div>
+    <ul>
+      <li><strong>Kernprozess JIKU:</strong> IT-Systemaufbau, Remote-Support, Cloud-Hosting für Kunden</li>
+      <li><strong>Supportprozess JIKU:</strong> interne Serverbetreuung, HR, Finanzbuchhaltung</li>
+      <li><strong>Typischer Fehler:</strong> "Interne IT = Kernprozess, weil wir ein IT-Unternehmen sind" — falsch! Es kommt auf den <em>Kundennutzen</em> an.</li>
+    </ul>
+  </section>
+
+  <!-- 9. Integrierte Unternehmenssoftware -->
+  <section class="slide">
+    <h2>Integrierte Unternehmenssoftware</h2>
+    <table>
+      <tr><th>Kürzel</th><th>System</th><th>Aufgabe</th></tr>
+      <tr><td><strong>E-P</strong></td><td>E-Procurement</td><td>Elektronische Beschaffung über Internet</td></tr>
+      <tr><td><strong>CRM</strong></td><td>Customer-Relationship-Mgmt.</td><td>Kundenbindung und Kundenbeziehungsprozesse</td></tr>
+      <tr><td><strong>ERP</strong></td><td>Enterprise-Resource-Planning</td><td>Lager, Auftragsbearbeitung, Rechnungswesen</td></tr>
+      <tr><td><strong>SCM</strong></td><td>Supply-Chain-Management</td><td>Logistikketten über den gesamten Wertschöpfungsprozess</td></tr>
+      <tr><td><strong>BPM</strong></td><td>Business-Process-Mgmt.</td><td>Steuerung und Optimierung von Geschäftsprozessen</td></tr>
+      <tr><td><strong>BI</strong></td><td>Business Intelligence</td><td>Reports und Entscheidungsdaten (Data Mining, Data Warehouse)</td></tr>
+    </table>
+  </section>
+
+  <!-- 10. Produktionsfaktoren: Gutenberg-Modell -->
+  <section class="slide">
+    <h2>Betriebliche Produktionsfaktoren nach Gutenberg</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Elementarfaktoren (3)</div>
+        <ul>
+          <li><strong>Werkstoffe:</strong> Roh-, Hilfs-, Betriebsstoffe, Fertigteile</li>
+          <li><strong>Betriebsmittel:</strong> Gebäude, Maschinen, Systeme</li>
+          <li><strong>Ausführende Arbeit:</strong> Operative Tätigkeit ohne Leitungsfunktion</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Dispositiver Faktor</div>
+        <p>Geschäftsleitung: <strong>Leitung, Planung, Organisation, Kontrolle</strong></p>
+        <p class="muted">Kombiniert die Elementarfaktoren zur produktiven Einheit</p>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Ergänzung</span>
+      <strong>Information</strong> (Wissen, Rechte, Daten) — moderner Ergänzungsfaktor für die Informationswirtschaft
+    </div>
+  </section>
+
+  <!-- 11. Produktionsfaktoren: JIKU-Zuordnung -->
+  <section class="slide">
+    <h2>Produktionsfaktoren bei JIKU — Praxiszuordnung</h2>
+    <table>
+      <tr><th>Ressource bei JIKU</th><th>Produktionsfaktor</th></tr>
+      <tr><td>Netzwerkkabel, Festplatten, Kühlmittel</td><td>Werkstoffe (Elementarfaktor)</td></tr>
+      <tr><td>Serverracks, Arbeitsplatzrechner, Fahrzeuge</td><td>Betriebsmittel (Elementarfaktor)</td></tr>
+      <tr><td>IT-Techniker bei Kundeninstallation</td><td>Ausführende Arbeit (Elementarfaktor)</td></tr>
+      <tr><td>Standortleiterin koordiniert Ressourcenplanung</td><td>Dispositiver Faktor</td></tr>
+      <tr><td>Softwarelizenzen, IT-Know-how, Zertifizierungen</td><td>Information (Ergänzungsfaktor)</td></tr>
+    </table>
+    <p class="muted" style="margin-top:1rem">Gutenberg richtete sein Modell auf Produktionsbetriebe aus — Information wurde erst später als eigenständiger Faktor ergänzt.</p>
+  </section>
+
+  <!-- 12. Ökonomische Prinzipien -->
+  <section class="slide">
+    <h2>Ökonomische Prinzipien der Faktorkombination</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Maximumprinzip</div>
+        <p>Mit <strong>gegebenen Mitteln</strong> den maximalen Erfolg erzielen</p>
+        <p class="muted">Beispiel: Mit 50 € Budget möglichst viele Kunden ansprechen</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">Minimumprinzip</div>
+        <p>Einen <strong>bestimmten Erfolg</strong> mit minimalem Mitteleinsatz erzielen</p>
+        <p class="muted">Beispiel: Werbebotschaft mit geringstem Aufwand kommunizieren</p>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Optimumprinzip</div>
+        <p>Ergebnis und Einsatz variabel — <strong>optimale Kombination</strong> bestimmen</p>
+        <p class="muted">Beispiel: Angebot mit geringstem Output/Input-Verhältnis wählen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Güterarten: Überblick -->
+  <section class="slide">
+    <h2>Güterarten — Klassifikationsmerkmale</h2>
+    <table>
+      <tr><th>Kriterium</th><th>Güterarten</th><th>Beispiele</th></tr>
+      <tr><td><strong>Beschaffenheit</strong></td><td>Materiell / Immateriell</td><td>Auto / Softwarelizenz, Beratung</td></tr>
+      <tr><td><strong>Knappheit</strong></td><td>Freies Gut / Wirtschaftliches Gut</td><td>Atemluft / Strom, Bücher</td></tr>
+      <tr><td><strong>Ort und Zweck</strong></td><td>Konsumgut / Investitionsgut</td><td>Druckerpapier privat / Serverrack</td></tr>
+      <tr><td><strong>Verbrauch</strong></td><td>Verbrauchsgut / Gebrauchsgut</td><td>Strom / Maschine, Regal</td></tr>
+      <tr><td><strong>Ausschließbarkeit</strong></td><td>Privates Gut / Öffentliches Gut</td><td>Kino / Parkanlage, Leuchtturm</td></tr>
+      <tr><td><strong>Beziehung</strong></td><td>Komplementär / Substitutiv</td><td>Drucker + Toner / Zug statt Auto</td></tr>
+    </table>
+  </section>
+
+  <!-- 14. Güterarten: Mehrfachklassifikation -->
+  <section class="slide">
+    <h2>Güterarten: Mehrfachklassifikation am Beispiel</h2>
+    <p><strong>Softwarelizenz (Betriebssystem) bei JIKU:</strong></p>
+    <ul class="checklist">
+      <li><strong>Beschaffenheit:</strong> immateriell — kein physisches Produkt, sondern ein Nutzungsrecht</li>
+      <li><strong>Knappheit:</strong> wirtschaftliches Gut — kostenpflichtig, begrenzte Lizenzanzahl</li>
+      <li><strong>Ort/Zweck:</strong> Investitionsgut — zur betrieblichen Leistungserstellung</li>
+      <li><strong>Verbrauch:</strong> Gebrauchsgut — wiederholt über die gesamte Lizenzlaufzeit nutzbar</li>
+      <li><strong>Ausschließbarkeit:</strong> privates Gut — Ausschluss ohne Lizenzschlüssel möglich</li>
+    </ul>
+    <div class="merksatz">
+      <span class="merksatz-label">Prüfungstipp</span>
+      In der IHK-Prüfung müssen Güter stets nach <em>allen</em> relevanten Kriterien gleichzeitig klassifiziert werden — nicht nur nach einem!
+    </div>
+  </section>
+
+  <!-- 15. Güter zur Leistungserstellung (Einkaufsperspektive) -->
+  <section class="slide">
+    <h2>Güter zur Leistungserstellung — Einkaufsperspektive</h2>
+    <table>
+      <tr><th>Kategorie</th><th>Erläuterung</th><th>JIKU-Beispiel</th></tr>
+      <tr><td><strong>Rohstoffe</strong></td><td>Hauptbestandteil eines Erzeugnisses</td><td>Metallgehäuse für Server</td></tr>
+      <tr><td><strong>Hilfsstoffe</strong></td><td>Nebenbestandteil (Farbe, Klebstoff)</td><td>Wärmeleitpaste für CPUs</td></tr>
+      <tr><td><strong>Betriebsstoffe</strong></td><td>Nicht direkt zurechenbar (Schmieröl, Brennstoff)</td><td>Klimaanlage-Kältemittel</td></tr>
+      <tr><td><strong>Handelswaren</strong></td><td>Zum Weiterverkauf ohne eigene Bearbeitung</td><td>Router, Switches weiterverkauft</td></tr>
+      <tr><td><strong>Dienstleistungen</strong></td><td>Fremdleistungen zur Leistungserstellung</td><td>Subunternehmer-IT-Support</td></tr>
+      <tr><td><strong>Lizenzen / Rechte</strong></td><td>Software, Marken, Patente</td><td>Microsoft-Lizenzen für Kunden</td></tr>
+    </table>
+  </section>
+
+  <!-- 16. Organisationsmittel -->
+  <section class="slide">
+    <h2>Organisationsmittel im digitalen Wandel</h2>
+    <div class="cards">
+      <div class="card teal">
+        <div class="card-title">Klassische Organisationsmittel</div>
+        <ul>
+          <li>Formulare, Checklisten</li>
+          <li>Organigramme, Stellenbeschreibungen</li>
+          <li>Prozesshandbücher, Ablaufpläne</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Digitale Organisationsmittel</div>
+        <ul>
+          <li>ERP-Systeme (SAP, Microsoft Dynamics)</li>
+          <li>Ticketsysteme (Jira, ServiceNow)</li>
+          <li>Dokumentenmanagement (DMS)</li>
+          <li>Workflowtools (Camunda, Power Automate)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="merksatz">
+      <span class="merksatz-label">Merksatz</span>
+      Organisationsmittel umfassen sowohl Arbeitsmittel als auch formale Gestaltungsmittel in Aufbau- und Ablauforganisation — mit dem Ziel der Digitalisierung stehen hier große Veränderungen an.
+    </div>
+  </section>
+
+  <!-- 17. Das nehmen Sie mit -->
+  <section class="slide cover">
+    <h2>Das nehmen Sie mit</h2>
+    <ul class="checklist">
+      <li><strong>Wertschöpfung</strong> = Output minus Vorleistungen minus Abschreibungen — Löhne sind Verteilung, kein Abzug</li>
+      <li><strong>Wertschöpfungskette</strong> je nach Branche verschieden; Verwaltung zählt nicht dazu</li>
+      <li><strong>Disruption</strong> geht weiter als Transformation — neues Geschäftsmodell, nicht nur digitale Verbesserung</li>
+      <li><strong>Kernprozesse</strong> stiften Kundennutzen; <strong>Supportprozesse</strong> ermöglichen sie intern</li>
+      <li><strong>Elementarfaktoren</strong> nach Gutenberg: Werkstoffe · Betriebsmittel · ausführende Arbeit</li>
+      <li><strong>Güterklassifikation</strong> immer nach mehreren Kriterien gleichzeitig prüfen</li>
+    </ul>
+    <div class="merksatz" style="margin-top:2rem">
+      <span class="merksatz-label">Ausblick Session 6</span>
+      Unternehmensziele und Kennzahlen — wie misst JIKU seinen Erfolg?
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num">© Can Siebert · 2026 · <span id="slideCount">1 / 1</span></div>
+<nav class="nav">
+  <button onclick="prev()" title="Zurück (←)">←</button>
+  <span class="nav-counter"><span id="slideNum">1</span></span>
+  <button onclick="next()" title="Weiter (→)">→</button>
+</nav>
+
+<!-- Rough.js für handgezeichnete Diagramme -->
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  slides[current].classList.add('active');
+  document.getElementById('slideNum').textContent = current + 1;
+  document.getElementById('slideCount').textContent = `${current + 1} / ${slides.length}`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+});
+</script>
+
+</body>
+</html>

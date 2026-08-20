@@ -1,0 +1,273 @@
+\documentclass[11pt, a4paper]{article}
+
+% Gemeinsame Style-Definitionen (TEXINPUTS muss templates/ enthalten — siehe scripts/build_tex.py)
+\input{bfw-style.tex}
+
+\title{\vspace*{-1.5cm}\Huge\bfseries\color{bfwPrimaryDark}Session~5: Geschäftsprozesse, Produktionsfaktoren \& Güterarten\\[0.4em]
+  \large\color{bfwInkSoft}\textnormal{Wertschöpfungskette, Prozessarten und Güterklassifikation bei JIKU IT-Solutions}}
+\author{\textsf{IT Lernfeld 1 --- Das Unternehmen und die eigene Rolle im Betrieb beschreiben}}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\vspace{1em}
+\begin{merksatz}[title={\bfseries Worum geht es in dieser Session?}]
+Jedes Unternehmen erzeugt \emph{Wertschöpfung} --- den Mehrwert, der nach Abzug aller
+eingekauften Vorleistungen und Abschreibungen verbleibt. Dieser Wert kommt Mitarbeitern,
+Fremdkapitalgebern, dem Staat und den Eigentümern zugute. Am Beispiel von \emph{JIKU
+IT-Solutions} lernen wir, wie Geschäftsprozesse in Kern-, Support- und Führungsprozesse
+eingeteilt werden, welche \emph{betriebswirtschaftlichen Produktionsfaktoren} nach Gutenberg
+unterschieden werden und wie sich Güter nach verschiedenen Kriterien klassifizieren lassen.
+\end{merksatz}
+
+\tableofcontents
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\section{Wertschöpfung und Wertschöpfungskette}
+
+\subsection{Begriff und Berechnung der Wertschöpfung}
+
+Ziel jedes Unternehmens ist es, zwischen Input und Output eine möglichst große Wertschöpfung
+zu erzielen. Wertschöpfungsintensiv sind vor allem die Tätigkeiten, die direkt mit der
+Leistungserstellung zu tun haben, kundennah sind und zu den Kernkompetenzen des Unternehmens
+gehören.
+
+\begin{center}
+\begin{tabular}{p{4cm} p{9cm}}
+\toprule
+\textbf{Begriff} & \textbf{Erläuterung}\\
+\midrule
+Wertschöpfung & Umsatzerlöse (netto) +/- Lagerveränderung abzüglich Vorleistungen abzüglich Abschreibungen\\
+\addlinespace
+Vorleistungen & Einkauf jeglicher Vorprodukte oder Dienstleistungen für den betrieblichen Zweck; ohne Löhne, Zinsen und Steuern\\
+\addlinespace
+Abschreibungen & Wertminderungen auf Anlage- und Umlaufvermögen (Gebäude, Maschinen, Systeme, Fahrzeuge, Stoffe, Teile, Handelswaren)\\
+\addlinespace
+Wertschöpfungstiefe & Wertschöpfung geteilt durch Gesamtleistung (Output); zeigt, wie viel des Umsatzes das Unternehmen selbst erwirtschaftet\\
+\addlinespace
+W/M-Kennzahl & Wertschöpfung pro Mitarbeiter = Wertschöpfung geteilt durch Mitarbeiterzahl; Maß für Produktivität\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{merksatz}[title={\bfseries Merke: Wertschöpfungsnutznießer}]
+Die Wertschöpfung kommt vier Gruppen zugute:
+\begin{enumerate}
+  \item \textbf{Mitarbeiter} --- Löhne, Gehälter, Sozialabgaben, Leistungsprämien
+  \item \textbf{Fremdkapitalgeber} --- Zinsen für Darlehen
+  \item \textbf{Staat} --- Steuern und Abgaben
+  \item \textbf{Eigenkapitalgeber} --- Gewinne als Risikoprämie und Investitionskapital
+\end{enumerate}
+Sinkt die Wertschöpfung, können diese Stakeholder nicht mehr mit den bisherigen Beteiligungen
+rechnen --- es kommt zu Verteilungsauseinandersetzungen.
+\end{merksatz}
+
+\subsection{Wertschöpfungskette nach Branchen}
+
+Die Wertschöpfungskette zeigt die wertschöpfungsintensiven Tätigkeitsbereiche je Branche.
+Verwaltende Tätigkeiten außerhalb der Kette (z.\,B. Personal, Rechnungswesen, interne IT)
+zählen \emph{nicht} zur Wertschöpfungskette.
+
+\begin{center}
+\begin{tabular}{p{3.5cm} p{9.5cm}}
+\toprule
+\textbf{Betriebstyp} & \textbf{Wertschöpfungskette}\\
+\midrule
+Industriebetrieb & Beschaffung → Herstellung → Marketing → Verkauf → Service\\
+\addlinespace
+Handelsbetrieb & Beschaffung → Lagerung → Marketing → Verkauf → Service\\
+\addlinespace
+Dienstleistungs\-betrieb & Marketing → Verkauf → Beschaffung → Dienstleistung → Service\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Digitalisierung und Wertschöpfung}
+
+\begin{center}
+\begin{tabular}{p{3.5cm} p{9.5cm}}
+\toprule
+\textbf{Begriff} & \textbf{Definition}\\
+\midrule
+Digitalisierung & Veränderungsprozess, bei dem bisher analoge Prozesse und Daten künftig digital bearbeitet werden.\\
+\addlinespace
+Digitale Transformation & Veränderte Wertschöpfungs- und Geschäftsprozesse, die durch digitale Technologien oder entsprechende Kundenerwartungen entstanden sind.\\
+\addlinespace
+Digitale Disruption & Löst ein bestehendes Kundenproblem auf eine komplett neue Art und schafft damit ganz andere Geschäftsmodelle; geht weiter als Transformation.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Geschäftsprozesse im Betrieb}
+
+\subsection{Prozessarten}
+
+Im Unternehmen lassen sich alle Aktivitäten in Geschäftsprozesse einteilen. Diese bestehen
+aus Sub- und Unterprozessen und auf der untersten Detaillierungsebene aus Workflows.
+
+\begin{center}
+\begin{tabular}{p{3.5cm} p{9.5cm}}
+\toprule
+\textbf{Prozessart} & \textbf{Definition und Beispiele}\\
+\midrule
+Geschäftsprozess & Zeitliche und sachlogische Abfolge von Unternehmensaktivitäten, die festgelegte Unternehmensziele verfolgen und auf Unternehmensressourcen zurückgreifen.\\
+\addlinespace
+Kernprozess (Wertschöpfungs\-prozess) & Kundennah und besonders wertschöpfungsintensiv; das Unternehmen weist dafür besondere Kernkompetenzen nach. Beispiele JIKU: Aufbau komplexer IT-Systeme, IT-Serviceleistungen, Auftragsabwicklung.\\
+\addlinespace
+Supportprozess (Unterstützungs\-prozess) & Nicht direkt wertschöpfend, aber notwendig, um Kernprozesse zu ermöglichen. Beispiele: Buchhaltung, Lohn- und Gehaltsabrechnung, Controlling.\\
+\addlinespace
+Workflow & Teilprozess auf der untersten Detaillierungsebene; läuft rechnergestützt und weitgehend automatisiert ab; gesteuert durch ein Workflowmanagementsystem.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{merksatz}[title={\bfseries JIKU-Praxisbeispiel: Leistungs-, Geld- und Informationsflüsse}]
+Im Schaubild der Leistungs-, Geld- und Informationsflüsse bei JIKU lassen sich alle
+Einzelprozesse zuordnen: Lieferanten beliefern das Lager und die Werkstatt; Einkauf und
+Verkauf koordinieren die Warenflüsse; Rechnungswesen und Controlling steuern Geldflüsse.
+Viele dieser Prozesse laufen heute digital ab.
+\end{merksatz}
+
+\subsection{Integrierte Unternehmenssoftware}
+
+Entlang der Wertschöpfungskette werden integrierte Softwaresysteme eingesetzt.
+
+\begin{center}
+\begin{tabular}{p{1.5cm} p{11.5cm}}
+\toprule
+\textbf{Kürzel} & \textbf{Bedeutung}\\
+\midrule
+E-P & E-Procurement: elektronische Beschaffung über Internet und Beschaffungsplattformen\\
+SRM & Supplier-Relationship-Management: Lieferantenbeziehungsmanagement\\
+SCM & Supply-Chain-Management: Verwaltung integrierter Logistikketten über den gesamten Wertschöpfungsprozess\\
+PPS & Produktionsplanung und -steuerung\\
+CRM & Customer-Relationship-Management: Ausrichtung auf Kunden und Gestaltung von Kundenbeziehungsprozessen\\
+ERP & Enterprise-Resource-Planning: Verwaltung der Unternehmensressourcen (Lager, Auftragsbearbeitung, Gehaltsabrechnung, Rechnungswesen)\\
+DMS & Dokumentenmanagement: datenbankgestützte Verwaltung elektronischer Dokumente\\
+BPM & Business-Process-Management: Steuerung und Optimierung von Geschäftsprozessen\\
+BI & Business Intelligence: entscheidungsrelevante Unternehmensdaten für automatisierte Reports\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Betriebliche Produktionsfaktoren}
+
+\subsection{Volkswirtschaftliche vs. betriebswirtschaftliche Betrachtung}
+
+Unter Produktionsfaktoren versteht man alle materiellen und immateriellen Mittel und Leistungen,
+die an der Bereitstellung von Gütern mitwirken. Es wird zwischen volkswirtschaftlicher
+(Arbeit, Boden, Kapital) und betriebswirtschaftlicher Betrachtung unterschieden.
+
+\subsection{Das Gutenberg-Modell}
+
+Der Wirtschaftswissenschaftler \textbf{Erich Gutenberg} (1897--1984) unterschied für
+Produktionsbetriebe folgende Faktoren:
+
+\begin{center}
+\begin{tabular}{p{3.5cm} p{9.5cm}}
+\toprule
+\textbf{Faktor} & \textbf{Definition und Beispiele}\\
+\midrule
+Werkstoffe & Alle Güter, die zur Erstellung eines Produktes notwendig sind: Rohstoffe (Hauptbestandteile), Hilfsstoffe (Nebenbestandteile, z.\,B. Klebstoff), Betriebsstoffe (nicht direkt zurechenbar, z.\,B. Schmieröl), Fertigteile\\
+\addlinespace
+Betriebsmittel & Technische Ausstattungen: Betriebsgebäude, Maschinen, Systeme, Fahrzeuge\\
+\addlinespace
+Ausführende Arbeit & Menschliche Arbeitsleistung \emph{ohne} Leitungs-, Planungs-, Organisations- oder Kontrollfunktion\\
+\addlinespace
+Dispositiver Faktor & Die Geschäftsleitung: ergänzt die Elementarfaktoren zu einer produktiven Einheit; Aufgaben: Leitung, Planung, Organisation, Kontrolle\\
+\addlinespace
+Information (ergänzend) & Wissen, Rechte, Daten; wurde nach Gutenberg als eigenständiger Faktor ergänzt, da die Informationswirtschaft seitdem stark gewachsen ist\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{merksatz}[title={\bfseries Merke: Grenzen des Gutenberg-Modells}]
+Gutenberg richtete sein Modell auf Produktionsbetriebe aus --- Handelsbetriebe und die
+Informationswirtschaft blieben außen vor. Der Faktor \textbf{Zeit} (z.\,B. Lieferzeit im
+Handel) und der Faktor \textbf{Information} (Know-how, Softwarelizenzen, Patente) wurden
+erst später ergänzt. Für JIKU IT-Solutions ist Information der entscheidende Faktor.
+\end{merksatz}
+
+\subsection{Ökonomische Prinzipien}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{5.5cm} p{4cm}}
+\toprule
+\textbf{Prinzip} & \textbf{Ziel} & \textbf{Beispiel}\\
+\midrule
+Maximumprinzip & Mit gegebenen Mitteln maximalen Erfolg erzielen & Mit 50~€ Budget möglichst viele Kunden erreichen\\
+\addlinespace
+Minimumprinzip & Bestimmten Erfolg mit minimalen Mitteln erzielen & Werbebotschaft mit geringstem Aufwand übermitteln\\
+\addlinespace
+Optimumprinzip (Extremum\-prinzip) & Bei variablem Ergebnis und Einsatz die optimale Kombination bestimmen & Angebot mit dem niedrigsten Wert Output/Input wählen\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Güterarten}
+
+\subsection{Klassifikationsmerkmale}
+
+Güter lassen sich nach verschiedenen Kriterien einteilen:
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4.5cm} p{5.5cm}}
+\toprule
+\textbf{Kriterium} & \textbf{Güterarten} & \textbf{Beispiele}\\
+\midrule
+Beschaffenheit & Materiell / Immateriell & Auto, Gebäude / Dienstleistung, Softwarelizenz\\
+\addlinespace
+Ort und Zweck & Konsumgut / Investitionsgut & Druckerpapier für Privatnutzung / Serverrack\\
+\addlinespace
+Verbrauch & Verbrauchsgut / Gebrauchsgut & Strom, Telefonminuten / Maschine, Regal\\
+\addlinespace
+Knappheit & Freies Gut / Wirtschaftliches Gut & Atemluft, Sonnenschein / Buch, Sauerstoff\-flasche\\
+\addlinespace
+Ausschließbarkeit & Privates Gut / Öffentliches Gut & Kinovorstellung / Parkanlage, Leuchtturm\\
+\addlinespace
+Beziehung & Komplementär / Substitutiv / Unverbunden & Drucker und Toner / Zug und Auto / PC und Blumen\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Güter zur Leistungserstellung (Einkaufsperspektive)}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{10cm}}
+\toprule
+\textbf{Kategorie} & \textbf{Erläuterung}\\
+\midrule
+Rohstoffe & Hauptbestandteile eines Erzeugnisses, z.\,B. Eisen für Gehäuse\\
+Hilfsstoffe & Nebenbestandteile, z.\,B. Farbe, Klebstoff, Heftklammern\\
+Betriebsstoffe & Nicht direkt einem Erzeugnis zurechenbar, z.\,B. Schmieröle, Brennstoffe\\
+Einbauteile & Komponenten für die Herstellung eines Produktes\\
+Handelswaren & Güter, die an den Endverbraucher weiterverkauft werden\\
+Dienstleistungen & Fremdleistungen (Dienste), die zur Leistungserstellung notwendig sind\\
+Lizenzen, Rechte & Markenrechte, Softwarenutzungsrechte, Patente und Urheberrechte\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Organisationsmittel}
+
+Unter Organisationsmitteln werden in der Aufbau- und Ablauforganisation sowohl
+\textbf{Arbeitsmittel} (z.\,B. Formulare, Checklisten, Organigramme) als auch
+\textbf{formale Gestaltungsmittel} (z.\,B. Stellenbeschreibungen, Prozesshandbücher)
+verstanden. Mit dem Ziel der Digitalisierung stehen hier große Veränderungen an:
+ERP-Systeme, Ticketsysteme, digitale Dokumentenmanagementsysteme und Workflowtools
+ersetzen zunehmend papierbasierte Organisationsmittel.
+
+\begin{merksatz}[title={\bfseries Zusammenfassung: Kernbegriffe dieser Session}]
+\textbf{Wertschöpfung} = Output minus Vorleistungen minus Abschreibungen ~·~
+\textbf{Kernprozesse} stiften Kundennutzen ~·~
+\textbf{Supportprozesse} ermöglichen die Kernprozesse ~·~
+\textbf{Elementarfaktoren} nach Gutenberg: Werkstoffe, Betriebsmittel, ausführende Arbeit ~·~
+\textbf{Dispositiver Faktor}: Geschäftsleitung ~·~
+\textbf{Güterklassifikation}: stets nach mehreren Kriterien gleichzeitig prüfen.
+\end{merksatz}
+
+\end{document}

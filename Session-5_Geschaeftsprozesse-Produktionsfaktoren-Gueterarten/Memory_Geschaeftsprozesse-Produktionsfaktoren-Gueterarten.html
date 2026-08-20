@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Memory Session 5 — Geschäftsprozesse, Produktionsfaktoren & Güterarten</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bfw-primary:#0EA5A4; --bfw-primary-dark:#0F766E; --bfw-accent:#F59E0B;
+  --bfw-ink:#0F172A; --bfw-ink-soft:#475569; --bfw-bg:#FAFAFA; --bfw-bg-soft:#F8FAFC;
+  --bfw-bg-teal:#ECFEFF; --bfw-bg-green:#D1FAE5; --bfw-border:#E2E8F0; --bfw-success:#10B981;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(180deg, var(--bfw-bg-teal) 0%, var(--bfw-bg) 240px); color: var(--bfw-ink); min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+.container { max-width: 820px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 1rem; }
+.tag-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--bfw-primary); color: white; border-radius: 999px; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+h1 { font-size: 1.6rem; color: var(--bfw-primary-dark); }
+details.how { background: var(--bfw-bg-soft); border: 1px solid var(--bfw-border); border-radius: 10px; padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); line-height: 1.5; }
+details.how summary { cursor: pointer; font-weight: 600; color: var(--bfw-primary-dark); }
+details.how p { margin: 0.5rem 0 0; }
+.stats { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; background: white; border: 1px solid var(--bfw-border); border-radius: 12px; padding: 0.7rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--bfw-ink-soft); }
+.stats b { color: var(--bfw-primary-dark); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 620px){ .grid { grid-template-columns: repeat(2, 1fr); } }
+.mcard { position: relative; min-height: 120px; border-radius: 12px; cursor: pointer; border: 2px solid var(--bfw-border);
+  background: var(--bfw-primary); color: white; display: flex; align-items: center; justify-content: center;
+  padding: 0.6rem; text-align: center; transition: transform 0.12s, background 0.2s; user-select: none; }
+.mcard:active { transform: scale(0.98); }
+.mcard .content { display: none; font-size: 0.82rem; line-height: 1.35; color: var(--bfw-ink); overflow: auto; max-height: 150px; }
+.mcard .facedown { font-size: 1.8rem; }
+.mcard .label { position: absolute; top: 5px; left: 8px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.mcard.up { background: white; cursor: default; }
+.mcard.up.term { border-color: var(--bfw-primary); }
+.mcard.up.term .content { font-weight: 700; font-size: 1rem; color: var(--bfw-primary-dark); }
+.mcard.up .content { display: block; }
+.mcard.up .facedown { display: none; }
+.mcard.up .label { color: var(--bfw-ink-soft); }
+.mcard.matched { background: var(--bfw-bg-green); border-color: var(--bfw-success); cursor: default; }
+.mcard.matched .content { display: block; }
+.mcard.matched .facedown { display: none; }
+.mcard.matched.term .content { color: #065F46; }
+.msg { text-align: center; min-height: 1.6rem; font-weight: 600; margin: 1rem 0; }
+.msg.win { color: var(--bfw-success); }
+.controls { text-align: center; margin-top: 0.5rem; }
+.btn { padding: 0.7rem 1.4rem; border: none; border-radius: 10px; background: var(--bfw-primary); color: white; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.stats2 { text-align: center; font-size: 0.85rem; color: var(--bfw-ink-soft); margin-top: 0.5rem; }
+footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--bfw-ink-soft); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="tag-pill">Session 5 · Memory</span>
+    <h1>Geschäftsprozesse, Produktionsfaktoren & Güterarten</h1>
+  </header>
+  <details class="how" open>
+    <summary>ℹ️ Spielanleitung</summary>
+    <p>Finde die zusammengehörenden Paare: Jede Karte zeigt entweder einen <b>Begriff</b> oder eine <b>Definition</b>.
+    Decke zwei Karten auf – gehören Begriff und Definition zusammen, bleiben sie offen (grün).</p>
+    <p>Passt es nicht, werden beide wieder umgedreht. Ziel: alle <b>8 Paare</b> mit möglichst wenigen Zügen aufdecken – so prägst du dir Begriffe und ihre Bedeutung ein.</p>
+  </details>
+  <div class="stats">
+    <div>Paare: <b id="pairs">0</b> / 8</div>
+    <div>Züge: <b id="moves">0</b></div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="msg" id="msg"></div>
+  <div class="controls"><button class="btn" onclick="newGame()">🔄 Neues Spiel</button></div>
+  <div class="stats2" id="best"></div>
+  <footer>BFW Lernplattform · IT Lernfeld 1 · © Can Siebert 2026</footer>
+</div>
+<script>
+const DAY_ID = 's5';
+const PAIRS = [{"term":"Wie berechnet sich die Wertschöpfung eines Unternehmens?","def":"Wertschöpfung = Umsatzerlöse (netto) +/- Lagerveränderung minus eingekaufte Vorleistungen minus Abschreibungen. Vorleistungen sind alle eingekauften Güter und Dienste ohne Löhne, Zinsen und Steuern."},{"term":"Wer sind die Nutznießer der Wertschöpfung?","def":"Die Wertschöpfung kommt Mitarbeitern (Löhne, Gehälter, Sozialabgaben), Fremdkapitalgebern (Zinsen für Darlehen), dem Staat (Steuern und Abgaben) und Eigenkapitalgebern (Gewinne als Risikoprämie und Investitionskapital) zugute."},{"term":"Was ist die Wertschöpfungstiefe?","def":"Wertschöpfungstiefe = Wertschöpfung geteilt durch die Gesamtleistung (Output). Sie zeigt, wie viel des Umsatzes das Unternehmen selbst erwirtschaftet — im Gegensatz zu zugekauften Vorleistungen."},{"term":"Wie lautet die Kennzahl 'Wertschöpfung pro Mitarbeiter'?","def":"Wertschöpfung pro Mitarbeiter (W/M) = Wertschöpfung geteilt durch Mitarbeiterzahl. Sie misst die Produktivität und wird mit Vorjahreswerten oder Branchendaten verglichen."},{"term":"Was ist die Wertschöpfungskette, und wie unterscheidet sie sich nach Branche?","def":"Die Wertschöpfungskette zeigt die kundennah und wertschöpfungsintensiven Tätigkeitsbereiche je Branche. Industriebetriebe: Beschaffung – Herstellung – Marketing – Verkauf – Service. Handelsbetriebe: Beschaffung – Lagerung – Marketing – Verkauf – Service. Verwaltende Tätigkeiten (Personal, Rechnungswesen) zählen nicht dazu."},{"term":"Was sind positive Wertschöpfungsfaktoren?","def":"Faktoren, die den Outputwert im Vergleich zum Inputwert steigern: Be- und Verarbeitung, besseres Marketing, Qualitätsmarken, besserete Kundenansprache, mehr Service, Frische und Qualität der Übergabe, bessere Kundenbindung und kostengünstigere Inputleistungen."},{"term":"Was unterscheidet Digitalisierung, digitale Transformation und digitale Disruption?","def":"Digitalisierung: Umstellung analoger Prozesse auf digitale. Digitale Transformation: Veränderte Wertschöpfungs- und Geschäftsprozesse durch digitale Technologien oder Kundenerwartungen. Digitale Disruption: Völlig neue Geschäftsmodelle, die ein bestehendes Kundenproblem auf komplett andere Art lösen."},{"term":"Welche Arten digitaler Plattformen gibt es, und wie erzielen sie Erlöse?","def":"Informationsplattformen, Sharing-Angebote, Marktplätze (B2C, B2B), Cloud-Providing (IaaS, PaaS, SaaS), Lernplattformen u. a. Erlöse durch Datennutzung, Premium-Abonnements, Vermittlerprovision oder nutzungsabhängige Gebühren."},{"term":"Was ist ein digitales Plattform-Ökosystem?","def":"Digitale Plattform-Ökosysteme sind vernetzte digitale Umgebungen, bei denen viele Partner ihre Stärken einbringen. Sie können als geschlossene Systeme ('Walled Garden', z. B. Apple) oder als offene Plattformen mit API-Schnittstellen betrieben werden."},{"term":"Was ist ein Geschäftsprozess?","def":"Ein Geschäftsprozess ist eine zeitliche und sachlogische Abfolge von Unternehmensaktivitäten, die festgelegte Unternehmensziele verfolgen und auf Unternehmensressourcen (Organisationseinheiten, Betriebsmittel, Daten) zurückgreifen."},{"term":"Was sind Kernprozesse (Wertschöpfungsprozesse)?","def":"Kernprozesse sind die Geschäftsprozesse, die kundennah und besonders wertschöpfungsintensiv sind. Das Unternehmen weist dafür besondere Kernkompetenzen nach, z. B. Aufbau komplexer IT-Systeme, Serviceleistungen oder Auftragsabwicklung."},{"term":"Was sind Supportprozesse?","def":"Supportprozesse (Unterstützungsprozesse) sind Geschäftsprozesse, die nicht direkt wertschöpfend sind, aber notwendig sind, um die Kernprozesse zu ermöglichen. Beispiele: Buchhaltung, Lohn- und Gehaltsabrechnung, Controlling."},{"term":"Was sind Workflows?","def":"Workflows sind Arbeitsabläufe bzw. Teilprozesse auf der untersten Detaillierungsebene, die rechnergestützt und weitgehend automatisiert ablaufen. Sie werden durch ein Workflowmanagementsystem gesteuert."},{"term":"Wofür stehen ERP, CRM und SCM?","def":"ERP (Enterprise-Resource-Planning): Verwaltung der Unternehmensressourcen (Lager, Auftragsbearbeitung, Gehaltsabrechnung). CRM (Customer-Relationship-Management): Ausrichtung auf Kunden und Kundenbeziehungsprozesse. SCM (Supply-Chain-Management): Verwaltung integrierter Logistikketten über den gesamten Wertschöpfungsprozess."},{"term":"Wofür stehen BPM, DMS und BI?","def":"BPM (Business-Process-Management): Steuerung und Optimierung von Geschäftsprozessen. DMS (Dokumentenmanagement): datenbankgestützte Verwaltung elektronischer Dokumente. BI (Business Intelligence): entscheidungsrelevante Unternehmensdaten und automatisierte Reports für Entscheidungsträger."},{"term":"Wer hat das Konzept der betriebswirtschaftlichen Produktionsfaktoren entwickelt?","def":"Der Wirtschaftswissenschaftler Erich Gutenberg (1897–1984) unterschied Werkstoffe, Betriebsmittel und ausführende Arbeit als Elementarfaktoren sowie die Geschäftsleitung als dispositiven Faktor."},{"term":"Was sind die drei Elementarfaktoren nach Gutenberg?","def":"1. Werkstoffe: alle Güter zur Erstellung eines Produktes (Roh-, Hilfs-, Betriebsstoffe, Fertigteile). 2. Betriebsmittel: technische Ausstattungen wie Gebäude und Maschinen. 3. Ausführende Arbeit: menschliche Arbeitsleistung ohne Leitungs-, Planungs- oder Kontrollfunktion."},{"term":"Was ist der dispositive Faktor?","def":"Der dispositive Faktor ist die Geschäftsleitung mit den Aufgaben Leitung, Planung, Organisation und Kontrolle. Er ergänzt die Elementarfaktoren zu einer produktiven Einheit zur Erreichung der Unternehmensziele."},{"term":"Warum ist Information als zusätzlicher Produktionsfaktor wichtig?","def":"Gutenberg bezog sich auf Produktionsbetriebe; Handelsbetriebe und die Informationswirtschaft blieben außen vor. Mit der wachsenden Bedeutung der Informationswirtschaft wird der Faktor Information (Wissen, Rechte) als zusätzlicher Produktionsfaktor ergänzt."},{"term":"Was sind ökonomische Prinzipien bei der Faktorkombination?","def":"Maximumprinzip: Mit gegebenen Mitteln maximalen Erfolg erzielen. Minimumprinzip: Einen bestimmten Erfolg mit minimalen Mitteln erzielen. Optimumprinzip: Wenn Ergebnis und Einsatz variabel sind, die optimale Kombination bestimmen (z. B. geringster Wert Output/Input)."},{"term":"Was unterscheidet freie von wirtschaftlichen Gütern?","def":"Freie Güter sind in der Natur unbegrenzt vorhanden und haben keinen Preis (z. B. Atemluft, Sonnenschein). Wirtschaftliche Güter sind knapp; für sie muss ein Preis gezahlt werden (z. B. Sauerstoffflaschen, Musik-Dienst, Bücher)."},{"term":"Was unterscheidet Verbrauchs- von Gebrauchsgütern?","def":"Verbrauchsgüter werden bei der Nutzung einmalig verbraucht (z. B. Druckerpapier, Strom, Telefonminuten). Gebrauchsgüter können wiederholt und über längere Zeit genutzt werden (z. B. Maschinen, Regale, Werkzeuge, Bücher)."},{"term":"Was unterscheidet Konsum- von Investitionsgütern?","def":"Konsumgüter werden von privaten Haushalten zur unmittelbaren Bedürfnisbefriedigung genutzt. Investitionsgüter werden von Unternehmen zur Leistungserstellung eingesetzt (Betriebsmittel: Gebäude, Maschinen; Werkstoffe: Rohstoffe, Hilfsstoffe)."},{"term":"Was sind komplementäre und substitutive Güter?","def":"Komplementäre Güter ergänzen sich gegenseitig — eines ist ohne das andere kaum nutzbar (z. B. Drucker und Toner). Substitutive Güter können sich gegenseitig ersetzen (z. B. Tintenstrahldrucker und Laserdrucker, Auto und Bahn)."},{"term":"Was unterscheidet private von öffentlichen Gütern?","def":"Private Güter: Ausschließbarkeit möglich — wer nicht zahlt, wird ausgeschlossen (z. B. Kinovorstellung, Computer). Öffentliche Güter: stehen allen zur Verfügung, können gemeinsam genutzt werden, niemand ist ausgeschlossen (z. B. Parkanlage, Leuchtturm)."},{"term":"Wie unterscheidet sich die Güterklassifikation aus Einkaufsperspektive?","def":"Rohstoffe: Hauptbestandteile eines Erzeugnisses. Hilfsstoffe: Nebenbestandteile. Betriebsstoffe: nicht direkt einem Erzeugnis zurechenbar (z. B. Schmieröle). Einbauteile: Komponenten für die Herstellung. Handelswaren: zum Weiterverkauf. Dienstleistungen: Fremdleistungen. Lizenzen/Rechte: Nutzungsrechte."},{"term":"Was sind Organisationsmittel im Unternehmen?","def":"Unter Organisationsmitteln werden in der Aufbau- und Ablauforganisation sowohl Arbeitsmittel als auch formale Gestaltungsmittel verstanden. Mit dem Ziel der Digitalisierung stehen hier große Veränderungen an (z. B. Formulare, Organigramme, ERP-Systeme, Ticketsysteme)."}];       // [{term, def}, ...] – ganzer Tagespool
+const PAIRS_PER_GAME = 8;
+const STORAGE = 'memory_' + DAY_ID;
+
+let deck=[], flipped=[], matched=0, moves=0, busy=false;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function loadBest(){ try { return JSON.parse(localStorage.getItem(STORAGE)); } catch(e){ return null; } }
+function saveBest(m){ try { localStorage.setItem(STORAGE, JSON.stringify(m)); } catch(e){} }
+function renderBest(){ const b=loadBest(); document.getElementById('best').textContent = b!=null ? `Bestleistung: ${b} Züge` : ''; }
+
+function newGame(){
+  const n = Math.min(PAIRS_PER_GAME, PAIRS.length);
+  const chosen = shuffle(PAIRS.map((p,i)=>i)).slice(0, n);
+  deck = [];
+  chosen.forEach((pi, k) => {
+    deck.push({ pair:k, kind:'term', text:PAIRS[pi].term });
+    deck.push({ pair:k, kind:'def',  text:PAIRS[pi].def  });
+  });
+  shuffle(deck);
+  flipped=[]; matched=0; moves=0; busy=false;
+  document.getElementById('pairs').textContent='0';
+  document.getElementById('pairs').nextSibling; // noop
+  document.getElementById('moves').textContent='0';
+  document.querySelector('.stats').firstElementChild.innerHTML = `Paare: <b id="pairs">0</b> / ${n}`;
+  document.getElementById('msg').textContent=''; document.getElementById('msg').className='msg';
+  render();
+  renderBest();
+}
+
+function render(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  deck.forEach((card, i)=>{
+    const el=document.createElement('div');
+    el.className='mcard'; el.id='c'+i;
+    el.innerHTML = `<span class="label"></span><span class="facedown">🧠</span><span class="content"></span>`;
+    el.onclick=()=>flip(i);
+    g.appendChild(el);
+  });
+}
+
+function flip(i){
+  if(busy) return;
+  const card=deck[i]; const el=document.getElementById('c'+i);
+  if(el.classList.contains('up') || el.classList.contains('matched')) return;
+  el.classList.add('up', card.kind);
+  el.querySelector('.content').textContent = card.text;
+  el.querySelector('.label').textContent = card.kind==='term' ? 'Begriff' : 'Definition';
+  flipped.push(i);
+  if(flipped.length===2){
+    moves++; document.getElementById('moves').textContent=moves;
+    const [a,b]=flipped;
+    if(deck[a].pair===deck[b].pair && deck[a].kind!==deck[b].kind){
+      // Treffer
+      document.getElementById('c'+a).classList.add('matched');
+      document.getElementById('c'+b).classList.add('matched');
+      flipped=[]; matched++;
+      document.getElementById('pairs').textContent=matched;
+      if(matched === deck.length/2) win();
+    } else {
+      busy=true;
+      setTimeout(()=>{
+        [a,b].forEach(idx=>{ const e=document.getElementById('c'+idx); e.classList.remove('up','term','def'); e.querySelector('.content').textContent=''; e.querySelector('.label').textContent=''; });
+        flipped=[]; busy=false;
+      }, 1000);
+    }
+  }
+}
+
+function win(){
+  const m=document.getElementById('msg'); m.textContent=`🎉 Geschafft in ${moves} Zügen!`; m.className='msg win';
+  const best=loadBest();
+  if(best==null || moves<best){ saveBest(moves); renderBest(); m.textContent += ' Neue Bestleistung!'; }
+}
+
+newGame();
+</script>
+</body>
+</html>
