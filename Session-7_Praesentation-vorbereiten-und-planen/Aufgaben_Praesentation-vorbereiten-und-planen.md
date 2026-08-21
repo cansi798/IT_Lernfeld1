@@ -31,9 +31,9 @@
 
 ## Aufgabe 3 — Teamentwicklung nach Tuckman (8 Punkte)
 
-**(a)** Nennen Sie die vier Hauptphasen des Teamentwicklungsmodells von Bruce Tuckman und ordnen Sie jeweils ein typisches Merkmal zu. **(4 P.)**
+**(a)** Nennen Sie die fünf Phasen des Teamentwicklungsmodells von Bruce Tuckman und ordnen Sie jeweils ein typisches Merkmal zu. **(5 P.)**
 
-**(b)** Im JIKU-Team gibt es Streit: Zwei Mitglieder wollen nicht zusammenarbeiten, Beschlüsse werden angezweifelt. Benennen Sie die Tuckman-Phase und erläutern Sie, wie Projektleiterin Ana Kovac darauf reagieren sollte. **(4 P.)**
+**(b)** Im JIKU-Team gibt es Streit: Zwei Mitglieder wollen nicht zusammenarbeiten, Beschlüsse werden angezweifelt. Benennen Sie die Tuckman-Phase und erläutern Sie, wie Projektleiterin Ana Kovac darauf reagieren sollte. **(3 P.)**
 
 ---
 

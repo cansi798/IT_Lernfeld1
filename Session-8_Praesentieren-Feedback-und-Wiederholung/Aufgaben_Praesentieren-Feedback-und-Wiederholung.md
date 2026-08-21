@@ -46,7 +46,7 @@ Ordnen Sie die folgenden Aussagen dem richtigen Gesetz und Paragrafen zu.
 | (b) Jugendliche dürfen täglich nicht mehr als 8 Stunden beschäftigt werden. | |
 | (c) Die Firma ist der Name, unter dem ein Kaufmann seine Geschäfte betreibt. | |
 | (d) Das Mindest-Stammkapital der GmbH beträgt 25.000 €. | |
-| (e) Der Ausbildungsvertrag muss schriftlich niedergelegt und bei der IHK eingereicht werden. | |
+| (e) Der Ausbildungsvertrag muss in Textform (§ 11 BBiG, seit 1.8.2024) niedergelegt und bei der IHK eingereicht werden. | |
 | (f) Die JAV ist die gewählte Interessenvertretung der Jugendlichen und Auszubildenden. | |
 
 ---
@@ -55,7 +55,7 @@ Ordnen Sie die folgenden Aussagen dem richtigen Gesetz und Paragrafen zu.
 
 **(a)** JIKU Hamburg erzielt im laufenden Jahr Nettoumsatzerlöse von 4,8 Mio. €. Vorleistungen (eingekaufte Hardware und Fremdleistungen) belaufen sich auf 1,9 Mio. €, Abschreibungen auf 0,3 Mio. €. Berechnen Sie die Wertschöpfung. **(2 P.)**
 
-**(b)** Am Hamburger Standort arbeiten 32 Mitarbeiter. Berechnen Sie die Wertschöpfung je Mitarbeiter. **(2 P.)**
+**(b)** Am Hamburger Standort arbeiten 52 Mitarbeiter. Berechnen Sie die Wertschöpfung je Mitarbeiter. **(2 P.)**
 
 **(c)** Erläutern Sie, an welche vier Gruppen die Wertschöpfung verteilt wird. **(4 P.)**
 

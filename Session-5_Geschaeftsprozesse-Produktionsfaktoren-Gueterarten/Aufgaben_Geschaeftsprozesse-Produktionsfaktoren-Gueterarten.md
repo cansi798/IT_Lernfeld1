@@ -70,7 +70,7 @@ b) **Ordnen** Sie folgende Ressourcen bei JIKU dem richtigen Produktionsfaktor z
 
 a) **Erläutern** Sie den Unterschied zwischen freien und wirtschaftlichen Gütern sowie zwischen Verbrauchs- und Gebrauchsgütern. Geben Sie je ein Beispiel aus dem JIKU-Umfeld. (4 P.)
 
-b) **Klassifizieren** Sie eine Softwarelizenz (z. B. Betriebssystem) nach \emph{allen} relevanten Gütermerkmalen (Beschaffenheit, Knappheit, Ort/Zweck, Ausschließbarkeit) und **begründen** Sie jeden Aspekt. (4 P.)
+b) **Klassifizieren** Sie eine Softwarelizenz (z. B. Betriebssystem) nach **allen** relevanten Gütermerkmalen (Beschaffenheit, Knappheit, Ort/Zweck, Ausschließbarkeit) und **begründen** Sie jeden Aspekt. (4 P.)
 
 ---
 

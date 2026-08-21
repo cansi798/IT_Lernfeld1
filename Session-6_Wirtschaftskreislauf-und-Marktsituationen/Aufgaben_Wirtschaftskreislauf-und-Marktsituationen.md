@@ -54,9 +54,12 @@ Auf dem IT-Komponentenmarkt für einen bestimmten Prozessortyp gelten folgende D
 
 | Preis in € | Angebotsmenge (Stück) | Nachfragemenge (Stück) |
 |------------|----------------------|----------------------|
-| 300 | 800 | 1 400 |
+| 300 | 200 | 1 400 |
+| 350 | 330 | 1 100 |
+| 400 | 550 | 950 |
 | 450 | 650 | 650 |
-| 600 | 1 050 | 180 |
+| 500 | 750 | 400 |
+| 550 | 900 | 250 |
 
 a) **Bestimmen** Sie den Gleichgewichtspreis und die Gleichgewichtsmenge. (2 P.)
 
