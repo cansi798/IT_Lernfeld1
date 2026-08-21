@@ -1,6 +1,6 @@
 # Aufgaben Session 2: Rechte, Pflichten & Arbeitsrecht
 
-**Kontext:** Sie sind seit einigen Wochen als neue Auszubildende bei der **JIKU IT-Solutions GmbH** tätig, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden. Ihr Ausbilder, Herr Schulz, informiert Sie heute über Ihre Rechte und Pflichten in der Ausbildung.
+**Kontext:** Sie sind seit einigen Wochen als neue Auszubildende bei der **JIKU IT-Solutions GmbH** tätig, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden (fiktives Übungsszenario; die Zahlen weichen bewusst vom Lehrbuch-Standort Hamburg mit 52 Mitarbeitenden ab). Ihr Ausbilder, Herr Schulz, informiert Sie heute über Ihre Rechte und Pflichten in der Ausbildung.
 
 ---
 
@@ -55,7 +55,7 @@ Mia ist 17 Jahre alt. Kreuzen Sie an, ob folgende Aussagen zum JArbSchG **richti
 
 ## Aufgabe 5 — Betriebsrat und JAV (8 Punkte)
 
-JIKU IT-Solutions hat 35 Mitarbeitende, davon vier Auszubildende (alle zwischen 19 und 23 Jahren).
+JIKU IT-Solutions hat 35 Mitarbeitende (fiktives Übungsszenario; die Zahlen weichen bewusst vom Lehrbuch-Standort Hamburg mit 52 Mitarbeitenden ab), davon vier Auszubildende (alle zwischen 19 und 23 Jahren).
 
 a) **Erklären** Sie, ob bei JIKU IT-Solutions ein Betriebsrat gewählt werden kann, und begründen Sie Ihre Antwort. (3 P.)
 

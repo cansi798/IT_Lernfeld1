@@ -1,6 +1,6 @@
 # Aufgaben Session 1: IT-Berufe & duales System
 
-**Kontext:** Sie beginnen als neue Auszubildende bei JIKU IT-Solutions GmbH, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden. Die Geschäftsführerin, Frau Kaya, begrüßt Sie und erklärt den Ablauf der Einführungswoche.
+**Kontext:** Sie beginnen als neue Auszubildende bei JIKU IT-Solutions GmbH, einem IT-Dienstleistungsunternehmen mit 35 Mitarbeitenden (fiktives Übungsszenario; die Zahlen weichen bewusst vom Lehrbuch-Standort Hamburg mit 52 Mitarbeitenden ab). Die Geschäftsführerin, Frau Kaya, begrüßt Sie und erklärt den Ablauf der Einführungswoche.
 
 ---
 

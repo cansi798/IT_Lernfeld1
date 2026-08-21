@@ -12,9 +12,9 @@ window.QUIZ_DATA = {
     },
     {
       frage: "In welcher Form muss der Berufsausbildungsvertrag nach BBiG abgeschlossen werden?",
-      optionen: ["Schriftlich, vor Beginn der Ausbildung", "Mündlich ist ausreichend, wenn beide Seiten zustimmen", "Schriftlich, spätestens nach der Probezeit", "In elektronischer Form beim Arbeitsgericht"],
+      optionen: ["In Textform (§ 11 BBiG i. d. F. seit 1.8.2024) — digitale Übermittlung genügt", "Mündlich ist ausreichend, wenn beide Seiten zustimmen", "Schriftlich mit eigenhändiger Unterschrift aller Beteiligten", "In elektronischer Form beim Arbeitsgericht"],
       richtig: 0,
-      erklaerung: "Nach § 11 BBiG muss der Berufsausbildungsvertrag schriftlich geschlossen und vor Beginn der Ausbildung von allen Beteiligten unterzeichnet werden. Er ist anschließend bei der IHK einzutragen."
+      erklaerung: "Seit dem BVaDiG (1.8.2024) genügt für den Berufsausbildungsvertrag Textform nach § 126b BGB — eine digitale Übermittlung (z. B. PDF) ist ausreichend; eine eigenhändige Unterschrift ist nicht mehr erforderlich. Achtung: Die Kündigung (§ 22 Abs. 3 BBiG) bleibt weiterhin schriftformpflichtig."
     },
     {
       frage: "Welcher Paragraf des BBiG regelt die Mindestinhalte des Berufsausbildungsvertrags?",

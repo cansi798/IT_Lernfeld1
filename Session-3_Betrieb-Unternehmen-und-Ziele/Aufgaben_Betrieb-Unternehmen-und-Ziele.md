@@ -27,7 +27,7 @@ Kreuzen Sie an, ob folgende Aussagen **richtig (R)** oder **falsch (F)** sind. K
 | e) IT-Systemhäuser gehören dem tertiären Wirtschaftssektor an. | | | |
 | f) Erwerbswirtschaftliche Unternehmen dürfen keinen Gewinn anstreben. | | | |
 | g) Ein Konzern besteht aus mehreren rechtlich selbstständigen Unternehmen unter einer gemeinsamen Leitung. | | | |
-| h) Kartelle sind generell erlaubt, wenn alle Unternehmen zustimmen. | | | |
+| h) Kartelle sind generell erlaubt, wenn alle beteiligten Unternehmen zustimmen. | | | |
 
 ---
 
@@ -59,7 +59,7 @@ Ordnen Sie die folgenden Unternehmensziele den Kategorien **Sachziel** (S) oder 
 | b) JIKU strebt langfristig eine Eigenkapitalrentabilität von 15 % an. | | |
 | c) Die Anzahl der Systemausfälle bei betreuten Kunden soll um 20 % gesenkt werden. | | |
 | d) JIKU will in den nächsten 5 Jahren Marktführer im Hamburger IT-Systemhaus-Segment werden. | | |
-| e) Die Kundenzufriedenheit soll durch kürzere Reaktionszeiten verbessert werden. | | |
+| e) Die Reaktionszeit des Help-Desks soll von 4 auf 2 Stunden halbiert werden. | | |
 | f) Der monatliche Umsatz soll im nächsten Quartal um 8 % gesteigert werden. | | |
 
 ---
@@ -85,7 +85,7 @@ Frau Meyerhoff teilt folgende Zahlen für den Hamburger JIKU-Standort mit:
 - Aufwendungen im letzten Monat: 150.000 €
 - Jahresüberschuss: 36.000 €
 - Eingesetztes Kapital: 240.000 €
-- Bearbeitete Support-Tickets: 600 in 8 Stunden (gestern), 540 in 6 Stunden (vorgestern)
+- Support-Tickets: 600 in 8 Stunden (gestern), 540 in 6 Stunden (vorgestern)
 
 a) **Berechnen** Sie die Wirtschaftlichkeit des Hamburger Standorts für den letzten Monat. (2 P.)
 
