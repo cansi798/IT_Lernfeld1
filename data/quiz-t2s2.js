@@ -134,7 +134,7 @@ window.QUIZ_DATA = {
       frage: "Welchen Zusatz muss ein Einzelkaufmann bei der Eintragung ins Handelsregister im Firmennamen führen?",
       optionen: ["GmbH", "AG", "e. K. (eingetragener Kaufmann/Kauffrau)", "KG"],
       richtig: 2,
-      erklaerung: "Ein im Handelsregister eingetragenes Einzelunternehmen muss den Zusatz 'e. K.' (eingetragener Kaufmann), 'e. Kfm.' oder 'e. Kffr.' im Firmennamen führen. Dadurch erlangt der Inhaber die Kaufmannseigenschaft und unterliegt dem HGB."
+      erklaerung: "Ein im Handelsregister eingetragenes Einzelunternehmen muss den Zusatz 'e. K.' (eingetragener Kaufmann/Kauffrau), 'e. Kfm.' (männlich) oder 'e. Kfr.' (weiblich) im Firmennamen führen (§ 19 HGB). Dadurch erlangt der Inhaber die Kaufmannseigenschaft und unterliegt dem HGB."
     },
 
     // ======= RECHTSFORMWAHL — 6 Fragen =======

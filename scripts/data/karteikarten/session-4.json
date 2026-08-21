@@ -12,7 +12,7 @@
     {
       "topic": "Einzelunternehmen",
       "front": "Was kennzeichnet ein Einzelunternehmen in Bezug auf Haftung, Leitung und Mindestkapital?",
-      "back": "Ein Inhaber führt das Unternehmen allein und haftet persönlich und unbeschränkt mit seinem gesamten Privat- und Betriebsvermögen. Es gibt kein Mindestkapital. Bei Eintragung ins Handelsregister sind die Zusätze e.K., e.Kffr. oder e.Kfm. vorgeschrieben."
+      "back": "Ein Inhaber führt das Unternehmen allein und haftet persönlich und unbeschränkt mit seinem gesamten Privat- und Betriebsvermögen. Es gibt kein Mindestkapital. Bei Eintragung ins Handelsregister sind die Zusätze e.K., e. Kfr. oder e.Kfm. vorgeschrieben."
     },
     {
       "topic": "GbR",
@@ -82,7 +82,7 @@
     {
       "topic": "Handlungsvollmacht",
       "front": "Welche drei Arten der Handlungsvollmacht gibt es?",
-      "back": "1. Gesamtvollmacht (allgemeine Handlungsvollmacht): alle gewöhnlichen Geschäfte; Zusatz 'i.V.' 2. Artvollmacht: bestimmte Art wiederkehrender Geschäfte (z.B. Einkäufer, Kassierer). 3. Einzelvollmacht: ein einzelnes Rechtsgeschäft (z.B. Geld zur Bank bringen); Zusatz 'i.A.'. Erteilung formlos — kein HR-Eintrag möglich."
+      "back": "1. Gesamtvollmacht (allgemeine Handlungsvollmacht): alle gewöhnlichen Geschäfte; Zusatz 'i.V.' (in Vollmacht). 2. Artvollmacht: bestimmte Art wiederkehrender Geschäfte (z.B. Einkäufer, Kassierer). 3. Einzelvollmacht: ein einzelnes Rechtsgeschäft (z.B. Geld zur Bank bringen); Zusatz 'i.A.' (im Auftrag). Hinweis: 'i.V.' und 'i.A.' sind kaufmännische Konventionen — gesetzlich nicht vorgeschrieben. Erteilung formlos — kein HR-Eintrag möglich."
     },
     {
       "topic": "Aufbau- vs. Ablauforganisation",

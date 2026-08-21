@@ -114,9 +114,9 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Welche Voraussetzungen muss ein Ausbilder im Betrieb erfüllen?",
-      optionen: ["Nur fachliche Eignung ist erforderlich", "Mindestens ein Hochschulabschluss", "Mindestens 5 Jahre Berufserfahrung", "Mindestens 24 Jahre alt sowie persönliche und fachliche Eignung; die Eignung stellt die IHK fest"],
-      richtig: 3,
-      erklaerung: "Ein Ausbilder im Betrieb muss mindestens 24 Jahre alt sein sowie persönlich und fachlich geeignet sein (§§ 28–30 BBiG, AEVO). Die Eignung wird von der zuständigen Stelle (IHK) festgestellt."
+      optionen: ["Nur fachliche Eignung ist erforderlich", "Mindestens ein Hochschulabschluss und 5 Jahre Berufserfahrung", "Persönliche Eignung (§ 29 BBiG) und fachliche Eignung (§ 30 BBiG: einschlägiger Abschluss + AEVO-Prüfung); die IHK überwacht die Eignung", "Mindestens 24 Jahre alt sowie persönliche und fachliche Eignung"],
+      richtig: 2,
+      erklaerung: "Ein Ausbilder im Betrieb muss persönlich geeignet (§ 29 BBiG) und fachlich geeignet sein (§ 30 BBiG: einschlägiger Abschluss + berufs- und arbeitspädagogische Eignung, nachgewiesen durch die AEVO-Prüfung). Die zuständige Stelle (IHK) überwacht die Eignung. Ein gesetzliches Mindestalter gibt es nicht — die frühere Angabe '24 Jahre' im Lehrwerk ist veraltet und entspricht nicht dem geltenden Recht."
     },
     {
       frage: "Welches Dokument erstellt der Ausbildungsbetrieb auf Basis der Ausbildungsordnung als Anlage zum Ausbildungsvertrag?",
@@ -137,10 +137,10 @@ window.QUIZ_DATA = {
       erklaerung: "Der Auszubildende ist verpflichtet, während der gesamten Ausbildungszeit einen schriftlichen Ausbildungsnachweis (Berichtsheft) zu führen. Der Ausbilder sieht diesen regelmäßig durch."
     },
     {
-      frage: "In welcher Form muss der Berufsausbildungsvertrag abgeschlossen werden?",
-      optionen: ["Mündlich genügt", "Schriftlich (§ 11 BBiG)", "Notariell beglaubigt", "Nur per E-Mail"],
-      richtig: 1,
-      erklaerung: "Der Berufsausbildungsvertrag muss gemäß § 11 BBiG (Vertragsniederschrift) schriftlich niedergelegt werden. Er kommt zwischen Ausbildendem (Betrieb) und Auszubildendem als privatrechtlicher Vertrag zustande."
+      frage: "In welcher Form muss der wesentliche Inhalt des Berufsausbildungsvertrags niederzulegen sein?",
+      optionen: ["Mündlich genügt", "Notariell beglaubigt", "Schriftlich mit eigenhändiger Unterschrift beider Parteien", "In Textform (§ 11 BBiG i. d. F. seit 1.8.2024) — eine digitale Übermittlung wie PDF genügt"],
+      richtig: 3,
+      erklaerung: "Seit 1.8.2024 (BVaDiG) genügt Textform (§ 126b BGB) für die Niederschrift des wesentlichen Vertragsinhalts (§ 11 BBiG). Eine digitale Übermittlung z. B. per PDF reicht aus; eigenhändige Unterschrift ist nicht mehr erforderlich. Achtung: Die Kündigung (§ 22 Abs. 3 BBiG) bleibt weiterhin schriftformpflichtig."
     },
     {
       frage: "Welche Institution gibt die Ausbildungsordnung für IT-Berufe auf Bundesebene heraus?",
@@ -243,9 +243,9 @@ window.QUIZ_DATA = {
     },
     {
       frage: "Wann findet Teil 1 der gestreckten Abschlussprüfung statt?",
-      optionen: ["Am Anfang der Ausbildung, nach drei Monaten", "Am Ende des ersten Ausbildungsjahres, nach 12 Monaten", "Direkt am Ende der Ausbildung, gemeinsam mit Teil 2", "Nach etwa 15 Monaten, also ungefähr Mitte des zweiten Ausbildungsjahres"],
+      optionen: ["Am Anfang der Ausbildung, nach drei Monaten", "Am Ende des ersten Ausbildungsjahres, nach 12 Monaten", "Direkt am Ende der Ausbildung, gemeinsam mit Teil 2", "Im 4. Ausbildungshalbjahr, also nach ca. 18 Monaten"],
       richtig: 3,
-      erklaerung: "Teil 1 der gestreckten Abschlussprüfung findet nach etwa 15 Monaten Ausbildung statt — ungefähr in der Mitte des zweiten Ausbildungsjahres. Die Prüfungszeit beträgt 90 Minuten."
+      erklaerung: "Teil 1 der gestreckten Abschlussprüfung findet im 4. Ausbildungshalbjahr (nach ca. 18 Monaten) statt. Die Prüfungszeit beträgt 90 Minuten. Ältere Angaben (z. B. '15 Monate') im Lehrwerk sind veraltet."
     }
   ]
 };

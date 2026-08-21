@@ -69,4 +69,32 @@ Format je Eintrag:
 
 ---
 
-*Stand 2026-08-20: Inhalts-Audit S1–S3 abgeschlossen; drei neue Errata-Einträge ergänzt.*
+---
+
+## Lehrwerk vs. geltendes Recht (Stand 2026-08-21)
+
+### Ausbilder-Mindestalter 24 Jahre — kein gesetzlicher Tatbestand
+- **Fundstelle:** Lehrbuch, Abschnitt „Voraussetzungen für Ausbilder"; Quiz-Frage T1S1 Q19; Präsentation Session 1.
+- **Fehler:** Das Lehrbuch nennt ein Mindestalter von 24 Jahren als Voraussetzung für Ausbilder. Diese Anforderung existiert im BBiG und in der AEVO nicht.
+- **Korrektur:** Gesetzliche Anforderungen sind ausschließlich **persönliche Eignung (§ 29 BBiG)** und **fachliche Eignung (§ 30 BBiG, AEVO)**. Kein Mindestalter. Auf der Plattform wurden alle betroffenen Stellen (Session 1: Präsentation, Handout, Aufgabenheft, Quiz Q19, Karteikarten, Lernbereich, Session-8-Wiederholung) entsprechend korrigiert.
+- **Begründung/Beleg:** §§ 28–30 BBiG; Ausbilder-Eignungsverordnung (AEVO) — keine Altersgrenze vorhanden.
+
+### Vertragsform § 11 BBiG: Textform seit 1. August 2024 (BVaDiG)
+- **Fundstelle:** Lehrbuch, Abschnitt Ausbildungsvertrag; Präsentation Session 1; Session-8-Aufgabenheft.
+- **Fehler:** Kurs- und Lehrmaterial bezeichneten die Vertragsform als „Schriftform". Diese Anforderung wurde durch das Bürokratieentlastungsgesetz IV (BVaDiG) mit Wirkung zum **1. August 2024** auf **Textform (§ 126b BGB)** abgesenkt.
+- **Korrektur:** § 11 BBiG i.d.F. seit 1.8.2024 schreibt Textform vor. Achtung: Die Kündigung nach § 22 Abs. 3 BBiG bleibt weiterhin schriftformpflichtig. Alle betroffenen Stellen auf der Plattform wurden auf Textform umgestellt; didaktischer Hinweis auf den Kontrast zur Schriftform bei Kündigung wurde ergänzt.
+- **Begründung/Beleg:** Gesetz zur Bürokratieentlastung IV (BVaDiG), BGBl. I 2024, Nr. 245; § 11 BBiG n.F.
+
+### AP Teil 1 im 4. Ausbildungshalbjahr (ca. 18 Monate) statt „nach ca. 15 Monaten"
+- **Fundstelle:** Lehrbuch, Übersichtstabelle gestreckte Abschlussprüfung; Präsentation Session 1; Quiz; Karteikarten.
+- **Fehler:** Das Lehrbuch und der Kurs gaben den Termin für AP Teil 1 mit „nach ca. 15 Monaten" an. Die Ausbildungsordnungen der IT-Berufe (Neuordnung 2020) legen den Termin auf das **4. Ausbildungshalbjahr (nach ca. 18 Monaten)** fest.
+- **Korrektur:** Alle Stellen auf der Plattform wurden auf **„im 4. Ausbildungshalbjahr (nach ca. 18 Monaten)"** korrigiert.
+- **Begründung/Beleg:** Ausbildungsordnung Fachinformatiker/Kaufleute für Digitalisierungsmanagement etc. 2020 (BIBB); § 6 AEVO; Prüfungsanforderungen der IHK (Prüfungsterminplan).
+
+### §§ 7, 8, 45 BBiG — präzisierte Zuordnung
+- **Fundstelle:** Lehrbuch, Abschnitt Dauer und Verkürzung/Verlängerung der Ausbildung; Präsentation und Handout Session 1; Quiz.
+- **Fehler:** Die Paragraphen §§ 7, 8 und 45 BBiG wurden im Lehrmaterial zu pauschal oder fehlerhaft zugeordnet. Konkret: § 7 regelt die Anrechnung beruflicher Vorbildung, § 8 die Verkürzung (gemeinsamer Antrag) und Verlängerung (Antrag des Auszubildenden), § 45 Abs. 1 die vorzeitige Prüfungszulassung bei besonderen Leistungen.
+- **Korrektur:** Auf der Plattform werden alle drei Paragraphen mit ihrer präzisen Funktion genannt: § 7 (Anrechnung beruflicher Vorbildung), § 8 Abs. 1 (Verkürzung auf gemeinsamen Antrag)/Abs. 2 (Verlängerung auf Antrag des Auszubildenden), § 45 Abs. 1 (vorzeitige Zulassung zur Abschlussprüfung).
+- **Begründung/Beleg:** BBiG § 7, § 8, § 45 i.d.g.F.
+
+*Stand 2026-08-21: Vier Rechtsstand-2026-Korrekturen eingearbeitet (kein Ausbilder-Mindestalter, Textform § 11 BBiG, AP Teil 1 im 4. Halbjahr, §§ 7/8/45 präzisiert).*
